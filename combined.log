@@ -1,0 +1,9 @@
+2024-07-12T13:30:30.116Z [[33mwarn[39m]: Email and password are required
+2024-07-12T13:30:30.132Z [[31merror[39m]: Error logging in Cannot read properties of undefined (reading 'code')
+2024-07-12T13:30:35.627Z [[33mwarn[39m]: Invalid credentials for email: admin@admin
+2024-07-12T13:31:28.986Z [[33mwarn[39m]: Invalid credentials for email: admin@admin
+2024-07-12T13:31:35.301Z [[33mwarn[39m]: Email and password are required
+2024-07-12T13:31:41.732Z [[33mwarn[39m]: Invalid credentials for email: admin@admin
+2024-07-12T13:31:47.755Z [[32minfo[39m]: User logged in: admin@admin.com
+2024-07-12T13:35:48.477Z [[32minfo[39m]: User logged in: admin@admin.com
+2024-07-12T13:36:20.969Z [[33mwarn[39m]: Validation failed for createCategory

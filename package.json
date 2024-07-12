@@ -1,0 +1,39 @@
+{
+  "name": "enku",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint . --ext .js",
+    "build": "tsc",
+    "start": "tsc && nodemon --exec ts-node src/app.ts",
+    "prod": "node -r ts-node/register/transpile-only dist/app.js",
+    "seed": "ts-node src/seeder/user.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@sentry/node": "^8.17.0",
+    "axios": "^1.7.2",
+    "bcrypt": "^5.1.1",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "joi": "^17.13.3",
+    "jsonwebtoken": "^9.0.2",
+    "mysql2": "^3.10.2",
+    "reflect-metadata": "^0.2.2",
+    "typeorm": "^0.3.20",
+    "winston": "^3.13.1"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^5.0.2",
+    "@types/express": "^4.17.21",
+    "@types/jsonwebtoken": "^9.0.6",
+    "@types/node": "^20.14.10",
+    "nodemon": "^3.1.4",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.5.3"
+  }
+}
