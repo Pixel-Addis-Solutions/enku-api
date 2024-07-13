@@ -21,8 +21,8 @@ jobs:
       - name: Install dependencies
         run: npm install
         
-      - name: Run seed
-        run: npm run seed
+      # - name: Run seed
+      #   run: npm run seed
         
 
       - name: Deploy to cPanel
