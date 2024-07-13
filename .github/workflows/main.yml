@@ -30,7 +30,7 @@ jobs:
           CPANEL_HOST: ${{ secrets.CPANEL_HOST }}
           CPANEL_USER: ${{ secrets.CPANEL_USER }}
           CPANEL_SSH_KEY: ${{ secrets.CPANEL_SSH_KEY }}
-          JWT_SECRET: ${{ secrets.JWT_SECRET }}
+          # JWT_SECRET: ${{ secrets.JWT_SECRET }}
         run: |
           echo "${{ secrets.CPANEL_SSH_KEY }}" > private_key
           chmod 600 private_key
