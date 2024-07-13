@@ -16,7 +16,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '14'
+          node-version: '18'
 
       - name: Install dependencies
         run: npm install
@@ -33,5 +33,5 @@ jobs:
           server: ${{ secrets.FTP_HOST }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: ./dist  # Change this if your build output directory is different
+          local-dir: ./dist/  # Change this if your build output directory is different
           server-dir: /enkuapi.enkubeauty.com  # Change this to the correct path on your FTP server
