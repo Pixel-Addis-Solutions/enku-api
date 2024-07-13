@@ -22,7 +22,7 @@ jobs:
         run: npm install
         
       - name: Run seed
-        run: npm seed
+        run: npm run seed
         
 
       - name: Deploy to cPanel
