@@ -24,7 +24,6 @@ jobs:
       # - name: Run seed
       #   run: npm run seed
         
-
       - name: Deploy to cPanel
         env:
           CPANEL_HOST: ${{ secrets.CPANEL_HOST }}
