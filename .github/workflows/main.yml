@@ -34,4 +34,4 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./dist/  # Change this if your build output directory is different
-          server-dir: /home/enkubegb/enkuapi.enkubeauty.com/enkuftp
+          server-dir: /home/enkubegb/enkuapi.enkubeauty.com/enkuftp/
