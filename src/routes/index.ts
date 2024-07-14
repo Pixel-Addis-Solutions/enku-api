@@ -1,18 +1,15 @@
-import { Router } from 'express';
-import categoryRouter from './category';
-import authRouter from './auth';
-// import productRouter from './product';
-// import variationRouter from './variation';
-// import optionRouter from './option';
-// import optionValueRouter from './optionValue';
+import { Router } from "express";
+import productRoutes from "./product";
+import categoryRoutes from "./category";
+import subCategoryRoutes from "./sub-category";
+import brandRoutes from "./";
 
 const router = Router();
 
-router.use('/categories', categoryRouter);
-router.use('/auth', authRouter);
-// router.use('/products', productRouter);
-// router.use('/variations', variationRouter);
-// router.use('/options', optionRouter);
-// router.use('/option-values', optionValueRouter);
+// Register route modules
+router.use("/products", productRoutes);
+router.use("/categories", categoryRoutes);
+router.use("/sub_categories", subCategoryRoutes);
+// router.use("/brands", brandRoutes);
 
 export default router;

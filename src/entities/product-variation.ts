@@ -1,6 +1,13 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany } from "typeorm";
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  OneToMany,
+} from "typeorm";
 import { Product } from "./product";
-import { ProductVariationOption } from "./product-variation-option";
+import { OptionValue } from "./option-value";
+import { ProductImage } from "./product-image";
 
 @Entity()
 export class ProductVariation {
@@ -11,14 +18,16 @@ export class ProductVariation {
   sku?: string;
 
   @Column("decimal", { precision: 10, scale: 2, nullable: true })
-  additional_price?: number;
+  price!: number;
 
   @Column()
-  stock_quantity!: number;
+  quantity!: number;
 
-  @ManyToOne(() => Product, product => product.variations)
+  @ManyToOne(() => Product, (product) => product.variations)
   product!: Product;
 
-  @OneToMany(() => ProductVariationOption, variationOption => variationOption.variation)
-  variationOptions!: ProductVariationOption[];
+  @OneToMany(() => OptionValue, (optionValue) => optionValue.variation)
+  optionValues!: OptionValue[];
+  @OneToMany(() => ProductImage, (image) => image.variation)
+  images!: ProductImage[];
 }
