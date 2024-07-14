@@ -5,12 +5,12 @@ import { ProductVariation } from './product-variation';
 
 @Entity()
 export class ProductImage {
-  @PrimaryGeneratedColumn()
-  id!: number;
+  @PrimaryGeneratedColumn("uuid")
+  id!: string;
 
   @Column()
     url!: string;
-
+ 
   @ManyToOne(() => Product, (product) => product.images)
     product!: Product;
 

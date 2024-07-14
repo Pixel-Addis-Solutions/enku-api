@@ -6,15 +6,15 @@ import { Product } from "./product";
 
 @Entity()
 export class SubSubCategory {
-  @PrimaryGeneratedColumn()
-  id!: number;
+  @PrimaryGeneratedColumn("uuid")
+  id!: string;
 
   @Column()
   name!: string;
 
-  @ManyToOne(() => SubCategory, (subCategory) => subCategory.subSubCategories)
+  @ManyToOne(() => SubCategory, (subCategory) => subCategory.subSubCategories,{nullable:false})
   subCategory!: SubCategory;
-  @ManyToOne(() => Category, (Category) => Category.subSubCategories)
+  @ManyToOne(() => Category, (Category) => Category.subSubCategories,{nullable:false})
   category!: Category;
 
   @ManyToOne(() => Product, (product) => product.subSubCategory)
