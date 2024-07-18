@@ -47,7 +47,11 @@ export const getCategories = async (req: Request, res: Response) => {
 export const getCategory = async (req: Request, res: Response) => {
   try {
     // Retrieve the category
-    const category = await categoryRepository.findOneBy({ id: req.params.id });
+
+    if(!req.params.id){
+      return;
+    }
+    const category = await categoryRepository.findOne({where:{id: req.params.id},relations:["subCategories.subSubCategories"] });
     if (category) {
       logger.info(`Category retrieved successfully: ${category.id}`);
       ResUtil.success({ res, message: 'Category retrieved successfully', data: category });

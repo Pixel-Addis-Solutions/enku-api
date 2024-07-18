@@ -1,16 +1,10 @@
 import { Router } from "express";
-import productRoutes from "./product";
-import categoryRoutes from "./category";
-import subCategoryRoutes from "./sub-category";
-import subSubCategoryRoutes from "./sub-sub-category";
+import userRoutes from "./user/index";
+import adminRoutes from "./admin/index";
 
 const router = Router();
 
-// Register route modules
-router.use("/admin/products", productRoutes);
-router.use("/admin/categories", categoryRoutes);
-router.use("/admin/sub_categories", subCategoryRoutes);
-router.use("/admin/sub_sub_categories", subSubCategoryRoutes);
-// router.use("/brands", brandRoutes);
+router.use("/user", userRoutes);
+router.use("/admin", adminRoutes);
 
 export default router;
