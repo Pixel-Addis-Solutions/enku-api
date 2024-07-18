@@ -14,6 +14,9 @@ const app: Application = express();
 app.use(express.json());
 
 // app.use(Sentry.Handlers.requestHandler());
+app.get('/test', (req, res) => {
+      res.send('API Working');
+});
 
 app.use("/", routes);
 
