@@ -31,3 +31,5 @@ jobs:
           script: |
             sudo docker rmi -f drjseifu/enku-backend:latest
             sudo docker-compose -f enku-docker-compose.yml up -d
+        env:
+          SSH_VERBOSE: "-vvv"
