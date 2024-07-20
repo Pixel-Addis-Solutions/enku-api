@@ -94,3 +94,51 @@ export const getProductsBySubSubCategoryId = async (req: Request, res: Response)
     }
   };
   
+
+export const getProductsWithFilters = async (req: Request, res: Response) => {
+  try {
+    const { category, subCategory, subSubCategory, brand } = req.query;
+    const productRepository = getRepository(Product);
+
+    const queryBuilder = productRepository.createQueryBuilder('product')
+      .leftJoinAndSelect('product.category', 'category')
+      .leftJoinAndSelect('product.subCategory', 'subCategory')
+      .leftJoinAndSelect('product.subSubCategory', 'subSubCategory')
+      .leftJoinAndSelect('product.brand', 'brand')
+      .select([
+        'product.id',
+        'product.name',
+        'product.description',
+        'product.price',
+        'product.imageUrl',
+        'category.name',
+        'subCategory.name',
+        'subSubCategory.name',
+        'brand.name',
+      ]);
+
+    if (category) {
+      queryBuilder.andWhere('category.name IN (:...categories)', { categories: Array.isArray(category) ? category : [category] });
+    }
+    if (subCategory) {
+      queryBuilder.andWhere('subCategory.name IN (:...subCategories)', { subCategories: Array.isArray(subCategory) ? subCategory : [subCategory] });
+    }
+    if (subSubCategory) {
+      queryBuilder.andWhere('subSubCategory.name IN (:...subSubCategories)', { subSubCategories: Array.isArray(subSubCategory) ? subSubCategory : [subSubCategory] });
+    }
+    if (brand) {
+      queryBuilder.andWhere('brand.name IN (:...brands)', { brands: Array.isArray(brand) ? brand : [brand] });
+    }
+
+    const products = await queryBuilder.getMany();
+
+    return ResUtil.success({
+      res,
+      message: 'Products fetched successfully',
+      data: products,
+    });
+  } catch (error) {
+    logger.error(`Error fetching products with filters: ${error}`);
+    return ResUtil.internalError({ res, message: 'Error fetching products', data: error });
+  }
+};
