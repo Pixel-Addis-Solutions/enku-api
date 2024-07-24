@@ -11,6 +11,7 @@ import { Permission } from "./entities/permission";
 import { Brand } from "./entities/brand";
 import { SubSubCategory } from "./entities/sub-sub-category";
 import { ProductImage } from "./entities/product-image";
+import { File } from "./entities/file";
 require("dotenv").config();
 
 console.log("process.env.DATABASE_HOST", process.env.DB_HOST);
@@ -37,7 +38,8 @@ export const AppDataSource = new DataSource({
     Product,
     Brand,
     SubSubCategory,
-    ProductImage
+    ProductImage,
+    File
   ],
   migrations: [],
 });

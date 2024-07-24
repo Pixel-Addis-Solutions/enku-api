@@ -17,6 +17,9 @@
   "dependencies": {
     "@sentry/node": "^8.17.0",
     "@types/cors": "^2.8.17",
+    "@types/multer": "^1.4.11",
+    "@types/nodemailer": "^6.4.15",
+    "@types/uuid": "^10.0.0",
     "axios": "^1.7.2",
     "bcrypt": "^5.1.1",
     "cors": "^2.8.5",
@@ -24,9 +27,12 @@
     "express": "^4.19.2",
     "joi": "^17.13.3",
     "jsonwebtoken": "^9.0.2",
+    "multer": "^1.4.5-lts.1",
     "mysql2": "^3.10.2",
+    "nodemailer": "^6.9.14",
     "reflect-metadata": "^0.2.2",
     "typeorm": "^0.3.20",
+    "uuid": "^10.0.0",
     "winston": "^3.13.1"
   },
   "devDependencies": {

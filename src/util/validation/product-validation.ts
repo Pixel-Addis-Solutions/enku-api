@@ -9,6 +9,6 @@ export const productSchema = Joi.object({
   productionDate: Joi.date().optional(),
   expiryDate: Joi.date().optional(),
   categoryId: Joi.string().uuid().required(),
-  subCategoryId: Joi.string().uuid().optional(),
-  brandId: Joi.string().uuid().optional(),
+  subCategoryId: Joi.string().uuid().required(),
+  brandId: Joi.string().uuid().required(),
 });

@@ -17,6 +17,9 @@ export class ProductVariation {
   @Column({ nullable: true })
   sku?: string;
 
+  @Column({ nullable: true })
+  title?: string;
+
   @Column("decimal", { precision: 10, scale: 2, nullable: true })
   price!: number;
 

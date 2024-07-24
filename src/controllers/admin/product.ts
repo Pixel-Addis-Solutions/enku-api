@@ -154,13 +154,9 @@ export const createProduct = async (req: Request, res: Response) => {
       price,
       imageUrl,
       variations,
+      images,
     } = req.body;
     await entityManager.transaction(async (transactionalEntityManager) => {
-      // const productRepository = getRepository(Product);
-      // const optionRepository = getRepository(Option);
-      // const optionValueRepository = getRepository(OptionValue);
-      // const productImageRepository = getRepository(ProductImage);
-      // const productVariationRepository = getRepository(ProductVariation);
 
       const productRepository =
         transactionalEntityManager.getRepository(Product);
@@ -184,14 +180,15 @@ export const createProduct = async (req: Request, res: Response) => {
       });
       await productRepository.save(product);
 
-      // for (const imageUrl of images) {
-      //   const image = productImageRepository.create({ url: imageUrl, product });
-      //   await productImageRepository.save(image);
-      // }
+      for (const imageUrl of images) {
+        const image = productImageRepository.create({ url: imageUrl, product });
+        await productImageRepository.save(image);
+      }
 
       for (const variation of variations) {
         const {
           sku,
+          title,
           quantity,
           price,
           images: variationImages,
@@ -200,6 +197,7 @@ export const createProduct = async (req: Request, res: Response) => {
 
         const productVariation = productVariationRepository.create({
           sku,
+          title,
           quantity,
           price,
           product,
