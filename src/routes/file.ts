@@ -1,5 +1,5 @@
 import express from "express";
-import { singleUpload } from "../middlewares/upload.middleware";
+import { multipleUpload, singleUpload } from "../middlewares/upload.middleware";
 import { File } from "../entities/file";
 import { unlinkFile } from "../helper/reused-methods";
 import path from "path";
@@ -7,7 +7,7 @@ import { getRepository } from "../data-source";
 const router = express.Router();
 const fileRepository = getRepository(File);
 
-router.post("/", singleUpload);
+router.post("/", multipleUpload);
 router.get("/", async (req, res) => {
   // if (!req.params?.id) {
   //   return res.status(400).json({ message: "wrong file id" });

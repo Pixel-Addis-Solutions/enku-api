@@ -5,6 +5,7 @@ import { v4 as uuidv4 } from "uuid";
 import { File } from "../entities/file";
 import { getRepository } from "../data-source";
 require("dotenv").config();
+
 // Create storage for uploaded files
 const storage = multer.diskStorage({
   destination: (
@@ -14,23 +15,16 @@ const storage = multer.diskStorage({
   ) => {
     // Set the destination folder for uploaded files
     cb(null, "uploads/");
-
-    // or to store to external disk
-    // Set the destination folder on the external disk
-    //const destinationFolder = '/path/to/external/disk/uploads/';
   },
   filename: (
     req: Request,
     file: Express.Multer.File,
     cb: (error: Error | null, filename: string) => void
   ) => {
-    // Set the filename for uploaded files
-
-    // generate unique filename based on uuid
+    // Generate a unique filename based on uuid
     const uniqueFilename = uuidv4();
     const fileExtension = path.extname(file.originalname);
     const filename = `${uniqueFilename}${fileExtension}`;
-
     cb(null, filename);
   },
 });
@@ -41,9 +35,9 @@ const fileFilter = (
   file: Express.Multer.File,
   cb: FileFilterCallback
 ) => {
+  // Allow all file types for now
   cb(null, true);
-  return ;
-  // Check file types, e.g., allow only images
+  // Uncomment to restrict file types, e.g., only images
   // if (file.mimetype.startsWith("image/")) {
   //   cb(null, true);
   // } else {
@@ -54,61 +48,96 @@ const fileFilter = (
 // Create multer instance with the storage configuration
 const upload = multer({ storage, fileFilter });
 
-// Middleware for file upload
-export const  singleUpload = (
+// Middleware for single file upload
+export const singleUpload = (
   req: Request,
   res: Response,
   next: NextFunction
 ): void => {
-  // console.log('filerrr',req)
-  upload.array("files")
-  (req, res, async (err: any) => {
+  upload.single("file")(req, res, async (err: any) => {
     if (err) {
       // Handle file upload error
       return res.status(400).json({ error: err.message });
     }
     try {
-      if(!req?.files){
+      if (!req.file) {
         return res.status(400).json({
           status: false,
-          message: "empty file upload",
+          message: "Empty file upload",
         });
       }
       const fileRepository = getRepository(File);
-
-      const file =  fileRepository.create({ name: req?.file?.filename, originalName: req?.file?.originalname,size: req?.file?.size });
+      const file = fileRepository.create({
+        name: req.file.filename,
+        originalName: req.file.originalname,
+        size: req.file.size,
+      });
       await fileRepository.save(file);
-      console.log('file',file);
-      console.log('req?.file?.filename',req?.file?.filename);
-      
+
       return res.status(200).json({
         status: true,
-        message: "file uploaded successfully",
+        message: "File uploaded successfully",
         data: {
           id: file.id,
           name: file.name,
-          path: `${process.env?.API}/${file.name}`,
+          path: `${process.env.API}/${file.name}`,
         },
       });
     } catch (error) {
-      console.log("file upload error", error);
-      return res.status(400).json({
+      console.error("File upload error", error);
+      return res.status(500).json({
         status: false,
-        message: "error file uploaded ",
+        message: "Error uploading file",
       });
     }
   });
 };
+
+// Middleware for multiple file uploads
 export const multipleUpload = (
   req: Request,
   res: Response,
   next: NextFunction
 ): void => {
-  upload.single("files")(req, res, (err: any) => {
+  upload.array("files")(req, res, async (err: any) => {
     if (err) {
       // Handle file upload error
       return res.status(400).json({ error: err.message });
     }
-    next();
+    try {
+      if (!req.files || (req.files as Express.Multer.File[]).length === 0) {
+        return res.status(400).json({
+          status: false,
+          message: "Empty file upload",
+        });
+      }
+
+      const fileRepository = getRepository(File);
+      const files = (req.files as Express.Multer.File[]).map((file) => {
+        return fileRepository.create({
+          name: file.filename,
+          originalName: file.originalname,
+          size: file.size,
+        });
+      });
+
+      await fileRepository.save(files);
+
+      return res.status(200).json({
+        status: true,
+        message: "Files uploaded successfully",
+        data: files.map((file) => ({
+          id: file.id,
+          name: file.name,
+          path: `${process.env.API}/${file.name}`,
+        })),
+      });
+    } catch (error) {
+      console.error("File upload error", error);
+      return res.status(500).json({
+        status: false,
+        message: "Error uploading files",
+      });
+    }
   });
 };
