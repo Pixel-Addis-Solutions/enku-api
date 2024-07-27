@@ -6,12 +6,15 @@ import { ResUtil } from "./helper/response.helper";
 import routes from "./routes/index";
 import * as Sentry from '@sentry/node';
 import cors from 'cors';
+import cookieParser from 'cookie-parser';
+
 require('dotenv').config();
 // Sentry.init({ dsn: "your-dsn-here" });
 
 const app: Application = express();
 app.use(cors())
 app.use(express.json());
+app.use(cookieParser());
 
 // app.use(Sentry.Handlers.requestHandler());
 app.get('/test', (req, res) => {

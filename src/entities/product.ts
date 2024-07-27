@@ -13,6 +13,7 @@ import { ProductVariation } from "./product-variation";
 import { ProductImage } from "./product-image";
 import { SubCategory } from "./sub-category";
 import { SubSubCategory } from "./sub-sub-category";
+import { CartItem } from "./cart-item";
 
 @Entity()
 export class Product {
@@ -24,6 +25,12 @@ export class Product {
 
   @Column({ type: "text" })
   description!: string;
+
+  @Column({ type: "text" })
+  ingredients!: string;
+
+  @Column({ type: "text" })
+  how_to_use!: string;
 
   @Column({ type: "decimal", precision: 10, scale: 2 })
   price!: number;
@@ -50,6 +57,9 @@ export class Product {
 
   @OneToMany(() => ProductVariation, (variation) => variation.product)
   variations!: ProductVariation[];
+
+  @OneToMany(() => CartItem, (item) => item.product)
+  items!: CartItem[];
 
   @OneToMany(() => ProductImage, (image) => image.product)
   images!: ProductImage[];

@@ -4,6 +4,7 @@ import multer, { FileFilterCallback } from "multer";
 import { v4 as uuidv4 } from "uuid";
 import { File } from "../entities/file";
 import { getRepository } from "../data-source";
+import logger from "../util/logger";
 require("dotenv").config();
 
 // Create storage for uploaded files
@@ -102,10 +103,13 @@ export const multipleUpload = (
   upload.array("files")(req, res, async (err: any) => {
     if (err) {
       // Handle file upload error
+      logger.error("array_file_upload_error",err)
+      logger.error("array_file_upload_error",req)
       return res.status(400).json({ error: err.message });
     }
     try {
       if (!req.files || (req.files as Express.Multer.File[]).length === 0) {
+        logger.info("req.files", req.files);
         return res.status(400).json({
           status: false,
           message: "Empty file upload",

@@ -154,10 +154,11 @@ export const createProduct = async (req: Request, res: Response) => {
       price,
       imageUrl,
       variations,
+      ingredients,
+      how_to_use,
       images,
     } = req.body;
     await entityManager.transaction(async (transactionalEntityManager) => {
-
       const productRepository =
         transactionalEntityManager.getRepository(Product);
       const optionRepository = transactionalEntityManager.getRepository(Option);
@@ -177,6 +178,8 @@ export const createProduct = async (req: Request, res: Response) => {
         subCategory,
         subSubCategory,
         brand,
+        ingredients,
+        how_to_use,
       });
       await productRepository.save(product);
 

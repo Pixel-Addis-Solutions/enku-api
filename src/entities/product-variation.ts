@@ -8,6 +8,7 @@ import {
 import { Product } from "./product";
 import { OptionValue } from "./option-value";
 import { ProductImage } from "./product-image";
+import { CartItem } from "./cart-item";
 
 @Entity()
 export class ProductVariation {
@@ -33,4 +34,8 @@ export class ProductVariation {
   optionValues!: OptionValue[];
   @OneToMany(() => ProductImage, (image) => image.variation)
   images!: ProductImage[];
+
+  @OneToMany(() => CartItem, (item) => item.product)
+  items!: CartItem[];
+
 }

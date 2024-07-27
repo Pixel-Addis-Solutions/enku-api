@@ -11,7 +11,7 @@ export const getProductDetailById = async (req: Request, res: Response) => {
   
       const product = await productRepository.findOne({
         where: { id: productId },
-        relations: ['variations', 'variations.optionValues', 'variations.optionValues.option', 'images'],
+        relations: ['variations.images', 'variations.optionValues', 'variations.optionValues.option', 'images'],
       });
   
       if (!product) {
