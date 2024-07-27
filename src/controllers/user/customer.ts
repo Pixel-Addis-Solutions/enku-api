@@ -36,11 +36,11 @@ export const loginCustomer = async (req: Request, res: Response) => {
       message: "Customer logged in successfully",
       data: {customer,token},
     });
-  } catch (error) {
+  } catch (error : any) {
     logger.error(`Error logging in customer: ${error}`);
     return ResUtil.internalError({
       res,
-      message: "Error logging in customer",
+      message: error?.message || "Error logging in customer",
       data: error,
     });
   }

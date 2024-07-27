@@ -1,27 +1,33 @@
-// src/middleware/auth.ts
-import { Request, Response, NextFunction } from 'express';
-import jwt from 'jsonwebtoken';
-import { getRepository } from '../data-source';
-import { User } from '../entities/user';
+// src/middleware/authenticate.ts
+import { Request, Response, NextFunction } from "express";
+import jwt from "jsonwebtoken";
+import { getRepository } from "../data-source";
+import { Customer } from "../entities/customer";
+import logger from "../util/logger";
 
-export const authenticateUser = async (req: any, res: Response, next: NextFunction) => {
-  const authHeader = req.headers.authorization;
+export const authenticate = async (
+  req: any,
+  res: Response,
+  next: NextFunction
+) => {
+  const token = req.headers["authorization"]?.split(" ")[1];
 
-  if (authHeader) {
-    const token = authHeader.split(' ')[1];
-
+  if (token) {
     try {
-      const decoded = jwt.verify(token, process.env.JWT_SECRET as string) as { id: string };
-      const userRepository = getRepository(User);
+      const decoded: any = jwt.verify(
+        token,
+        process.env.JWT_SECRET || "your_jwt_secret"
+      );
+      const userRepository = getRepository(Customer);
       const user = await userRepository.findOne({ where: { id: decoded.id } });
 
-      if (!user) {
-        return res.status(401).json({ message: 'User not found' });
-      }
+      if (user) {
+        req.user = user;
+        logger.info("user logged in:");
 
-      req.user = user;
+      }
     } catch (error) {
-      return res.status(401).json({ message: 'Invalid token' });
+      logger.error("Token verification failed:" + error);
     }
   }
 

@@ -6,7 +6,7 @@ import jwt from 'jsonwebtoken';
 import { ResUtil } from '../../helper/response.helper';
 import logger from '../../util/logger'; // Adjust the import path according to your project structure
 
-const JWT_SECRET = 'your_jwt_secret'; // Move this to environment variables in production
+const JWT_SECRET = process.env.JWT_SECRET || ""; // Move this to environment variables in production
 
 export const login = async (req: Request, res: Response) => {
   try {
