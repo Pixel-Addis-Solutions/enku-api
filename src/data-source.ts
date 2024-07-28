@@ -15,6 +15,8 @@ import { File } from "./entities/file";
 import { Cart } from "./entities/cart";
 import { CartItem } from "./entities/cart-item";
 import { Customer } from "./entities/customer";
+import { Order } from "./entities/order";
+import { OrderItem } from "./entities/order-item";
 require("dotenv").config();
 
 console.log("process.env.DATABASE_HOST", process.env.DB_HOST);
@@ -45,7 +47,9 @@ export const AppDataSource = new DataSource({
     File,
     Cart,
     CartItem,
-    Customer 
+    Customer,
+    Order,
+    OrderItem 
   ],
   migrations: [],
 });
