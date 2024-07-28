@@ -4,10 +4,13 @@ import { Order } from '../../entities/order';
 import { ResUtil } from '../../helper/response.helper';
 import logger from '../../util/logger';
 
-export const getOrders = async (req: Request, res: Response) => {
+
+export const getAllOrders = async (req: Request, res: Response) => {
   try {
     const orderRepository = getRepository(Order);
-    const orders = await orderRepository.find({ relations: ['customer', 'items', 'status'] });
+    const orders = await orderRepository.find({
+      relations: ['customer', 'items', 'items.product', 'items.variation'],
+    });
 
     return ResUtil.success({
       res,
@@ -24,17 +27,46 @@ export const getOrders = async (req: Request, res: Response) => {
   }
 };
 
-export const updateOrderStatus = async (req: Request, res: Response) => {
-  const { orderId, status } = req.body;
+export const getOrderById = async (req: Request, res: Response) => {
+  const { id } = req.params;
 
   try {
     const orderRepository = getRepository(Order);
+    const order = await orderRepository.findOne({
+      where: { id },
+      relations: ['customer', 'items', 'items.product', 'items.variation'],
+    });
 
-    const order = await orderRepository.findOneBy({ id: orderId });
     if (!order) {
       return ResUtil.notFound({ res, message: 'Order not found' });
     }
 
+    return ResUtil.success({
+      res,
+      message: 'Order fetched successfully',
+      data: order,
+    });
+  } catch (error) {
+    logger.error(`Error fetching order: ${error}`);
+    return ResUtil.internalError({
+      res,
+      message: 'Error fetching order',
+      data: error,
+    });
+  }
+};
+
+export const updateOrderStatus = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const { status } = req.body;
+
+  try {
+    const orderRepository = getRepository(Order);
+    const order = await orderRepository.findOne({ where: { id } });
+
+    if (!order) {
+      return ResUtil.notFound({ res, message: 'Order not found' });
+    }
 
     order.status = status;
     await orderRepository.save(order);
@@ -53,3 +85,4 @@ export const updateOrderStatus = async (req: Request, res: Response) => {
     });
   }
 };
+

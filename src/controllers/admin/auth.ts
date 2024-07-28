@@ -11,13 +11,13 @@ const JWT_SECRET = process.env.JWT_SECRET || ""; // Move this to environment var
 export const login = async (req: Request, res: Response) => {
   try {
     const { email, password } = req.body;
-
+  
     // Validate input
     if (!email || !password) {
       logger.warn('Email and password are required');
       return ResUtil.badRequest({ res, message: 'Email and password are required' });
     }
-
+ 
     const userRepository = getRepository(User);
     const user = await userRepository.findOneBy({ email });
 

@@ -29,7 +29,7 @@ export class CustomerService {
       password,
     });
     await customerRepository.save(customer);
-
+     delete customer.password;
     return customer;
   }
 
@@ -38,6 +38,7 @@ export class CustomerService {
 
     const customer = await customerRepository.findOne({
       where: { phoneNumber },
+      select: ["phoneNumber", "name", "email"],
     });
 
     if (!customer) {

@@ -142,3 +142,93 @@ export const getProductsWithFilters = async (req: Request, res: Response) => {
     return ResUtil.internalError({ res, message: 'Error fetching products', data: error });
   }
 };
+
+export const searchProducts = async (req: Request, res: Response) => {
+  const {
+    keyword,
+    category,
+    subCategory,
+    brand,
+    minPrice,
+    maxPrice,
+    discountRange,
+    optionIds,
+    valueIds,
+    rating
+  } = req.query;
+
+  try {
+    const productRepository = getRepository(Product);
+
+    let query = productRepository.createQueryBuilder('product')
+      .leftJoinAndSelect('product.category', 'category')
+      .leftJoinAndSelect('product.subCategory', 'subCategory')
+      .leftJoinAndSelect('product.brand', 'brand')
+      .leftJoinAndSelect('product.variations', 'variations')
+      .leftJoinAndSelect('variations.optionValues', 'optionValues')
+      .leftJoinAndSelect('optionValues.option', 'option')
+      .leftJoinAndSelect('product.images', 'images');
+
+    if (keyword) {
+      query = query.where('product.name LIKE :keyword', { keyword: `%${keyword}%` })
+                   .orWhere('product.description LIKE :keyword', { keyword: `%${keyword}%` })
+                   .orWhere('product.ingredients LIKE :keyword', { keyword: `%${keyword}%` })
+                   .orWhere('product.how_to_use LIKE :keyword', { keyword: `%${keyword}%` });
+    }
+
+    // if (category) {
+    //   query = query.andWhere('category.id IN (:...category)', { category: category.split(',') });
+    // }
+    
+    // if (subCategory) {
+    //   query = query.andWhere('subCategory.id IN (:...subCategory)', { subCategory: subCategory.split(',') });
+    // }
+    
+    // if (brand) {
+    //   query = query.andWhere('brand.id IN (:...brand)', { brand: brand.split(',') });
+    // }
+
+    // if (minPrice) {
+    //   query = query.andWhere('product.price >= :minPrice', { minPrice });
+    // }
+    
+    // if (maxPrice) {
+    //   query = query.andWhere('product.price <= :maxPrice', { maxPrice });
+    // }
+
+    // if (discountRange) {
+    //   const [minDiscount, maxDiscount] = discountRange.split('-').map(Number);
+    //   query = query.andWhere('product.discount >= :minDiscount', { minDiscount })
+    //                .andWhere('product.discount <= :maxDiscount', { maxDiscount });
+    // }
+
+    // if (optionIds) {
+    //   const optionIdsArray = optionIds?.split(',');
+    //   query = query.andWhere('option.id IN (:...optionIds)', { optionIds: optionIdsArray });
+    // }
+
+    // if (valueIds) {
+    //   const valueIdsArray = valueIds.split(',');
+    //   query = query.andWhere('optionValues.id IN (:...valueIds)', { valueIds: valueIdsArray });
+    // }
+
+    if (rating) {
+      query = query.andWhere('product.rating >= :rating', { rating: parseFloat(rating as string) });
+    }
+
+    const products = await query.getMany();
+
+    return ResUtil.success({
+      res,
+      message: 'Products fetched successfully',
+      data: { products },
+    });
+  } catch (error) {
+    logger.error(`Error fetching products: ${error}`);
+    return ResUtil.internalError({
+      res,
+      message: 'Error fetching products',
+      data: error,
+    });
+  }
+};

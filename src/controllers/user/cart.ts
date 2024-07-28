@@ -247,3 +247,44 @@ export const removeCartItem = async (req: any, res: Response) => {
     });
   }
 };
+
+export const getCartItemCount = async (req: any, res: Response) => {
+  const sessionId = req.cookies?.sessionId;
+  const customerId = req.user?.id;
+
+  try {
+    const cartRepository = getRepository(Cart);
+
+    let cart;
+    if (customerId) {
+      cart = await cartRepository.findOne({
+        where: { customerId },
+        relations: ['items'],
+      });
+    } else {
+      cart = await cartRepository.findOne({
+        where: { sessionId },
+        relations: ['items'],
+      });
+    }
+
+    if (!cart) {
+      return ResUtil.notFound({ res, message: 'Cart not found' });
+    }
+
+    const uniqueItemCount = cart?.items?.length;
+
+    return ResUtil.success({
+      res,
+      message: 'Cart item count fetched successfully',
+      data: { uniqueItemCount },
+    });
+  } catch (error) {
+    logger.error(`Error fetching cart item count: ${error}`);
+    return ResUtil.internalError({
+      res,
+      message: 'Error fetching cart item count',
+      data: error,
+    });
+  }
+};

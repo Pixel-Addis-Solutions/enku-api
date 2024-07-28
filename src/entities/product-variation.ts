@@ -20,6 +20,8 @@ export class ProductVariation {
 
   @Column({ nullable: true })
   title?: string;
+  @Column({ nullable: true })
+  color?: string;
 
   @Column("decimal", { precision: 10, scale: 2, nullable: true })
   price!: number;
@@ -37,5 +39,4 @@ export class ProductVariation {
 
   @OneToMany(() => CartItem, (item) => item.product)
   items!: CartItem[];
-
 }

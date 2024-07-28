@@ -38,11 +38,28 @@ export class Product {
   @Column({ type: "varchar", length: 255 })
   imageUrl!: string;
 
-  @Column({ type: "date" })
+  @Column({ type: "date" ,nullable: true})
   productionDate!: string;
 
-  @Column({ type: "date" })
+  @Column({ type: "date",nullable:true })
   expiryDate!: string;
+
+  @Column({ type: 'varchar', length: 100, nullable: true })
+  origin?: string;
+
+  @Column({ type: 'boolean', nullable: true })
+  certified?: boolean;
+
+  
+  @Column({ nullable: true })
+  metaTitle?: string;
+
+  @Column({ nullable: true })
+  metaDescription?: string;
+
+  @Column({ nullable: true })
+  metaKeywords?: string;
+
 
   @ManyToOne(() => Category, (category) => category.products)
   category!: Category;

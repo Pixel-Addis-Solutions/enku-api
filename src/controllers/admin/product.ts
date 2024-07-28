@@ -157,6 +157,11 @@ export const createProduct = async (req: Request, res: Response) => {
       ingredients,
       how_to_use,
       images,
+      expiryDate,
+      productionDate,
+      metaTitle,
+      metaDescription,
+      metaKeywords,
     } = req.body;
     await entityManager.transaction(async (transactionalEntityManager) => {
       const productRepository =
@@ -180,6 +185,11 @@ export const createProduct = async (req: Request, res: Response) => {
         brand,
         ingredients,
         how_to_use,
+        expiryDate,
+        productionDate,
+        metaTitle,
+        metaDescription,
+        metaKeywords,
       });
       await productRepository.save(product);
 
@@ -196,6 +206,7 @@ export const createProduct = async (req: Request, res: Response) => {
           price,
           images: variationImages,
           optionValues,
+          color
         } = variation;
 
         const productVariation = productVariationRepository.create({
@@ -204,6 +215,7 @@ export const createProduct = async (req: Request, res: Response) => {
           quantity,
           price,
           product,
+          color
         });
         await productVariationRepository.save(productVariation);
 
