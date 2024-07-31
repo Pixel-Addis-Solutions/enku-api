@@ -155,7 +155,7 @@ export const createProduct = async (req: Request, res: Response) => {
       imageUrl,
       variations,
       ingredients,
-      how_to_use,
+      howToUse,
       images,
       expiryDate,
       productionDate,
@@ -184,7 +184,7 @@ export const createProduct = async (req: Request, res: Response) => {
         subSubCategory,
         brand,
         ingredients,
-        how_to_use,
+        howToUse,
         expiryDate,
         productionDate,
         metaTitle,
@@ -206,7 +206,8 @@ export const createProduct = async (req: Request, res: Response) => {
           price,
           images: variationImages,
           optionValues,
-          color
+          color,
+          isFeatured
         } = variation;
 
         const productVariation = productVariationRepository.create({
@@ -215,7 +216,8 @@ export const createProduct = async (req: Request, res: Response) => {
           quantity,
           price,
           product,
-          color
+          color,
+          isFeatured,
         });
         await productVariationRepository.save(productVariation);
 

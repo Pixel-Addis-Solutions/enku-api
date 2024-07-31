@@ -22,7 +22,7 @@ import {
     @ManyToOne(() => ProductVariation, { nullable: true })
     variation?: ProductVariation; // Associated variation of the product
   
-    @Column({ type: "int" })
+    @Column()
     quantity!: number;
   }
   

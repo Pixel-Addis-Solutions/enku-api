@@ -7,7 +7,7 @@ export const sendSMS = async(to:string,otp:number)=> {
   // const apiKey = 'eyJhbGciOiJIUzI1NiJ9.eyJpZGVudGlmaWVyIjoiT0tZeEZhRnlQQUdnVGVmOGZlYWpLSG1XQ096VTVDM24iLCJleHAiOjE4Mjg4OTg1MzgsImlhdCI6MTY3MTEzMjEzOCwianRpIjoiMDgzMTVlOTgtOTA1MC00ZGU1LWFiMGYtMjllNTdlODhlYjA4In0.a6aIfi2FiSE0BvcfMlBA9xf-1M-GxhJqHLj84pepT8Q'; // Replace with your actual API key
   // const from = '9786';
   // const message = 'your otp is:'+otp;
-
+ 
   // try {
   //   const response = await axios.get(apiUrl, {
   //     params: {

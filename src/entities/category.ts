@@ -2,6 +2,7 @@ import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToOne } from "ty
 import { SubCategory } from "./sub-category";
 import { Product } from "./product";
 import { SubSubCategory } from "./sub-sub-category";
+import { CategoryFilter } from "./filter";
 
 @Entity()
 export class Category {
@@ -19,4 +20,7 @@ export class Category {
   subCategories!: SubCategory[];
   @OneToMany(() => SubSubCategory, (subSubcategory) => subSubcategory.category)
   subSubCategories!: SubSubCategory[];
+
+  @OneToMany(() => CategoryFilter, (categoryFilter) => categoryFilter.category)
+  filters!: CategoryFilter[];
 }

@@ -30,7 +30,7 @@ export class Product {
   ingredients!: string;
 
   @Column({ type: "text" })
-  how_to_use!: string;
+  howToUse!: string;
 
   @Column({ type: "decimal", precision: 10, scale: 2 })
   price!: number;
@@ -38,28 +38,26 @@ export class Product {
   @Column({ type: "varchar", length: 255 })
   imageUrl!: string;
 
-  @Column({ type: "date" ,nullable: true})
+  @Column({ type: "date", nullable: true })
   productionDate!: string;
 
-  @Column({ type: "date",nullable:true })
+  @Column({ type: "date", nullable: true })
   expiryDate!: string;
 
-  @Column({ type: 'varchar', length: 100, nullable: true })
+  @Column({ type: "varchar", length: 100, nullable: true })
   origin?: string;
 
-  @Column({ type: 'boolean', nullable: true })
+  @Column({ type: "boolean", nullable: true })
   certified?: boolean;
 
-  
   @Column({ nullable: true })
   metaTitle?: string;
 
   @Column({ nullable: true })
   metaDescription?: string;
 
-  @Column({ nullable: true })
+  @Column({ type: "text", nullable: true })
   metaKeywords?: string;
-
 
   @ManyToOne(() => Category, (category) => category.products)
   category!: Category;

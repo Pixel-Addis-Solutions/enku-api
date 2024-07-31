@@ -11,11 +11,17 @@ import { Repository } from "typeorm";
 // src/controllers/cart.controller.ts
 
 // Function to merge carts
-async function mergeCarts(userCart: Cart, sessionCart: Cart, cartItemRepository: Repository<CartItem>, cartRepository: Repository<Cart>) {
+async function mergeCarts(
+  userCart: Cart,
+  sessionCart: Cart,
+  cartItemRepository: Repository<CartItem>,
+  cartRepository: Repository<Cart>
+) {
   for (const sessionCartItem of sessionCart?.items) {
     let userCartItem = userCart.items.find(
       (item) =>
-        item.product.id === sessionCartItem.product.id && item.variation?.id === sessionCartItem.variation?.id
+        item.product.id === sessionCartItem.product.id &&
+        item.variation?.id === sessionCartItem.variation?.id
     );
     if (userCartItem) {
       userCartItem.quantity += sessionCartItem.quantity;
@@ -30,8 +36,9 @@ async function mergeCarts(userCart: Cart, sessionCart: Cart, cartItemRepository:
 
 export const addToCart = async (req: any, res: Response) => {
   const { productId, quantity, variationId } = req.body;
-  const sessionId = req.cookies?.sessionId;
+  const sessionId = req.headers["sessionid"];
   logger.info(`SessionId from the cookie: ${sessionId}`);
+  logger.info(`SessionId from the cookie: ${quantity}`);
 
   const userId = req.user?.id; // Use session ID for non-logged-in users and customer ID for logged-in users
   logger.info(`UserId from the req: ${userId}`);
@@ -48,16 +55,21 @@ export const addToCart = async (req: any, res: Response) => {
     if (userId) {
       userCart = await cartRepository.findOne({
         where: { customerId: userId },
-        relations: ['items', 'items.product', 'items.variation'],
+        relations: ["items", "items.product", "items.variation"],
       });
       sessionCart = await cartRepository.findOne({
         where: { sessionId },
-        relations: ['items', 'items.product', 'items.variation'],
+        relations: ["items", "items.product", "items.variation"],
       });
 
       if (userCart && sessionCart) {
         logger.info(`Merging sessionCart into userCart for userId: ${userId}`);
-        await mergeCarts(userCart, sessionCart, cartItemRepository, cartRepository);
+        await mergeCarts(
+          userCart,
+          sessionCart,
+          cartItemRepository,
+          cartRepository
+        );
       } else if (!userCart && sessionCart) {
         logger.info(`Assigning sessionCart to userId: ${userId}`);
         sessionCart.customerId = userId;
@@ -71,7 +83,7 @@ export const addToCart = async (req: any, res: Response) => {
     } else {
       sessionCart = await cartRepository.findOne({
         where: { sessionId },
-        relations: ['items', 'items.product', 'items.variation'],
+        relations: ["items", "items.product", "items.variation"],
       });
 
       if (!sessionCart) {
@@ -84,17 +96,19 @@ export const addToCart = async (req: any, res: Response) => {
     const product = await productRepository.findOneBy({ id: productId });
     if (!product) {
       logger.warn(`Product not found for productId: ${productId}`);
-      return ResUtil.notFound({ res, message: 'Product not found' });
+      return ResUtil.notFound({ res, message: "Product not found" });
     }
 
     let variation;
     if (variationId) {
       variation = await variationRepository.findOneBy({ id: variationId });
       if (!variation) {
-        logger.warn(`Product variation not found for variationId: ${variationId}`);
+        logger.warn(
+          `Product variation not found for variationId: ${variationId}`
+        );
         return ResUtil.notFound({
           res,
-          message: 'Product variation not found',
+          message: "Product variation not found",
         });
       }
     }
@@ -116,47 +130,63 @@ export const addToCart = async (req: any, res: Response) => {
       await cartItemRepository.save(cartItem);
     }
 
+    console.log(userCart);
+
     const updatedCart = await cartRepository.findOne({
       where: { id: userCart.id },
-      relations: ['items', 'items.product', 'items.variation'],
+      relations: ["items", "items.product", "items.variation"],
     });
 
-    logger.info(`Updated cart returned for ${userId ? `userId: ${userId}` : `sessionId: ${sessionId}`}`);
+    logger.info(
+      `Updated cart returned for ${
+        userId ? `userId: ${userId}` : `sessionId: ${sessionId}`
+      }`
+    );
     return ResUtil.success({
       res,
-      message: 'Item added to cart',
+      message: "Item added to cart",
       data: updatedCart,
     });
   } catch (error) {
     logger.error(`Error adding to cart: ${error}`);
     return ResUtil.internalError({
       res,
-      message: 'Error adding to cart',
+      message: "Error adding to cart",
       data: error,
     });
   }
 };
 
-
-
 export const getCartItems = async (req: any, res: Response) => {
-  const sessionId = req.cookies?.sessionId;
+  const sessionId = req.headers["sessionid"];
   const userId = req.user?.id; // Use session ID for non-logged-in users and customer ID for logged-in users
 
+  logger.info("session Id" + sessionId);
+  logger.info("user Id" + sessionId);
   try {
     const cartRepository = getRepository(Cart);
     let cart;
     if (userId) {
       cart = await cartRepository.findOne({
         where: { userId },
-        relations: ["items", "items.product", "items.variation.images"],
+        relations: [
+          "items",
+          "items.variation.images",
+          "items.variation.optionValues.option",
+        ],
       });
     } else {
       cart = await cartRepository.findOne({
         where: { sessionId },
-        relations: ["items", "items.product", "items.variation.images"],
+        relations: [
+          "items",
+          "items.variation.images",
+          "items.variation.optionValues.option",
+        ],
       });
     }
+
+    console.log("carts", cart);
 
     if (!cart) {
       return ResUtil.notFound({ res, message: "Cart not found" });
@@ -165,7 +195,7 @@ export const getCartItems = async (req: any, res: Response) => {
     return ResUtil.success({
       res,
       message: "Cart items fetched successfully",
-      data: cart.items,
+      data: { cartId: cart.id, items: cart.items },
     });
   } catch (error) {
     logger.error(`Error fetching cart items: ${error}`);
@@ -179,7 +209,7 @@ export const getCartItems = async (req: any, res: Response) => {
 
 export const updateCartItem = async (req: any, res: Response) => {
   const { itemId, quantity } = req.body;
-  const sessionId = req.cookies?.sessionId;
+  const sessionId = req.headers["sessionid"];
   const userId = req.user?.id;
 
   try {
@@ -216,8 +246,8 @@ export const updateCartItem = async (req: any, res: Response) => {
 };
 
 export const removeCartItem = async (req: any, res: Response) => {
-  const  itemId  = req.params?.id;
-  const sessionId = req.cookies?.sessionId;
+  const itemId = req.params?.id;
+  const sessionId = req.headers["sessionid"];
   const userId = req.user?.id;
 
   try {
@@ -249,7 +279,7 @@ export const removeCartItem = async (req: any, res: Response) => {
 };
 
 export const getCartItemCount = async (req: any, res: Response) => {
-  const sessionId = req.cookies?.sessionId;
+  const sessionId = req.headers["sessionid"];
   const customerId = req.user?.id;
 
   try {
@@ -259,31 +289,43 @@ export const getCartItemCount = async (req: any, res: Response) => {
     if (customerId) {
       cart = await cartRepository.findOne({
         where: { customerId },
-        relations: ['items'],
+        relations: ["items"],
       });
-    } else {
+    } else if (sessionId) {
       cart = await cartRepository.findOne({
         where: { sessionId },
-        relations: ['items'],
+        relations: ["items"],
+      });
+    } else {
+      return ResUtil.internalError({
+        res,
+        message: "session id required",
       });
     }
 
     if (!cart) {
-      return ResUtil.notFound({ res, message: 'Cart not found' });
+      return ResUtil.success({
+        res,
+        message: "Cart item count fetched successfully",
+        data: { count: 0 },
+      });
     }
 
-    const uniqueItemCount = cart?.items?.length;
+    const uniqueItemCount = cart.items.reduce(
+      (total: number, item: CartItem) => total + item?.quantity,
+      0
+    );
 
     return ResUtil.success({
       res,
-      message: 'Cart item count fetched successfully',
-      data: { uniqueItemCount },
+      message: "Cart item count fetched successfully",
+      data: { count: uniqueItemCount },
     });
   } catch (error) {
     logger.error(`Error fetching cart item count: ${error}`);
     return ResUtil.internalError({
       res,
-      message: 'Error fetching cart item count',
+      message: "Error fetching cart item count",
       data: error,
     });
   }

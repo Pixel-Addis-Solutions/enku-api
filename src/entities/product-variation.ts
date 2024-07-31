@@ -23,9 +23,12 @@ export class ProductVariation {
   @Column({ nullable: true })
   color?: string;
 
+  @Column({ nullable: true })
+  isFeatured?: string;
+
   @Column("decimal", { precision: 10, scale: 2, nullable: true })
   price!: number;
-
+ 
   @Column()
   quantity!: number;
 
