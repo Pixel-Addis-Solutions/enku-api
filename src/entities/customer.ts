@@ -17,7 +17,7 @@ export class Customer {
   phoneNumber!: string;
 
   @Column({ type: "varchar", length: 255, nullable: true })
-  name!: string;
+  fullName!: string;
 
   @Column({ type: "varchar", length: 255, nullable: true })
   email!: string;

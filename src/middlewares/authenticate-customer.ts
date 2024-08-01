@@ -12,7 +12,7 @@ export const authenticateCustomer = async (
   const token = req.headers.authorization?.split(" ")[1];
 
   if (!token) {
-    return ResUtil.unAuthorized({ res, message: "No token provided" });
+    return ResUtil.unAuthenticated({ res, message: "UnAuthenticated" });
   }
 
   try {
@@ -23,12 +23,12 @@ export const authenticateCustomer = async (
     });
 
     if (!customer) {
-      return ResUtil.unAuthorized({ res, message: "Invalid token" });
+      return ResUtil.unAuthenticated({ res, message: "UnAuthenticated" });
     }
 
     req.customer = customer;
     next();
   } catch (error) {
-    return ResUtil.unAuthorized({ res, message: "Invalid token" });
+    return ResUtil.unAuthenticated({ res, message: "UnAuthenticated" });
   }
 };

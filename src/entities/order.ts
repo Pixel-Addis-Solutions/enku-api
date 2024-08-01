@@ -27,6 +27,15 @@ export class Order {
   @Column({ type: "varchar", length: 20, default: "pending" })
   status!: string;
 
+  @Column({ type: "varchar", length: 20, nullable: true })
+  shippingPhoneNumber!: string;
+
+  @Column({ nullable: true })
+  shippingAddress!: string;
+
+  @Column({ type: "varchar", length: 20, nullable: true })
+  customerName!: string;
+
   @CreateDateColumn()
   createdAt!: Date;
 
