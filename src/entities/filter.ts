@@ -8,8 +8,6 @@ import {
   JoinTable,
 } from "typeorm";
 import { Category } from "./category";
-import { SubCategory } from "./sub-category";
-import { SubSubCategory } from "./sub-sub-category";
 import { Product } from "./product";
 
 @Entity()
@@ -46,12 +44,17 @@ export class CategoryFilter {
   @ManyToOne(() => Category, (category) => category.filters)
   category!: Category;
 
-//   @ManyToOne(() => SubCategory, (subCategory) => subCategory.filters)
-//   subCategory!: SubCategory;
-
-//   @ManyToOne(() => SubSubCategory, (subSubCategory) => subSubCategory.filters)
-//   subSubCategory!: SubSubCategory;
-
   @ManyToOne(() => Filter, (filter) => filter.categories)
   filter!: Filter;
+}
+@Entity()
+export class ProductFilter {
+  @PrimaryGeneratedColumn("uuid")
+  id!: string;
+
+  // @ManyToOne(() => Product, (product) => product.filters)
+  // product!: Category;
+
+  // @ManyToOne(() => FilterValue, (filter) => filter.products)
+  // filter!: Filter;
 }

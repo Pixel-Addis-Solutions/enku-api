@@ -128,7 +128,7 @@ export const getOrders = async (req: any, res: Response) => {
 
   try {
     const orderRepository = getRepository(Order);
-
+    
     const orders = await orderRepository.find({
       where: { customer: { id: customerId } },
       relations: ["customer", "items", "items.product", "items.variation"],
