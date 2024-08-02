@@ -1,29 +1,60 @@
 import { Request, Response } from "express";
-import { CategoryFilter } from "../../entities/filter";
+import { Filter } from "../../entities/filter";
 import { getRepository } from "../../data-source";
 import logger from "../../util/logger";
 import { ResUtil } from "../../helper/response.helper";
+import { Product } from "../../entities/product";
 
-export const getFilters = async (req: Request, res: Response) => {
+export const getFiltersForCategory = async (req: Request, res: Response) => {
   try {
-    const { categoryId, subCategoryId, subSubCategoryId } = req.query;
+    const { categoryId } = req.params;
+    const filterRepository = getRepository(Filter);
 
-    let filters: CategoryFilter[] = [];
+    const filters = await filterRepository
+      .createQueryBuilder("filter")
+      .innerJoin("filter.categories", "category", "category.id = :categoryId", {
+        categoryId,
+      })
+      .leftJoinAndSelect("filter.values", "filterValue")
+      .getMany();
 
-    if (subSubCategoryId) {
-      filters = await getRepository(CategoryFilter).find({ where: { subSubCategory: { id: subSubCategoryId } }, relations: ["filter", "filter.values"] });
-    } else if (subCategoryId) {
-      filters = await getRepository(CategoryFilter).find({ where: { subCategory: { id: subCategoryId } }, relations: ["filter", "filter.values"] });
-    } else if (categoryId) {
-      filters = await getRepository(CategoryFilter).find({ where: { category: { id: categoryId } }, relations: ["filter", "filter.values"] });
-    }
-
-    return res.json(filters);
+    return ResUtil.success({
+      res,
+      message: "Filters fetched successfully",
+      data: filters,
+    });
   } catch (error) {
-    logger.error(`Error loading filters: ${error}`);
+    logger.error(`Error fetching filters: ${error}`);
     return ResUtil.internalError({
       res,
-      message: "Error loading filters",
+      message: "Error fetching filters",
+      data: error,
+    });
+  }
+};
+
+// Apply filters to search products
+export const filterProducts = async (req: Request, res: Response) => {
+  try {
+    const { filters } = req.body; // filters should be an array of filterValue IDs
+    const productRepository = getRepository(Product);
+
+    const products = await productRepository
+      .createQueryBuilder("product")
+      .innerJoin("product.filters", "filterValue")
+      .where("filterValue.id IN (:...filters)", { filters })
+      .getMany();
+
+    return ResUtil.success({
+      res,
+      message: "Products filtered successfully",
+      data: products,
+    });
+  } catch (error) {
+    logger.error(`Error filtering products: ${error}`);
+    return ResUtil.internalError({
+      res,
+      message: "Error filtering products",
       data: error,
     });
   }

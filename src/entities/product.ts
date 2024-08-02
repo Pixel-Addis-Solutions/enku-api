@@ -6,6 +6,7 @@ import {
   OneToMany,
   CreateDateColumn,
   UpdateDateColumn,
+  ManyToMany,
 } from "typeorm";
 import { Category } from "./category";
 import { Brand } from "./brand";
@@ -14,6 +15,7 @@ import { ProductImage } from "./product-image";
 import { SubCategory } from "./sub-category";
 import { SubSubCategory } from "./sub-sub-category";
 import { CartItem } from "./cart-item";
+import { FilterValue } from "./filter";
 
 @Entity()
 export class Product {
@@ -79,6 +81,9 @@ export class Product {
   @OneToMany(() => ProductImage, (image) => image.product)
   images!: ProductImage[];
 
+  @ManyToMany(() => FilterValue, (filterValue) => filterValue.products)
+  filters!: FilterValue[];
+  
   @CreateDateColumn()
   createdAt!: Date;
 

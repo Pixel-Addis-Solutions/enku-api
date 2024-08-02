@@ -21,7 +21,7 @@ const storage = multer.diskStorage({
     req: Request,
     file: Express.Multer.File,
     cb: (error: Error | null, filename: string) => void
-  ) => {
+  ) => { 
     // Generate a unique filename based on uuid
     const uniqueFilename = uuidv4();
     const fileExtension = path.extname(file.originalname);

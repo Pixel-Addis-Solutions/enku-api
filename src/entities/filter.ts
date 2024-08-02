@@ -10,6 +10,7 @@ import {
 import { Category } from "./category";
 import { Product } from "./product";
 
+// Filter Entity
 @Entity()
 export class Filter {
   @PrimaryGeneratedColumn("uuid")
@@ -20,10 +21,13 @@ export class Filter {
 
   @OneToMany(() => FilterValue, (filterValue) => filterValue.filter)
   values!: FilterValue[];
-  @OneToMany(() => Category, (category) => category.filters)
+
+  @ManyToMany(() => Category, (category) => category.filters)
+  @JoinTable()
   categories!: Category[];
 }
 
+// FilterValue Entity
 @Entity()
 export class FilterValue {
   @PrimaryGeneratedColumn("uuid")
@@ -34,27 +38,9 @@ export class FilterValue {
 
   @ManyToOne(() => Filter, (filter) => filter.values)
   filter!: Filter;
+
+  @ManyToMany(() => Product, (product) => product.filters)
+  @JoinTable()
+  products!: Product[];
 }
 
-@Entity()
-export class CategoryFilter {
-  @PrimaryGeneratedColumn("uuid")
-  id!: string;
-
-  @ManyToOne(() => Category, (category) => category.filters)
-  category!: Category;
-
-  @ManyToOne(() => Filter, (filter) => filter.categories)
-  filter!: Filter;
-}
-@Entity()
-export class ProductFilter {
-  @PrimaryGeneratedColumn("uuid")
-  id!: string;
-
-  // @ManyToOne(() => Product, (product) => product.filters)
-  // product!: Category;
-
-  // @ManyToOne(() => FilterValue, (filter) => filter.products)
-  // filter!: Filter;
-}
