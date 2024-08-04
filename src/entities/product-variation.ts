@@ -24,11 +24,11 @@ export class ProductVariation {
   color?: string;
 
   @Column({ nullable: true })
-  isFeatured?: string;
+  isFeatured?: boolean;
 
   @Column("decimal", { precision: 10, scale: 2, nullable: true })
   price!: number;
- 
+  
   @Column()
   quantity!: number;
 

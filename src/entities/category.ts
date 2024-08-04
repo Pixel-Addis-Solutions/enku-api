@@ -9,7 +9,7 @@ import {
 import { SubCategory } from "./sub-category";
 import { Product } from "./product";
 import { SubSubCategory } from "./sub-sub-category";
-import { Filter } from "./filter";
+import { Filter, FilterValue } from "./filter";
 
 @Entity()
 export class Category {
@@ -30,4 +30,6 @@ export class Category {
 
   @ManyToMany(() => Filter, (filter) => filter.categories)
   filters!: Filter[];
+  @ManyToMany(() => FilterValue, (filterValue) => filterValue.categories)
+  filterValues!: FilterValue[];
 }

@@ -7,6 +7,8 @@ import subSubCategoryRoutes from "./sub-sub-category";
 import authRoutes from "./auth";
 import orderRoutes from "./order";
 import cartRoutes from "./cart";
+import filterRoutes from "../admin/filter";
+import filterValueRoutes from "../admin/filter-value";
 
 const router = Router();
 
@@ -18,5 +20,7 @@ router.use("/auth", authRoutes);
 router.use("/brands", brandRoutes);
 router.use("/orders", orderRoutes);
 router.use("/carts", cartRoutes);
+router.use("/filters", filterRoutes);
+router.use("/filter_values", filterValueRoutes);
 
 export default router;

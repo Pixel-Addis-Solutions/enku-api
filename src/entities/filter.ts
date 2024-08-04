@@ -42,5 +42,10 @@ export class FilterValue {
   @ManyToMany(() => Product, (product) => product.filters)
   @JoinTable()
   products!: Product[];
+  
+  @ManyToMany(() => Category, (category) => category.filterValues)
+  @JoinTable()
+  categories!: Category[];
+
 }
 
