@@ -132,12 +132,12 @@ export const getProductsWithFilters = async (req: Request, res: Response) => {
       .leftJoinAndSelect("product.subSubCategory", "subSubCategory")
       .leftJoinAndSelect("product.brand", "brand")
       .leftJoinAndSelect("product.filters", "productFilter")
-      .leftJoinAndSelect("productFilter.filter", "filterValue")
+      // .leftJoinAndSelect("productFilter.filter", "filterValue")
       .leftJoinAndSelect(
         "product.variations",
         "variation",
         "variation.isFeatured = :isFeatured",
-        { isFeatured: true }
+        { isFeatured: false }
       ) // Fetch the featured variation
       .leftJoinAndSelect("variation.images", "variationImages") // Include variation images if available
       .leftJoinAndSelect("product.images", "productImages") // Include product images if there are no variations
@@ -152,7 +152,8 @@ export const getProductsWithFilters = async (req: Request, res: Response) => {
         "subCategory.name",
         "subSubCategory.name",
         "brand.name",
-        "filterValue.id",
+        "productFilter.id",
+        "productFilter.value",
         "variation.id", // Include the variation ID
         "variation.title", // Include the variation name
         "variation.price", // Include the variation price
@@ -186,8 +187,12 @@ export const getProductsWithFilters = async (req: Request, res: Response) => {
       });
     }
     if (filters) {
-      queryBuilder.andWhere("filterValue.id IN (:...filterIds)", {
-        filterIds: Array.isArray(filters) ? filters : [filters],
+      const valueIdsArray = (filters as string).split(',') ;
+
+      console.log("filters", valueIdsArray[0]);
+
+      queryBuilder.andWhere("productFilter.id IN (:...filterIds)", {
+        filterIds: Array.isArray(valueIdsArray) ? valueIdsArray : [valueIdsArray],
       });
     }
 

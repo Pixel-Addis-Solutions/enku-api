@@ -8,7 +8,8 @@ import { OptionValue } from "../../entities/option-value";
 import { Option } from "../../entities/option";
 import { ProductImage } from "../../entities/product-image";
 import { ProductVariation } from "../../entities/product-variation";
-import { QueryFailedError } from "typeorm";
+import { In, QueryFailedError } from "typeorm";
+import { FilterValue } from "../../entities/filter";
 
 export const getProducts = async (req: Request, res: Response) => {
   try {
@@ -87,26 +88,6 @@ export const getProductDetail = async (req: Request, res: Response) => {
     return ResUtil.internalError({
       res,
       message: "Error fetching product details",
-      data: error,
-    });
-  }
-};
-export const getProductss = async (req: Request, res: Response) => {
-  try {
-    const productRepository = getRepository(Product);
-    const products = await productRepository.find({
-      relations: ["category", "brand", "variations.optionValues.option"],
-    });
-    return ResUtil.success({
-      res,
-      message: "Products retrieved successfully",
-      data: products,
-    });
-  } catch (error) {
-    logger.error("Error retrieving products", error);
-    return ResUtil.internalError({
-      res,
-      message: "Error retrieving products",
       data: error,
     });
   }
@@ -207,7 +188,7 @@ export const createProduct = async (req: Request, res: Response) => {
           images: variationImages,
           optionValues,
           color,
-          isFeatured
+          isFeatured,
         } = variation;
 
         const productVariation = productVariationRepository.create({
@@ -331,6 +312,45 @@ export const deleteProduct = async (req: Request, res: Response) => {
     return ResUtil.internalError({
       res,
       message: "Error deleting product",
+      data: error,
+    });
+  }
+};
+
+// Assign filter values to products
+export const assignFilterValuesToProduct = async (
+  req: Request,
+  res: Response
+) => {
+  try {
+    const { productId, filterValueIds } = req.body;
+    const productRepository = getRepository(Product);
+    const filterValueRepository = getRepository(FilterValue);
+
+    const product = await productRepository.findOne({
+      where: { id: productId },
+      relations: ["filters"],
+    });
+    if (!product) {
+      return ResUtil.notFound({ res, message: "Product not found" });
+    }
+
+    const filterValues = await filterValueRepository.find({
+      where: { id: In(filterValueIds) },
+    });
+
+    product.filters = filterValues;
+    await productRepository.save(product);
+
+    return ResUtil.success({
+      res,
+      message: "Filter values assigned to product successfully",
+    });
+  } catch (error) {
+    logger.error(`Error assigning filter values to products: ${error}`);
+    return ResUtil.internalError({
+      res,
+      message: "Error assigning filter values to products",
       data: error,
     });
   }

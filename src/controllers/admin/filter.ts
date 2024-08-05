@@ -5,6 +5,7 @@ import { Category } from "../../entities/category";
 import { ResUtil } from "../../helper/response.helper";
 import logger from "../../util/logger";
 import { In } from "typeorm";
+import { Product } from "../../entities/product";
 
 // Create a new filter
 export const createFilter = async (req: Request, res: Response) => {
@@ -18,9 +19,9 @@ export const createFilter = async (req: Request, res: Response) => {
         id: In(categoryIds),
       },
     });
-    console.log('cc',categories);
-    console.log('cc',categories.length);
-    
+    console.log("cc", categories);
+    console.log("cc", categories.length);
+
     const newFilter = filterRepository.create({ name, categories });
     const savedFilter = await filterRepository.save(newFilter);
 
@@ -51,6 +52,62 @@ export const getFilters = async (req: Request, res: Response) => {
       res,
       message: "Filters fetched successfully",
       data: filters,
+    });
+  } catch (error) {
+    logger.error(`Error fetching filters: ${error}`);
+    return ResUtil.internalError({
+      res,
+      message: "Error fetching filters",
+      data: error,
+    });
+  }
+};
+export const getFiltersByCategory = async (req: Request, res: Response) => {
+  try {
+    const { categoryId } = req.params;
+    if (!categoryId) {
+      return ResUtil.badRequest({
+        res,
+        message: "Category Id required",
+      });
+    }
+    const filterRepository = getRepository(Filter);
+
+    const filters = await filterRepository
+      .createQueryBuilder("filter")
+      .leftJoinAndSelect("filter.values", "values")
+      .leftJoin("filter.categories", "category")
+      .where("category.id = :categoryId", { categoryId })
+      .getMany();
+    return ResUtil.success({
+      res,
+      message: "Filters fetched successfully",
+      data: filters,
+    });
+  } catch (error) {
+    logger.error(`Error fetching filters: ${error}`);
+    return ResUtil.internalError({
+      res,
+      message: "Error fetching filters",
+      data: error,
+    });
+  }
+};
+export const getCategoriesWithFilters = async (req: Request, res: Response) => {
+  try {
+    const categoryRepository = getRepository(Category);
+
+    const categories = await categoryRepository
+      .createQueryBuilder("category")
+      .leftJoinAndSelect("category.filters", "filter")
+      .leftJoinAndSelect("filter.values", "values")
+      .where("values.categoryId = category.id")
+      .getMany();
+
+    return ResUtil.success({
+      res,
+      message: "Filters fetched successfully",
+      data: categories,
     });
   } catch (error) {
     logger.error(`Error fetching filters: ${error}`);
@@ -142,7 +199,7 @@ export const createFilterValue = async (req: Request, res: Response) => {
     let newFilterValues = [];
     if (Array.isArray(values)) {
       newFilterValues = values.map((value: string) =>
-        filterValueRepository.create({ value, filter, categories: [category] })
+        filterValueRepository.create({ value, filter, category })
       );
     } else {
       return ResUtil.badRequest({
@@ -167,7 +224,6 @@ export const createFilterValue = async (req: Request, res: Response) => {
     });
   }
 };
-// Get all filter values for a filter
 // Get all filter values for a specific filter and category
 export const getFilterValues = async (req: Request, res: Response) => {
   try {
@@ -253,69 +309,4 @@ export const deleteFilterValue = async (req: Request, res: Response) => {
   }
 };
 
-// Assign filters to categories
-// export const assignFiltersToCategories = async (req: Request, res: Response) => {
-//   try {
-//     const { categoryIds, filterIds } = req.body;
-//     const categoryFilterRepository = getRepository(categoryFilters);
-//     const categoryRepository = getRepository(Category);
-//     const filterRepository = getRepository(Filter);
 
-//     const categories = await categoryRepository.find({ where: { id: In(categoryIds) } });
-//     const filters = await filterRepository.find({ where: { id: In(filterIds) } });
-
-//     const categoryFilters = categoryIds.map((categoryId: string) =>
-//       filterIds.map((filterId : string)=>
-//         categoryFilterRepository.create({
-//           category: categories.find(cat => cat.id === categoryId),
-//           filter: filters.find(flt => flt.id === filterId),
-//         })
-//       )
-//     ).flat();
-
-//     await categoryFilterRepository.save(categoryFilters);
-
-//     return ResUtil.success({
-//       res,
-//       message: 'Filters assigned to categories successfully',
-//     });
-//   } catch (error) {
-//     logger.error(`Error assigning filters to categories: ${error}`);
-//     return ResUtil.internalError({ res, message: 'Error assigning filters to categories', data: error });
-//   }
-// };
-
-// Assign filter values to products
-// export const assignFilterValuesToProducts = async (req: Request, res: Response) => {
-//   try {
-//     const { productId, filterValueIds } = req.body;
-//     const productFilterRepository = getRepository(ProductFilter);
-//     const productRepository = getRepository(Product);
-//     const filterValueRepository = getRepository(FilterValue);
-
-//     const product = await productRepository.findOne(productId);
-//     if (!product) {
-//       return ResUtil.notFound({ res, message: 'Product not found' });
-//     }
-
-//     const filterValues = await filterValueRepository.find({ where: { id: In(filterValueIds) } });
-
-//     const productFilters = filterValues.map(filterValue =>
-//       productFilterRepository.create({
-//         product,
-//         filter: filterValue.filter,
-//         filterValue,
-//       })
-//     );
-
-//     await productFilterRepository.save(productFilters);
-
-//     return ResUtil.success({
-//       res,
-//       message: 'Filter values assigned to product successfully',
-//     });
-//   } catch (error) {
-//     logger.error(`Error assigning filter values to products: ${error}`);
-//     return ResUtil.internalError({ res, message: 'Error assigning filter values to products', data: error });
-//   }
-// };

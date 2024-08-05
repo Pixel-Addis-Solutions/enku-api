@@ -30,6 +30,7 @@ export class Category {
 
   @ManyToMany(() => Filter, (filter) => filter.categories)
   filters!: Filter[];
-  @ManyToMany(() => FilterValue, (filterValue) => filterValue.categories)
+  @OneToMany(() => FilterValue, (filterValue) => filterValue.category)
   filterValues!: FilterValue[];
 }
+ 
