@@ -3,7 +3,7 @@ import { Product } from './product';
 
 @Entity()
 export class Brand {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn('increment')
   id!: string;
 
   @Column({ type: 'varchar', length: 255 })
@@ -13,4 +13,4 @@ export class Brand {
   description?: string;
   @OneToMany(() => Product, (product) => product.brand)
   products!: Product[];
-}
+} 

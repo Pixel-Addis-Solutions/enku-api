@@ -19,7 +19,7 @@ import { FilterValue } from "./filter";
 
 @Entity()
 export class Product {
-  @PrimaryGeneratedColumn("uuid")
+  @PrimaryGeneratedColumn("increment")
   id!: string;
 
   @Column({ type: "varchar", length: 255 })

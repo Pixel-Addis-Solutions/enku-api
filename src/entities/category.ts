@@ -13,7 +13,7 @@ import { Filter, FilterValue } from "./filter";
 
 @Entity()
 export class Category {
-  @PrimaryGeneratedColumn("uuid")
+  @PrimaryGeneratedColumn("increment")
   id!: string;
 
   @Column()

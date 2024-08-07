@@ -163,7 +163,7 @@ export const createProduct = async (req: Request, res: Response) => {
         category,
         subCategory,
         subSubCategory,
-        brand,
+        // brand,
         ingredients,
         howToUse,
         expiryDate,

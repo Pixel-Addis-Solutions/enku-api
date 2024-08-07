@@ -12,7 +12,7 @@ import {
   
   @Entity()
   export class OrderItem {
-    @PrimaryGeneratedColumn('uuid')
+    @PrimaryGeneratedColumn('increment')
     id!: string;
   
     @ManyToOne(() => Order, (order) => order.items)
