@@ -137,7 +137,7 @@ export const getProductsWithFilters = async (req: Request, res: Response) => {
         "product.variations",
         "variation",
         "variation.isFeatured = :isFeatured",
-        { isFeatured: false }
+        { isFeatured: true }
       ) // Fetch the featured variation
       .leftJoinAndSelect("variation.images", "variationImages") // Include variation images if available
       .leftJoinAndSelect("product.images", "productImages") // Include product images if there are no variations
