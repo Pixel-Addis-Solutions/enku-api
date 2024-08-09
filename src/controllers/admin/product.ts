@@ -17,7 +17,7 @@ export const getProducts = async (req: Request, res: Response) => {
     const { page = 1, limit = 10 } = req.query;
 
     const [products, total] = await productRepository.findAndCount({
-      relations: ["variations"],
+      relations: ["variations", "category"],
       skip: (Number(page) - 1) * Number(limit),
       take: Number(limit),
       select: {
@@ -26,6 +26,10 @@ export const getProducts = async (req: Request, res: Response) => {
         description: true,
         imageUrl: true,
         price: true,
+        category: {
+          id: true,
+          name: true,
+        },
       },
     });
 
