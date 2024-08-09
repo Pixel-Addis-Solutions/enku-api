@@ -14,24 +14,38 @@ import { FilterValue } from "../../entities/filter";
 export const getProducts = async (req: Request, res: Response) => {
   try {
     const productRepository = getRepository(Product);
-    const { page = 1, limit = 10 } = req.query;
+    const { page = 1, limit = 10, categoryId, subCategoryId, subSubCategoryId, search } = req.query;
 
-    const [products, total] = await productRepository.findAndCount({
-      relations: ["variations", "category"],
-      skip: (Number(page) - 1) * Number(limit),
-      take: Number(limit),
-      select: {
-        id: true,
-        name: true,
-        description: true,
-        imageUrl: true,
-        price: true,
-        category: {
-          id: true,
-          name: true,
-        },
-      },
-    });
+    const query = productRepository.createQueryBuilder("product")
+      .leftJoinAndSelect("product.variations", "variations")
+      .leftJoinAndSelect("product.category", "category")
+      .leftJoinAndSelect("product.subCategory", "subCategory")
+      .leftJoinAndSelect("product.subSubCategory", "subSubCategory")
+      .leftJoinAndSelect("product.filters", "filters")
+      .skip((Number(page) - 1) * Number(limit))
+      .take(Number(limit));
+
+    // Filter by categoryId
+    if (categoryId) {
+      query.andWhere("category.id = :categoryId", { categoryId });
+    }
+
+    // Filter by subCategoryId
+    if (subCategoryId) {
+      query.andWhere("subCategory.id = :subCategoryId", { subCategoryId });
+    }
+
+    // Filter by subSubCategoryId
+    if (subSubCategoryId) {
+      query.andWhere("subSubCategory.id = :subSubCategoryId", { subSubCategoryId });
+    }
+
+    // Filter by search term
+    if (search) {
+      query.andWhere("product.name LIKE :search OR product.description LIKE :search", { search: `%${search}%` });
+    }
+
+    const [products, total] = await query.getManyAndCount();
 
     const productList = products.map((product) => ({
       id: product.id,
@@ -40,8 +54,8 @@ export const getProducts = async (req: Request, res: Response) => {
       imageUrl: product.imageUrl,
       price: product.price,
       variationsCount: product.variations.length,
-      rate: 4,
-      reviewCount: 4333,
+      rate: 4,  // Assuming this is hard-coded for now
+      reviewCount: 4333,  // Assuming this is hard-coded for now
     }));
 
     return ResUtil.success({
@@ -55,14 +69,15 @@ export const getProducts = async (req: Request, res: Response) => {
       },
     });
   } catch (error) {
-    logger.error(`Error fetching home page products: ${error}`);
+    logger.error(`Error fetching products: ${error}`);
     return ResUtil.internalError({
       res,
-      message: "Error fetching home page products",
+      message: "Error fetching products",
       data: error,
     });
   }
 };
+
 export const getProductDetail = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
@@ -103,7 +118,7 @@ export const getProductById = async (req: Request, res: Response) => {
     const productRepository = getRepository(Product);
     const product = await productRepository.findOne({
       where: { id },
-      relations: ["category", "brand", "variations.optionValue.option"],
+      relations: ["category", "brand", "variations.optionValue.option","variations.images"],
     });
 
     if (!product) {

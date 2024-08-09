@@ -5,7 +5,6 @@ import { Category } from "../../entities/category";
 import { ResUtil } from "../../helper/response.helper";
 import logger from "../../util/logger";
 import { In } from "typeorm";
-import { Product } from "../../entities/product";
 
 // Create a new filter
 export const createFilter = async (req: Request, res: Response) => {
@@ -65,6 +64,7 @@ export const getFilters = async (req: Request, res: Response) => {
 export const getFiltersByCategory = async (req: Request, res: Response) => {
   try {
     const { categoryId } = req.params;
+    const { productId } = req.query;
     if (!categoryId) {
       return ResUtil.badRequest({
         res,
@@ -72,6 +72,7 @@ export const getFiltersByCategory = async (req: Request, res: Response) => {
       });
     }
     const filterRepository = getRepository(Filter);
+    const filterValueRepository = getRepository(FilterValue);
 
     const filters = await filterRepository
       .createQueryBuilder("filter")
@@ -79,10 +80,23 @@ export const getFiltersByCategory = async (req: Request, res: Response) => {
       .leftJoin("filter.categories", "category")
       .where("category.id = :categoryId", { categoryId })
       .getMany();
+
+    // Step 2: Fetch Filter Values by Product
+    let productFilterValues = [];
+    if (productId) {
+      productFilterValues = await filterValueRepository
+        .createQueryBuilder("filterValue")
+        .innerJoinAndSelect("filterValue.filter", "filter")
+        .where("filterValue.productId = :productId", { productId })
+        .getMany();
+    }
     return ResUtil.success({
       res,
       message: "Filters fetched successfully",
-      data: filters,
+      data: {
+        filters,
+        productFilterValues,
+      },
     });
   } catch (error) {
     logger.error(`Error fetching filters: ${error}`);
@@ -308,5 +322,3 @@ export const deleteFilterValue = async (req: Request, res: Response) => {
     });
   }
 };
-
-
