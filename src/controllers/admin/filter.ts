@@ -87,7 +87,8 @@ export const getFiltersByCategory = async (req: Request, res: Response) => {
       productFilterValues = await filterValueRepository
         .createQueryBuilder("filterValue")
         .innerJoinAndSelect("filterValue.filter", "filter")
-        .where("filterValue.productId = :productId", { productId })
+        .innerJoin("filterValue.products", "product") // Correctly join the 'products' relationship
+        .where("product.id = :productId", { productId }) // Use 'product.id' to reference the product ID
         .getMany();
     }
     return ResUtil.success({
