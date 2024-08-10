@@ -5,7 +5,7 @@ import brandRoutes from "./brand";
 import authRoutes from "./auth";
 import cartRoutes from "./cart";
 import orderRoutes from "./order";
-import { getFiltersByCategory } from "../../controllers/admin/filter";
+import { getFiltersForCategory } from "../../controllers/user/filter";
 
 
 const router = Router();
@@ -17,7 +17,7 @@ router.use("/categories", categoryRoutes);
 router.use("/carts", cartRoutes);
 router.use("/auth", authRoutes);
 router.use("/orders", orderRoutes);
-router.use("/filters/:categoryId", getFiltersByCategory);
+router.use("/filters/:categoryId", getFiltersForCategory);
 
 
 export default router;
