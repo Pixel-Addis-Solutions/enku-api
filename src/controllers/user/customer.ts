@@ -36,13 +36,15 @@ export const loginCustomer = async (req: any, res: Response) => {
       phoneNumber,
       "123456"
     );
-    const sessionId = req.header?.sessionId;
+    const sessionId = req.headers["sessionid"];
     // Update cart items with the new customer ID
     const cartRepository = getRepository(Cart);
     let cart = await cartRepository.findOne({ where: { sessionId } });
-
+    console.log("sessionId", sessionId);
+    console.log("user cart by sessionId", cart);
+    console.log("customer", customer);
     if (cart) {
-      cart.userId = customer.id;
+      cart.customerId = customer.id;
       cart.sessionId = null;
       await cartRepository.save(cart);
     }

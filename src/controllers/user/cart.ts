@@ -168,7 +168,7 @@ export const getCartItems = async (req: any, res: Response) => {
     let cart;
     if (userId) {
       cart = await cartRepository.findOne({
-        where: { userId },
+        where: { customerId:userId },
         relations: [
           "items",
           "items.variation.images",
@@ -222,7 +222,7 @@ export const updateCartItem = async (req: any, res: Response) => {
 
     if (
       !cartItem ||
-      (cartItem.cart.sessionId !== sessionId && cartItem.cart.userId !== userId)
+      (cartItem.cart.sessionId !== sessionId && cartItem.cart.customerId !== userId)
     ) {
       return ResUtil.notFound({ res, message: "Cart item not found" });
     }
