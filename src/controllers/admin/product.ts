@@ -52,7 +52,7 @@ export const getProducts = async (req: Request, res: Response) => {
       name: product.name,
       description: product.description,
       imageUrl: product.imageUrl,
-      price: product.price,
+      category: {id:product?.category?.id,name: product?.category?.name },
       variationsCount: product.variations.length,
       rate: 4,  // Assuming this is hard-coded for now
       reviewCount: 4333,  // Assuming this is hard-coded for now
