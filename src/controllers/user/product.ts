@@ -122,7 +122,19 @@ export const getProductsBySubSubCategoryId = async (
 
 export const getProductsWithFilters = async (req: Request, res: Response) => {
   try {
-    const { category, subCategory, subSubCategory, brand, filters } = req.query;
+    const {
+      category,
+      subCategory,
+      subSubCategory,
+      brand,
+      filters,
+      search,
+      sortBy = "createdAt", // Default sorting by name
+      sortOrder = "ASC", // Default ascending order
+      page = 1, // Default to page 1
+      limit = 10, // Default to 10 items per page
+    } = req.query;
+
     const productRepository = getRepository(Product);
 
     const queryBuilder = productRepository
@@ -132,7 +144,6 @@ export const getProductsWithFilters = async (req: Request, res: Response) => {
       .leftJoinAndSelect("product.subSubCategory", "subSubCategory")
       .leftJoinAndSelect("product.brand", "brand")
       .leftJoinAndSelect("product.filters", "productFilter")
-      // .leftJoinAndSelect("productFilter.filter", "filterValue")
       .leftJoinAndSelect(
         "product.variations",
         "variation",
@@ -164,6 +175,7 @@ export const getProductsWithFilters = async (req: Request, res: Response) => {
         "productImages.url", // Include the image URLs for the product itself
       ]);
 
+    // Apply filters
     if (category) {
       queryBuilder.andWhere("category.name IN (:...categories)", {
         categories: Array.isArray(category) ? category : [category],
@@ -187,14 +199,27 @@ export const getProductsWithFilters = async (req: Request, res: Response) => {
       });
     }
     if (filters) {
-      const valueIdsArray = (filters as string).split(',') ;
-
-      console.log("filters", valueIdsArray[0]);
-
+      const valueIdsArray = (filters as string).split(",");
       queryBuilder.andWhere("productFilter.id IN (:...filterIds)", {
-        filterIds: Array.isArray(valueIdsArray) ? valueIdsArray : [valueIdsArray],
+        filterIds: Array.isArray(valueIdsArray)
+          ? valueIdsArray
+          : [valueIdsArray],
       });
     }
+
+    // Apply search functionality
+    if (search) {
+      queryBuilder.andWhere(
+        "product.name LIKE :search OR product.description LIKE :search",
+        { search: `%${search}%` }
+      );
+    }
+
+    // Apply sorting
+    queryBuilder.orderBy(`product.${sortBy}`, sortOrder as "ASC" | "DESC");
+
+    // Apply pagination
+    queryBuilder.skip((Number(page) - 1) * Number(limit)).take(Number(limit));
 
     const products = await queryBuilder.getMany();
 
@@ -202,6 +227,10 @@ export const getProductsWithFilters = async (req: Request, res: Response) => {
       res,
       message: "Products fetched successfully",
       data: products,
+      meta: {
+        currentPage: Number(page),
+        itemsPerPage: Number(limit),
+      },
     });
   } catch (error) {
     logger.error(`Error fetching products with filters: ${error}`);

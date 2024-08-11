@@ -7,6 +7,8 @@ import { ResUtil } from "../../helper/response.helper";
 import logger from "../../util/logger";
 import { Customer } from "../../entities/customer";
 import { CartItem } from "../../entities/cart-item";
+import { Product } from "../../entities/product";
+import { ProductVariation } from "../../entities/product-variation";
 
 export const createOrder = async (req: Request | any, res: Response) => {
   let customerId = req.user?.id;
@@ -179,6 +181,106 @@ export const getOrderById = async (req: any, res: Response) => {
     return ResUtil.internalError({
       res,
       message: "Error fetching order",
+      data: error,
+    });
+  }
+};
+
+export const buyNow = async (req: Request | any, res: Response) => {
+  let customerId = req.user?.id;
+  const sessionId = req.headers["sessionid"] as string;
+  const {
+    productId,
+    shippingPhoneNumber,
+    shippingAddress,
+    customerName,
+    agreed,
+    quantity = 1,
+    variationId, // New parameter for the product variation
+  } = req.body;
+
+  const entityManager = AppDataSource.manager;
+
+  try {
+    await entityManager.transaction(async (transactionalEntityManager) => {
+      const productRepository = transactionalEntityManager.getRepository(Product);
+      const orderRepository = transactionalEntityManager.getRepository(Order);
+      const orderItemRepository = transactionalEntityManager.getRepository(OrderItem);
+      const customerRepository = transactionalEntityManager.getRepository(Customer);
+      const variationRepository = transactionalEntityManager.getRepository(ProductVariation);
+
+      // Retrieve the product
+      const product = await productRepository.findOne({
+        where: { id: productId },
+      });
+
+      if (!product) {
+        throw new Error("Product not found");
+      }
+
+          // Retrieve the variation
+          const variation = await variationRepository.findOne({
+            where: { id: variationId, product: { id: productId } },
+          });
+    
+          if (!variation) {
+            throw new Error("Variation not found");
+          }
+    
+      // Handle customer identification
+      if (!customerId && sessionId) {
+        let customer = await customerRepository.findOneBy({
+          phoneNumber: shippingPhoneNumber,
+        });
+
+        if (customer) {
+          customerId = customer.id;
+        } else if (agreed) {
+          // Create a new customer if agreed to register
+          customer = customerRepository.create({
+            phoneNumber: shippingPhoneNumber,
+            fullName: customerName,
+          });
+          await customerRepository.save(customer);
+          customerId = customer.id;
+        }
+      }
+
+      // Calculate total price
+      const total = product.price * quantity;
+
+      // Create the order
+      const order = orderRepository.create({
+        customer:customerId ,
+        total,
+        items: [],
+        shippingPhoneNumber,
+        shippingAddress,
+        customerName,
+        status: "pending", // Initial order status
+      });
+      await orderRepository.save(order);
+
+      // Create the order item
+      const orderItem = orderItemRepository.create({
+        order,
+        product,
+        variation,
+        quantity,
+        price: variation.price,
+      });
+      await orderItemRepository.save(orderItem);
+    });
+
+    return ResUtil.success({
+      res,
+      message: "Order placed successfully",
+    });
+  } catch (error: any) {
+    logger.error(`Error in Buy Now: ${error}`);
+    return ResUtil.internalError({
+      res,
+      message: error.message || "Error processing Buy Now",
       data: error,
     });
   }
