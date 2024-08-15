@@ -9,6 +9,8 @@ import orderRoutes from "./order";
 import cartRoutes from "./cart";
 import filterRoutes from "../admin/filter";
 import filterValueRoutes from "../admin/filter-value";
+import { updateProductVariation } from "../../controllers/admin/variation";
+import { deleteProductImage } from "../../controllers/admin/product";
 
 const router = Router();
 
@@ -22,5 +24,8 @@ router.use("/orders", orderRoutes);
 router.use("/carts", cartRoutes);
 router.use("/filters", filterRoutes);
 router.use("/filter_values", filterValueRoutes);
+router.put("/variations/:id", updateProductVariation);
+router.delete("/images/:id", deleteProductImage);
 
 export default router;
+ 

@@ -1,8 +1,10 @@
 import { Router } from "express";
 
-import { createFilterValue } from "../../controllers/admin/filter";
+import { createFilterValue, deleteFilterValue } from "../../controllers/admin/filter";
 
 const router = Router();
 
 router.post("/", createFilterValue);
+router.delete("/:id", deleteFilterValue);
+
 export default router;

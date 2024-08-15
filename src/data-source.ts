@@ -1,4 +1,4 @@
-import { DataSource, EntityTarget, ObjectLiteral } from "typeorm";
+import { DataSource, EntityTarget } from "typeorm";
 import { Product } from "./entities/product";
 import { Category } from "./entities/category";
 import { SubCategory } from "./entities/sub-category";

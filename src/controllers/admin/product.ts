@@ -10,6 +10,10 @@ import { ProductImage } from "../../entities/product-image";
 import { ProductVariation } from "../../entities/product-variation";
 import { In, QueryFailedError } from "typeorm";
 import { FilterValue } from "../../entities/filter";
+import { Category } from "../../entities/category";
+import { SubCategory } from "../../entities/sub-category";
+import { SubSubCategory } from "../../entities/sub-sub-category";
+import { Brand } from "../../entities/brand";
 
 export const getProducts = async (req: Request, res: Response) => {
   try {
@@ -86,7 +90,13 @@ export const getProductDetail = async (req: Request, res: Response) => {
     const product = await productRepository.findOne({
       where: { id },
       relations: [
+        "images",
+        "category",
+        "brand",
+        "subCategory",
+        "subSubCategory",
         "variations",
+        "variations.images",
         "variations.optionValues",
         "variations.optionValues.option",
       ],
@@ -162,6 +172,9 @@ export const createProduct = async (req: Request, res: Response) => {
       metaTitle,
       metaDescription,
       metaKeywords,
+      origin,
+      certified,
+
     } = req.body;
     await entityManager.transaction(async (transactionalEntityManager) => {
       const productRepository =
@@ -182,14 +195,16 @@ export const createProduct = async (req: Request, res: Response) => {
         category,
         subCategory,
         subSubCategory,
-        // brand,
+        brand,
         ingredients,
         howToUse,
+        origin,
         expiryDate,
         productionDate,
         metaTitle,
         metaDescription,
         metaKeywords,
+        certified
       });
       await productRepository.save(product);
 
@@ -274,26 +289,113 @@ export const createProduct = async (req: Request, res: Response) => {
 };
 
 export const updateProduct = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const {
+    name,
+    description,
+    imageUrl,
+    price,
+    categoryId,
+    subCategoryId,
+    subSubCategoryId,
+    brandId,
+    ingredients,
+    howToUse,
+    origin,
+    expiryDate,
+    productionDate,
+    metaTitle,
+    metaDescription,
+    metaKeywords,
+    certified,
+    images
+  } = req.body;
+
+  const productRepository = getRepository(Product);
+  const categoryRepository = getRepository(Category);
+  const subCategoryRepository = getRepository(SubCategory);
+  const subSubCategoryRepository = getRepository(SubSubCategory);
+  const brandRepository = getRepository(Brand);
+  const imageRepository = getRepository(ProductImage); // Repository for handling images
+
   try {
-    const { id } = req.params;
-    const { error } = productSchema.validate(req.body);
+    // Validate input
+    // const { error } = productSchema.validate(req.body);
+    // if (error) {
+    //   return ResUtil.badRequest({
+    //     res,
+    //     message: "Validation error",
+    //     data: error.details,
+    //   });
+    // }
 
-    if (error) {
-      return ResUtil.badRequest({
-        res,
-        message: "Validation error",
-        data: error.details,
-      });
-    }
-
-    const productRepository = getRepository(Product);
-    const product = await productRepository.findOneBy({ id });
+    // Fetch the product to update
+    const product = await productRepository.findOne({
+      where: { id },
+      relations: ["category", "subCategory", "subSubCategory", "brand","images"],
+    });
 
     if (!product) {
       return ResUtil.notFound({ res, message: "Product not found" });
     }
 
-    productRepository.merge(product, req.body);
+    // Update simple fields
+    product.name = name;
+    product.description = description;
+    product.price = price;
+    product.imageUrl = imageUrl;
+    product.ingredients = ingredients;
+    product.howToUse = howToUse;
+    product.origin = origin;
+    product.expiryDate = expiryDate;
+    product.productionDate = productionDate;
+    product.metaTitle = metaTitle;
+    product.metaDescription = metaDescription;
+    product.metaKeywords = metaKeywords;
+    product.certified = certified;
+
+    // Handle foreign keys (category, subCategory, subSubCategory, brand)
+    if (categoryId) {
+      const category = await categoryRepository.findOneBy({ id: categoryId });
+      if (!category) {
+        return ResUtil.badRequest({ res, message: "Invalid categoryId" });
+      }
+      product.category = category;
+    }
+
+    if (subCategoryId) {
+      const subCategory = await subCategoryRepository.findOneBy({ id: subCategoryId });
+      if (!subCategory) {
+        return ResUtil.badRequest({ res, message: "Invalid subCategoryId" });
+      }
+      product.subCategory = subCategory;
+    }
+
+    if (subSubCategoryId) {
+      const subSubCategory = await subSubCategoryRepository.findOneBy({ id: subSubCategoryId });
+      if (!subSubCategory) {
+        return ResUtil.badRequest({ res, message: "Invalid subSubCategoryId" });
+      }
+      product.subSubCategory = subSubCategory;
+    }
+
+    if (brandId) {
+      const brand = await brandRepository.findOneBy({ id: brandId });
+      if (!brand) {
+        return ResUtil.badRequest({ res, message: "Invalid brandId" });
+      }
+      product.brand = brand;
+    }
+
+    if (images && images.length > 0) {
+      for (const imageUrl of images) {
+        const image = imageRepository.create({ url: imageUrl, product });
+        await imageRepository.save(image);
+        product.images.push(image); // Append new images to the existing ones
+      }
+    }
+
+    // Save the updated product
     await productRepository.save(product);
 
     logger.info(`Product updated successfully: ${product.id}`);
@@ -302,7 +404,7 @@ export const updateProduct = async (req: Request, res: Response) => {
       message: "Product updated successfully",
       data: product,
     });
-  } catch (error) {
+  } catch (error: any) {
     logger.error("Error updating product", error);
     return ResUtil.internalError({
       res,
@@ -311,6 +413,7 @@ export const updateProduct = async (req: Request, res: Response) => {
     });
   }
 };
+
 
 export const deleteProduct = async (req: Request, res: Response) => {
   try {
@@ -370,6 +473,39 @@ export const assignFilterValuesToProduct = async (
     return ResUtil.internalError({
       res,
       message: "Error assigning filter values to products",
+      data: error,
+    });
+  }
+};
+
+export const deleteProductImage = async (req: Request, res: Response) => {
+  const { id } = req.params;
+
+  const imageRepository = getRepository(ProductImage);
+
+  try {
+    // Fetch the image to delete
+    const image = await imageRepository.findOne({
+      where: { id: id },
+    });
+
+    if (!image) {
+      return ResUtil.notFound({ res, message: "Image not found" });
+    }
+
+    // Delete the image
+    await imageRepository.remove(image);
+
+    logger.info(`Product or variation image deleted successfully: ${id}`);
+    return ResUtil.success({
+      res,
+      message: "Product or variation image deleted successfully",
+    });
+  } catch (error: any) {
+    logger.error("Error deleting product or variation image", error);
+    return ResUtil.internalError({
+      res,
+      message: "Error deleting product or variation image",
       data: error,
     });
   }

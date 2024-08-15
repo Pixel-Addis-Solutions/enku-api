@@ -13,6 +13,6 @@ const router = Router();
 router.post("/", authenticate, createOrder);
 router.get("/",authenticateCustomer, getOrders);
 router.get("/:orderId", authenticateCustomer, getOrderById);
-router.post("/buy_now", authenticateCustomer, buyNow);
+router.post("/buy_now", authenticate, buyNow);
 
 export default router;
