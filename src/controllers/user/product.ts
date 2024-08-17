@@ -159,6 +159,7 @@ export const getProductsWithFilters = async (req: Request, res: Response) => {
         "product.description",
         "product.price",
         "product.imageUrl",
+        "product.createdAt",
         "category.name",
         "subCategory.name",
         "subSubCategory.name",
