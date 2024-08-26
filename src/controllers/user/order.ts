@@ -95,7 +95,7 @@ export const createOrder = async (req: Request | any, res: Response) => {
           product: cartItem.product,
           variation: cartItem.variation,
           quantity: cartItem.quantity,
-          price: cartItem.product.price,
+          price: cartItem.variation ? cartItem.variation.price : cartItem.product.price,
         });
         await orderItemRepository.save(orderItem);
       }
@@ -133,7 +133,7 @@ export const getOrders = async (req: any, res: Response) => {
     
     const orders = await orderRepository.find({
       where: { customer: { id: customerId } },
-      relations: ["customer", "items", "items.product", "items.variation"],
+      relations: ["customer", "items", "items.product", "items.variation","items.variation.optionValues.option"],
     });
 
     return ResUtil.success({
