@@ -11,6 +11,10 @@ export class Brand {
 
   @Column({ type: 'varchar', length: 255, nullable: true })
   description?: string;
+
+  @Column({ nullable: true })
+  isFeatured?: boolean;
+
   @OneToMany(() => Product, (product) => product.brand)
   products!: Product[];
 } 

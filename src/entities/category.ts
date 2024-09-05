@@ -20,6 +20,13 @@ export class Category {
   name!: string;
   @Column({ type: "text", nullable: true })
   description!: string;
+
+  @Column({ nullable: true })
+  isFeatured?: boolean;
+
+  @Column({ type: "varchar", length: 255 })
+  imageUrl!: string;
+ 
   @ManyToOne(() => Product, (product) => product.category)
   products!: Product;
 
@@ -33,4 +40,3 @@ export class Category {
   @OneToMany(() => FilterValue, (filterValue) => filterValue.category)
   filterValues!: FilterValue[];
 }
- 
