@@ -6,6 +6,7 @@ import authRoutes from "./auth";
 import cartRoutes from "./cart";
 import orderRoutes from "./order";
 import { getFiltersForCategory } from "../../controllers/user/filter";
+import { getHomePageData } from "../../controllers/user/home";
 
 
 const router = Router();
@@ -18,6 +19,7 @@ router.use("/carts", cartRoutes);
 router.use("/auth", authRoutes);
 router.use("/orders", orderRoutes);
 router.use("/filters/:categoryId", getFiltersForCategory);
+router.use("/home", getHomePageData);
 
 
 export default router;

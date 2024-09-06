@@ -14,19 +14,32 @@ export const getHomePageData = async (req: Request, res: Response) => {
 
   try {
     // Fetch top sellers based on total quantity sold
-    const topSellers = await productRepository
-      .createQueryBuilder("product")
-      .leftJoinAndSelect("product.items", "orderItem")
-      .addSelect("SUM(orderItem.quantity)", "soldQuantity")
-      .groupBy("product.id")
-      .orderBy("soldQuantity", "DESC")
-      .take(10) // Limit to top 10
-      .getMany();
-
+    const topSellers = await orderItemRepository
+    .createQueryBuilder("order_item")
+    .leftJoin("order_item.product", "product")
+    .leftJoin("order_item.variation", "variation")
+    .leftJoin("variation.images", "images")
+    .select([
+      "product.id AS productId",
+      "product.name AS productName",
+      "product.imageUrl AS productImageUrl",
+      "variation.id AS variationId",
+      "variation.title AS variationTitle",
+      "variation.sku AS variationSku",
+      "images.url AS variationImage", //  image URL
+      // "GROUP_CONCAT(images.url) AS variationImages", // Concatenate image URLs
+      "SUM(order_item.quantity) AS soldQuantity"
+    ])
+    .groupBy("product.id, variation.id") // Include images in the group by
+    .orderBy("soldQuantity", "DESC")
+    .take(10) // Limit to top 10
+    .getRawMany();
+  
     // Fetch featured products
     const featuredProducts = await productRepository.find({
-      where: { isFeatured: true },
+      where: { variations: { isFeatured: true } },
       take: 10, // Limit to top 10
+      relations: ["variations"],
     });
 
     // Fetch featured categories
