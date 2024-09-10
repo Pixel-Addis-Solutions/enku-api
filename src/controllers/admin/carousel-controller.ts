@@ -2,6 +2,9 @@ import { Request, Response } from "express";
 import { getRepository } from "../../data-source";
 import { Carousel } from "../../entities/carousel";
 import { CarouselItem } from "../../entities/carousel-item";
+import { ResUtil } from "../../helper/response.helper";
+import { Product } from "../../entities/product";
+import { Category } from "../../entities/category";
 
 export class CarouselController {
   // Create a new carousel with items
@@ -61,7 +64,104 @@ export class CarouselController {
       return res.status(500).json({ message: "Failed to retrieve carousels" });
     }
   };
+  static searchProductWithVariations = async (req: Request, res: Response) => {
+    const { search} = req.query; // Capture search term from query params
 
+    if(!search){
+      return ResUtil.badRequest({
+        res,
+        message: "search query required",
+      });
+    }
+    const searchTerm  = search.toString().trim();
+    const productRepository = getRepository(Product);
+
+    try {
+      // Search for products matching the search term
+      const products = (await productRepository
+        .createQueryBuilder("product")
+        .leftJoinAndSelect("product.variations", "variation")
+        .where("product.name LIKE :searchTerm", {
+          searchTerm: `%${searchTerm}%`,
+        })
+        .orWhere("variation.title LIKE :searchTerm", {
+          searchTerm: `%${searchTerm}%`,
+        })
+        .select([
+          "product.id",
+          "product.name",
+          "product.imageUrl",
+          "variation.id",
+          "variation.title",
+          "variation.sku",
+          "variation.price",
+        ])
+        .take(20)
+        .getMany()) as Product[];
+
+      // Format the result if needed
+      const formattedProducts = products.map((product) => ({
+        id: product.id,
+        name: product.name,
+        imageUrl: product.imageUrl,
+        variations: product.variations.map((variation) => ({
+          id: variation.id,
+          title: variation.title,
+          sku: variation.sku,
+          price: variation.price,
+        })),
+      }));
+
+      return ResUtil.success({
+        res,
+        message: "Products and variations retrieved successfully",
+        data: formattedProducts,
+      });
+    } catch (error) {
+      console.error(error);
+      return ResUtil.internalError({
+        res,
+        message: "Failed to search for products",
+      });
+    }
+  };
+
+  static searchCategories = async (req: Request, res: Response) => {
+    const { search } = req.query; // Capture the search query from request parameters
+
+
+    if(!search){
+      return ResUtil.badRequest({
+        res,
+        message: "search query required",
+      });
+    }
+    const searchTerm  = search.toString().trim();
+    const categoryRepository = getRepository(Category);
+
+    try {
+      // Search for categories that match the search query
+      const categories = await categoryRepository
+        .createQueryBuilder("category")
+        .where("category.name LIKE :query", { query: `%${searchTerm}%` }) // Case-insensitive search
+        .select(["category.id", "category.name", "category.imageUrl"]) // Adjust fields as needed
+        .take(20) // Limit to top 20 results
+        .getMany();
+
+      // Send the search results back to the frontend
+      return ResUtil.success({
+        res,
+        message: "Categories fetched successfully",
+        data: categories,
+      });
+    } catch (error) {
+      console.error(error);
+      return ResUtil.internalError({
+        res,
+        message: "Failed to fetch categories",
+      });
+    }
+  };
   // Update a carousel and its items
   static updateCarousel = async (req: Request, res: Response) => {
     const carouselRepository = getRepository(Carousel);
@@ -146,55 +246,58 @@ export class CarouselController {
   };
 
   // Update the status of a carousel
-static updateCarouselStatus = async (req: Request, res: Response) => {
+  static updateCarouselStatus = async (req: Request, res: Response) => {
     const carouselRepository = getRepository(Carousel);
 
     try {
-        const { id } = req.params;
-        const { status } = req.body;
+      const { id } = req.params;
+      const { status } = req.body;
 
-        const carousel = await carouselRepository.findOneBy({id});
-        if (!carousel) {
-            return res.status(404).json({ message: 'Carousel not found' });
-        }
+      const carousel = await carouselRepository.findOneBy({ id });
+      if (!carousel) {
+        return res.status(404).json({ message: "Carousel not found" });
+      }
 
-        // Update status
-        carousel.status = status;
+      // Update status
+      carousel.status = status;
 
-        // Save updated carousel
-        await carouselRepository.save(carousel);
+      // Save updated carousel
+      await carouselRepository.save(carousel);
 
-        return res.status(200).json(carousel);
+      return res.status(200).json(carousel);
     } catch (error) {
-        console.error(error);
-        return res.status(500).json({ message: 'Failed to update carousel status' });
+      console.error(error);
+      return res
+        .status(500)
+        .json({ message: "Failed to update carousel status" });
     }
-};
+  };
 
-// Update the status of a carousel item
-static updateCarouselItemStatus = async (req: Request, res: Response) => {
+  // Update the status of a carousel item
+  static updateCarouselItemStatus = async (req: Request, res: Response) => {
     const carouselItemRepository = getRepository(CarouselItem);
 
     try {
-        const { id } = req.params;
-        const { status } = req.body;
+      const { id } = req.params;
+      const { status } = req.body;
 
-        const carouselItem = await carouselItemRepository.findOneBy({id});
-        if (!carouselItem) {
-            return res.status(404).json({ message: 'Carousel item not found' });
-        }
+      const carouselItem = await carouselItemRepository.findOneBy({ id });
+      if (!carouselItem) {
+        return res.status(404).json({ message: "Carousel item not found" });
+      }
 
-        // Update status
-        carouselItem.status = status;
+      // Update status
+      carouselItem.status = status;
 
-        // Save updated item
-        await carouselItemRepository.save(carouselItem);
+      // Save updated item
+      await carouselItemRepository.save(carouselItem);
 
-        return res.status(200).json(carouselItem);
+      return res.status(200).json(carouselItem);
     } catch (error) {
-        console.error(error);
-        return res.status(500).json({ message: 'Failed to update carousel item status' });
+      console.error(error);
+      return res
+        .status(500)
+        .json({ message: "Failed to update carousel item status" });
     }
-};
-
+  };
 }
