@@ -4,6 +4,7 @@ import { Cart } from "../../entities/cart";
 import { ResUtil } from "../../helper/response.helper";
 import logger from "../../util/logger";
 import { Customer } from "../../entities/customer";
+import { CartItem } from "../../entities/cart-item";
 
 export const getAllCarts = async (req: Request, res: Response) => {
   try {
@@ -66,6 +67,42 @@ export const getCartById = async (req: Request, res: Response) => {
     return ResUtil.internalError({
       res,
       message: "Error fetching cart",
+      data: error,
+    });
+  }
+};
+
+export const removeCart = async (req: any, res: Response) => {
+  const itemId = req.params?.id;
+
+  try {
+    const cartRepository = getRepository(Cart);
+    const cartItemRepository = getRepository(CartItem);
+
+    // Find the cart and its items
+    const cart = await cartRepository.findOne({
+      where: { id: itemId },
+      relations: ["items"],
+    });
+
+    if (!cart) {
+      return ResUtil.notFound({ res, message: "Cart not found" });
+    }
+
+    // Remove associated CartItems first
+    if (cart.items && cart.items.length > 0) {
+      await cartItemRepository.remove(cart.items);
+    }
+
+    // Now remove the Cart itself
+    await cartRepository.remove(cart);
+
+    return ResUtil.success({ res, message: "Cart removed successfully" });
+  } catch (error) {
+    logger.error(`Error removing cart item: ${error}`);
+    return ResUtil.internalError({
+      res,
+      message: "Error removing cart item",
       data: error,
     });
   }

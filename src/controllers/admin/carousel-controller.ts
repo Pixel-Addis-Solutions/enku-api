@@ -20,7 +20,6 @@ export class CarouselController {
       carousel.name = name;
       carousel.status = status;
       carousel.device = device;
-      carousel.type = type;
 
       // Save the carousel first to get the ID
       await carouselRepository.save(carousel);
@@ -33,6 +32,7 @@ export class CarouselController {
           carouselItem.title = item.title;
           carouselItem.description = item.description;
           carouselItem.typeId = item.typeId;
+          carouselItem.type = item.type;
           carouselItem.status = item.status;
           carouselItem.carousel = carousel; // Associate with the saved carousel
           return carouselItemRepository.save(carouselItem);

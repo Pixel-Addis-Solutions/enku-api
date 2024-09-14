@@ -15,9 +15,6 @@ export class Carousel {
     @Column()
     device!: 'mobile' | 'pc';
 
-    @Column()
-    type!: 'product' | 'category' | 'other'; // Add more types as needed
-
     @OneToMany(() => CarouselItem, item => item.carousel, { cascade: true })
     items!: CarouselItem[];
 }
