@@ -11,6 +11,7 @@ import filterRoutes from "../admin/filter";
 import filterValueRoutes from "../admin/filter-value";
 import carouselRoutes from "../admin/carousel";
 import customerRoutes from "../admin/customer";
+import dashboardRoutes from "../admin/dashboard";
 import { updateProductVariation } from "../../controllers/admin/variation";
 import { deleteProductImage } from "../../controllers/admin/product";
 
@@ -28,6 +29,7 @@ router.use("/filters", filterRoutes);
 router.use("/filter_values", filterValueRoutes);
 router.use("/carousels", carouselRoutes);
 router.use("/customers", customerRoutes);
+router.use("/dashboards", dashboardRoutes);
 router.put("/variations/:id", updateProductVariation);
 router.delete("/images/:id", deleteProductImage);
 

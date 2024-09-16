@@ -5,6 +5,8 @@ import { Product } from "../../entities/product";
 import { Customer } from "../../entities/customer";
 import { Review } from "../../entities/review";
 import { ResUtil } from "../../helper/response.helper";
+import { User } from "../../entities/user";
+import { Category } from "../../entities/category";
 
 export const getDashboardData = async (req: Request, res: Response) => {
   try {
@@ -18,13 +20,27 @@ export const getDashboardData = async (req: Request, res: Response) => {
     // 2. Total Orders
     const totalOrders = await getRepository(Order)
       .createQueryBuilder("order")
-      .where("order.status = :status", { status: "completed" })
       .getCount();
 
     // 3. New Customers
     const newCustomers = await getRepository(Customer)
       .createQueryBuilder("customer")
       .where("customer.createdAt >= DATE_SUB(NOW(), INTERVAL 30 DAY)")
+      .getCount();
+    // 3. Total Customers
+    const totalCustomers = await getRepository(Customer)
+      .createQueryBuilder("customer")
+      .getCount();
+    // 3. Total Customers
+    const totalUsers = await getRepository(User)
+      .createQueryBuilder("user")
+      .getCount();
+    // 3. Total Categories
+    const totalCategories = await getRepository(Category)
+      .createQueryBuilder("category")
+      .getCount();
+    const totalProduct = await getRepository(Product)
+      .createQueryBuilder("product")
       .getCount();
 
     // 4. Pending Orders
@@ -49,6 +65,7 @@ export const getDashboardData = async (req: Request, res: Response) => {
       .leftJoinAndSelect("product.items", "orderItem")
       .groupBy("product.id")
       .orderBy("SUM(orderItem.quantity)", "DESC")
+      .select(["product.id", "product.name", "orderItem.id", "orderItem.quantity"])
       .limit(5)
       .getMany();
 
@@ -57,6 +74,7 @@ export const getDashboardData = async (req: Request, res: Response) => {
       .createQueryBuilder("product")
       .where("product.quantity <= :threshold", { threshold: 10 })
       .orderBy("product.quantity", "ASC")
+      .select(["id", "name", "quantity"])
       .getMany();
 
     // 8. Top Customers
@@ -69,12 +87,12 @@ export const getDashboardData = async (req: Request, res: Response) => {
       .getMany();
 
     // 9. Recent Reviews
-    const recentReviews = await getRepository(Review)
-      .createQueryBuilder("review")
-      .leftJoinAndSelect("review.product", "product")
-      .orderBy("review.createdAt", "DESC")
-      .limit(5)
-      .getMany();
+    // const recentReviews = await getRepository(Review)
+    //   .createQueryBuilder("review")
+    //   .leftJoinAndSelect("review.product", "product")
+    //   .orderBy("review.createdAt", "DESC")
+    //   .limit(5)
+    //   .getMany();
 
     return ResUtil.success({
       res,
@@ -84,11 +102,15 @@ export const getDashboardData = async (req: Request, res: Response) => {
         totalOrders,
         newCustomers,
         pendingOrders,
+        totalCustomers,
+        totalUsers,
+        totalCategories,
+        totalProduct,
         salesTrend,
         topSellingProducts,
         lowStockProducts,
         topCustomers,
-        recentReviews,
+        // recentReviews,
       },
     });
   } catch (error) {

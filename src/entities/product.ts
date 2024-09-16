@@ -37,9 +37,12 @@ export class Product {
   @Column({ type: "decimal", precision: 10, scale: 2 })
   price!: number;
 
+  @Column({ type: "decimal", precision: 10, scale: 2 })
+  quantity!: number;
+
   @Column({ type: "varchar", length: 255 })
   imageUrl!: string;
-
+ 
   @Column({ type: "date", nullable: true })
   productionDate!: string;
 
@@ -83,7 +86,7 @@ export class Product {
 
   @ManyToMany(() => FilterValue, (filterValue) => filterValue.products)
   filters!: FilterValue[];
-  
+
   @CreateDateColumn()
   createdAt!: Date;
 
