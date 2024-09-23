@@ -52,8 +52,8 @@ export const getFilters = async (req: Request, res: Response) => {
       data: error,
     });
   }
-};
-
+};  
+ 
 // Apply filters to search products
 export const filterProducts = async (req: Request, res: Response) => {
   try {
