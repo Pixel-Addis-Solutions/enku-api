@@ -5,7 +5,7 @@ import brandRoutes from "./brand";
 import authRoutes from "./auth";
 import cartRoutes from "./cart";
 import orderRoutes from "./order";
-import { getFiltersForCategory } from "../../controllers/user/filter";
+import { getFilters, getFiltersForCategory } from "../../controllers/user/filter";
 import { getHomePageData } from "../../controllers/user/home";
 
 
@@ -19,6 +19,7 @@ router.use("/carts", cartRoutes);
 router.use("/auth", authRoutes);
 router.use("/orders", orderRoutes);
 router.use("/filters/:categoryId", getFiltersForCategory);
+router.use("/filters", getFilters);
 router.use("/home", getHomePageData);
 
 

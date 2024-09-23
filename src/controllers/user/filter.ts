@@ -32,6 +32,27 @@ export const getFiltersForCategory = async (req: Request, res: Response) => {
     });
   }
 };
+export const getFilters = async (req: Request, res: Response) => {
+  try {
+    const filterRepository = getRepository(Filter);
+    const filters = await filterRepository.find({
+      relations: ["values", "categories"],
+    });
+
+    return ResUtil.success({
+      res,
+      message: "Filters fetched successfully",
+      data: filters,
+    });
+  } catch (error) {
+    logger.error(`Error fetching filters: ${error}`);
+    return ResUtil.internalError({
+      res,
+      message: "Error fetching filters",
+      data: error,
+    });
+  }
+};
 
 // Apply filters to search products
 export const filterProducts = async (req: Request, res: Response) => {
