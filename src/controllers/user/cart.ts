@@ -241,7 +241,7 @@ export const updateCartItem = async (req: any, res: Response) => {
       res,
       message: "Error updating cart item",
       data: error,
-    });
+    }); 
   }
 };
 

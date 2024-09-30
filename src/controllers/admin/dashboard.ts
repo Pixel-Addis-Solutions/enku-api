@@ -68,7 +68,7 @@ export const getDashboardData = async (req: Request, res: Response) => {
       .select(["product.id", "product.name", "orderItem.id", "orderItem.quantity"])
       .limit(5)
       .getMany();
-
+ 
     // 7. Low Stock Products
     const lowStockProducts = await getRepository(Product)
       .createQueryBuilder("product")
