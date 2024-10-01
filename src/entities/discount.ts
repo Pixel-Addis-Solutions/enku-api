@@ -1,6 +1,6 @@
-import { Entity, Column, PrimaryGeneratedColumn, BaseEntity } from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn, BaseEntity, CreateDateColumn, UpdateDateColumn } from "typeorm";
 
-@Entity("discounts")
+@Entity()
 export class Discount extends BaseEntity {
   @PrimaryGeneratedColumn()
   id!: number;
@@ -17,13 +17,16 @@ export class Discount extends BaseEntity {
   @Column({ type: "timestamp" })
   end_date!: Date;
 
-  @Column({ type: "jsonb", nullable: true })
-  conditions: any; // JSON for conditions like min cart value, specific products, etc.
-
   @Column({ type: "varchar", default: "active" })
   status!: string; // Active or inactive
 
   @Column({ type: "varchar", nullable: true })
   code!: string; // Promo code (e.g., 'SAVE20')
+
+  @CreateDateColumn()
+  createdAt!: Date;
+
+  @UpdateDateColumn()
+  updatedAt!: Date;
 }
  

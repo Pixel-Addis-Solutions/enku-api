@@ -17,11 +17,13 @@ import { CartItem } from "./entities/cart-item";
 import { Customer } from "./entities/customer";
 import { Order } from "./entities/order";
 import { OrderItem } from "./entities/order-item";
-import {  Filter, FilterValue } from "./entities/filter";
+import { Filter, FilterValue } from "./entities/filter";
+import { LoyaltyProgram } from "./entities/loyalty-program";
+import { LoyaltyPoints } from "./entities/loyalty";
 require("dotenv").config();
 
 console.log("process.env.DATABASE_HOST", process.env.DB_HOST);
- 
+
 export const AppDataSource = new DataSource({
   type: "mysql",
   host: process.env.DB_HOST,
@@ -50,12 +52,14 @@ export const AppDataSource = new DataSource({
     CartItem,
     Customer,
     Order,
-    OrderItem ,
+    OrderItem,
     Filter,
-    FilterValue ,
+    FilterValue,
+    LoyaltyProgram,
+    LoyaltyPoints,
   ],
   migrations: [],
-});
+}); 
 export const getRepository = (model: EntityTarget<any>) =>
   AppDataSource.getRepository(model);
-   
+ 
