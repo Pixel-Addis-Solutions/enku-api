@@ -17,7 +17,7 @@ export class LoyaltyController {
       const loyaltyPoints = new LoyaltyPoints();
       loyaltyPoints.user = user;
       loyaltyPoints.points = points;
-      loyaltyPoints.description = description;
+      loyaltyPoints.reason = description;
 
       const loyaltyRepo = getRepository(LoyaltyPoints);
       await loyaltyRepo.save(loyaltyPoints);

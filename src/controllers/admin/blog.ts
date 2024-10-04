@@ -37,11 +37,11 @@ export class BlogController {
       const newBlog = blogRepository.create({
         title,
         description,
-        image,
+        image, 
         type,
         status:'draft'
       });
-      await blogRepository.save(newBlog);
+      await blogRepository.save(newBlog); 
       res.status(201).json(newBlog);
     } catch (error) {
       res.status(500).json({ message: "Error creating blog", error });

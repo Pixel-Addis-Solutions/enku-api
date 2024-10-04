@@ -14,6 +14,7 @@ import customerRoutes from "../admin/customer";
 import dashboardRoutes from "../admin/dashboard";
 import blogRoutes from "../admin/blog";
 import discountRoutes from "../admin/discount";
+import testimonialsRoutes from "../admin/testimonial";
 import { updateProductVariation } from "../../controllers/admin/variation";
 import { deleteProductImage } from "../../controllers/admin/product";
 
@@ -34,6 +35,7 @@ router.use("/customers", customerRoutes);
 router.use("/dashboards", dashboardRoutes);
 router.use("/blogs", blogRoutes);
 router.use("/discounts", discountRoutes);
+router.use("/testimonials", testimonialsRoutes);
 router.put("/variations/:id", updateProductVariation);
 router.delete("/images/:id", deleteProductImage);
 

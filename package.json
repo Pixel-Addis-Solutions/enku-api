@@ -9,7 +9,10 @@
     "build": "tsc",
     "start": "tsc && nodemon --exec ts-node src/app.ts",
     "prod": "node -r ts-node/register/transpile-only dist/app.js",
-    "seed": "ts-node src/seeder/product.ts"
+    "seed": "ts-node src/seeder/product.ts",
+    "seed:product": "ts-node src/seeder/product.ts",
+    "seed:user": "ts-node src/seeder/user.ts"
+
   },
   "keywords": [],
   "author": "",

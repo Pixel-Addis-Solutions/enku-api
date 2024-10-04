@@ -1,4 +1,11 @@
-import { Entity, Column, PrimaryGeneratedColumn, BaseEntity, CreateDateColumn, UpdateDateColumn } from "typeorm";
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  BaseEntity,
+  CreateDateColumn,
+  UpdateDateColumn,
+} from "typeorm";
 
 @Entity()
 export class Discount extends BaseEntity {
@@ -11,10 +18,10 @@ export class Discount extends BaseEntity {
   @Column({ type: "float" })
   value!: number; // Discount value (e.g., 10% or $5 off)
 
-  @Column({ type: "timestamp" })
+  @Column()
   start_date!: Date;
 
-  @Column({ type: "timestamp" })
+  @Column()
   end_date!: Date;
 
   @Column({ type: "varchar", default: "active" })
@@ -29,4 +36,3 @@ export class Discount extends BaseEntity {
   @UpdateDateColumn()
   updatedAt!: Date;
 }
- 

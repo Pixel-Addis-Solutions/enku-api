@@ -1,22 +1,28 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn } from "typeorm";
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  CreateDateColumn,
+  UpdateDateColumn,
+} from "typeorm";
 
 @Entity()
 export class Blog {
   @PrimaryGeneratedColumn()
   id!: number;
 
-  @Column({ type: "string" })
+  @Column()
   title!: string;
 
   @Column({ type: "text" })
   description!: string;
 
-  @Column({ type: "string", nullable: true })
+  @Column({ nullable: true })
   image!: string;
 
-  @Column({ type: "string" })
+  @Column()
   type!: string;
-  @Column({ type: "string" })
+  @Column()
   status!: string; // draft,approved,active,inactive
 
   @CreateDateColumn()
