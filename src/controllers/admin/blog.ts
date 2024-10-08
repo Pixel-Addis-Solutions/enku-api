@@ -31,13 +31,13 @@ export class BlogController {
 
   // Create a new blog
   static async create(req: Request, res: Response) {
-    const { title, description, image, type} = req.body;
+    const { title, description, content, type} = req.body;
     try {
       const blogRepository = getRepository(Blog);
       const newBlog = blogRepository.create({
         title,
         description,
-        image, 
+        content, 
         type,
         status:'draft'
       });
@@ -51,7 +51,7 @@ export class BlogController {
   // Update an existing blog
   static async update(req: Request, res: Response) {
     const id = req.params.id;
-    const { title, description, image, type } = req.body;
+    const { title, description, content, type } = req.body;
 
     try {
       const blogRepository = getRepository(Blog);
@@ -63,7 +63,7 @@ export class BlogController {
       // Update blog fields
       blog.title = title;
       blog.description = description;
-      blog.image = image;
+      blog.content = content;
       blog.type = type;
 
       await blogRepository.save(blog);

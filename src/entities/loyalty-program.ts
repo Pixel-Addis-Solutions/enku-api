@@ -8,8 +8,11 @@ export class LoyaltyProgram {
   @Column({ type: "text", unique: true })
   action!: string; // e.g., 'purchase', 'review', 'referral'
 
-  @Column({ type: 'int' })
+  @Column({ type: "int" })
   points!: number;
+  
+  @Column({ type: "text" })
+  reason!: string;
 
   @Column({ type: "boolean", default: true })
   active!: boolean;

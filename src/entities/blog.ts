@@ -16,12 +16,13 @@ export class Blog {
 
   @Column({ type: "text" })
   description!: string;
-
-  @Column({ nullable: true })
-  image!: string;
+   
+  @Column({ type: "text", nullable: true })
+  content!: string;
 
   @Column()
-  type!: string;
+  type!: string; // tip,video .....
+  
   @Column()
   status!: string; // draft,approved,active,inactive
 
