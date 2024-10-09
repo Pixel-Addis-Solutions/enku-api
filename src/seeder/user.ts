@@ -11,10 +11,10 @@ const seed = async () => {
     const userRepository = AppDataSource.getRepository(User);
     const roleRepository = AppDataSource.getRepository(Role);
     const permissionRepository = AppDataSource.getRepository(Permission);
-
+ 
     // Create permissions
     const permissions = [
-      { name: "create-Category" },
+      { name: "create-Category" }, 
       { name: "view-Category" },
       { name: "update-Category" },
       { name: "delete-Category" },

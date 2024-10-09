@@ -13,8 +13,10 @@ import carouselRoutes from "../admin/carousel";
 import customerRoutes from "../admin/customer";
 import dashboardRoutes from "../admin/dashboard";
 import blogRoutes from "../admin/blog";
+import cardRoutes from "../admin/card";
 import discountRoutes from "../admin/discount";
 import testimonialsRoutes from "../admin/testimonial";
+import loyaltyProgramsRoutes from "../admin/loyalty-program";
 import { updateProductVariation } from "../../controllers/admin/variation";
 import { deleteProductImage } from "../../controllers/admin/product";
 
@@ -34,8 +36,10 @@ router.use("/carousels", carouselRoutes);
 router.use("/customers", customerRoutes);
 router.use("/dashboards", dashboardRoutes);
 router.use("/blogs", blogRoutes);
+router.use("/cards", cardRoutes);
 router.use("/discounts", discountRoutes);
 router.use("/testimonials", testimonialsRoutes);
+router.use("/loyalty_programs", loyaltyProgramsRoutes);
 router.put("/variations/:id", updateProductVariation);
 router.delete("/images/:id", deleteProductImage);
 
