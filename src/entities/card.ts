@@ -5,7 +5,7 @@ export class HomePageCard {
   @PrimaryGeneratedColumn()
   id!: number;
 
-  @Column({ type: "string" })
+  @Column()
   title!: string;  // Card title, e.g., "New Skincare Line"
 
   @Column({ type: "text" })
@@ -14,7 +14,7 @@ export class HomePageCard {
   @Column({ type: "text", nullable: true })
   imageUrl!: string;  // Image for the card
 
-  @Column({ type: "string" })
+  @Column()
   type!: string;  // Type of card, e.g., "product", "category", "promotion", etc.
 
   @Column({ type: "text" })

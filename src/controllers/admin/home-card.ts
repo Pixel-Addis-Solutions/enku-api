@@ -7,12 +7,12 @@ import { ResUtil } from "../../helper/response.helper";
 export const createHomePageCard = async (req: Request, res: Response) => {
   try {
     const cardRepository = getRepository(HomePageCard);
-    const { title, description, image, type, active, redirectUrl } = req.body;
+    const { title, description, imageUrl, type, active, redirectUrl } = req.body;
 
     const newCard = cardRepository.create({
       title,
       description,
-      image,
+      imageUrl,
       type,
       active,
       redirectUrl,
@@ -79,11 +79,11 @@ export const updateHomePageCard = async (req: Request, res: Response) => {
       return ResUtil.notFound({ res, message: "Card not found" });
     }
 
-    const { title, description, image, type, active,redirectUrl } = req.body;
+    const { title, description, imageUrl, type, active,redirectUrl } = req.body;
 
     card.title = title ?? card.title;
     card.description = description ?? card.description;
-    card.image = image ?? card.image;
+    card.imageUrl = imageUrl ?? card.imageUrl;
     card.type = type ?? card.type;
     card.active = active ?? card.active;
     card.redirectUrl = redirectUrl ?? card.redirectUrl;

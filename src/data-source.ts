@@ -23,6 +23,7 @@ import { LoyaltyPoints } from "./entities/loyalty";
 import { Blog } from "./entities/blog";
 import { Discount } from "./entities/discount";
 import { Testimonial } from "./entities/testimonial";
+import { HomePageCard } from "./entities/card";
 require("dotenv").config();
 
 console.log("process.env.DATABASE_HOST", process.env.DB_HOST);
@@ -62,7 +63,8 @@ export const AppDataSource = new DataSource({
     LoyaltyPoints,
     Blog,
     Discount,
-    Testimonial
+    Testimonial,
+    HomePageCard
   ],
   migrations: [],
 }); 
