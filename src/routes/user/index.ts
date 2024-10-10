@@ -5,6 +5,7 @@ import brandRoutes from "./brand";
 import authRoutes from "./auth";
 import cartRoutes from "./cart";
 import orderRoutes from "./order";
+import cardRoutes from "./card";
 import { getFilters, getFiltersForCategory } from "../../controllers/user/filter";
 import { getHomePageData } from "../../controllers/user/home";
 import loyaltyProgramsRoutes from "./loyalty-program";
@@ -23,6 +24,7 @@ router.use("/filters/:categoryId", getFiltersForCategory);
 router.use("/filters", getFilters);
 router.use("/home", getHomePageData);
 router.use("/loyalty_programs", loyaltyProgramsRoutes);
+router.use("/cards", cardRoutes);
 
 
 export default router;
