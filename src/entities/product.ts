@@ -7,6 +7,7 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   ManyToMany,
+  BaseEntity,
 } from "typeorm";
 import { Category } from "./category";
 import { Brand } from "./brand";
@@ -19,7 +20,7 @@ import { FilterValue } from "./filter";
 import { Discount } from "./discount";
 
 @Entity()
-export class Product {
+export class Product extends BaseEntity {
   @PrimaryGeneratedColumn("increment")
   id!: string;
 

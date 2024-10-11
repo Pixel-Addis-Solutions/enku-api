@@ -2,7 +2,6 @@
 
 import { Product } from "../../entities/product";
 import { Discount } from "../../entities/discount";
-import { Category } from "../../entities/category";
 
 /**
  * Apply discounts to a product if applicable
@@ -14,14 +13,14 @@ export const calculateDiscountedPrice = async (
 
   // Fetch any active discounts on the product
   const activeProductDiscounts = product.discounts.filter((discount) => {
-    return discount.status === "active" && isDiscountValid(discount);
+    return discount.status && isDiscountValid(discount);
   });
 
   // If product has no discount, check its category for discounts
   if (activeProductDiscounts.length === 0 && product.category) {
     const activeCategoryDiscounts = product.category.discounts.filter(
       (discount) => {
-        return discount.status === "active" && isDiscountValid(discount);
+        return discount.status && isDiscountValid(discount);
       }
     );
 
@@ -40,10 +39,8 @@ export const calculateDiscountedPrice = async (
  */
 const isDiscountValid = (discount: Discount): boolean => {
   const currentDate = new Date();
-  if (discount.start_date && discount.end_date) {
-    return (
-      currentDate >= discount.start_date && currentDate <= discount.end_date
-    );
+  if (discount.startDate && discount.endDate) {
+    return currentDate >= discount.startDate && currentDate <= discount.endDate;
   }
   return true;
 };

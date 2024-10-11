@@ -23,13 +23,13 @@ export class Discount extends BaseEntity {
   value!: number; // Discount value (e.g., 10% or $5 off)
 
   @Column()
-  start_date!: Date;
+  startDate!: Date;
 
   @Column()
-  end_date!: Date;
+  endDate!: Date;
 
-  @Column({ type: "varchar", default: "active" })
-  status!: string; // Active or inactive
+  @Column({ default: false })
+  status!: boolean; // Active or inactive
 
   @Column({ type: "varchar", nullable: true })
   code!: string; // Promo code (e.g., 'SAVE20')
