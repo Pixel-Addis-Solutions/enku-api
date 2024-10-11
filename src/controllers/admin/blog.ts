@@ -1,16 +1,26 @@
 import { Request, Response } from "express";
 import { getRepository } from "../../data-source";
 import { Blog } from "../../entities/blog";
+import { ResUtil } from "../../helper/response.helper";
 
 export class BlogController {
   // Get all blogs
   static async getAll(req: Request, res: Response) {
     try {
+      const {type} = req.query;
+
       const blogRepository = getRepository(Blog);
-      const blogs = await blogRepository.find();
-      res.json(blogs);
+      const blogs = await blogRepository.find({
+        where: type ? { type: type } : {}, // Filter by 'type' if it exists
+        order: { id: "DESC" }, // Optional: Sort blogs by ID (newest first)
+      });
+        ResUtil.success({ res, data: blogs, message: "" });
     } catch (error) {
-      res.status(500).json({ message: "Error fetching blogs", error });
+      ResUtil.internalError({
+        message: "Error fetching blogs",
+        data: error,
+        res,
+      });
     }
   }
 
@@ -19,7 +29,7 @@ export class BlogController {
     const id = req.params.id;
     try {
       const blogRepository = getRepository(Blog);
-      const blog = await blogRepository.findOneBy({id});
+      const blog = await blogRepository.findOneBy({ id });
       if (!blog) {
         return res.status(404).json({ message: "Blog not found" });
       }
@@ -31,17 +41,17 @@ export class BlogController {
 
   // Create a new blog
   static async create(req: Request, res: Response) {
-    const { title, description, content, type} = req.body;
+    const { title, description, content, type } = req.body;
     try {
       const blogRepository = getRepository(Blog);
       const newBlog = blogRepository.create({
         title,
         description,
-        content, 
+        content,
         type,
-        status:'draft'
+        status: "draft",
       });
-      await blogRepository.save(newBlog); 
+      await blogRepository.save(newBlog);
       res.status(201).json(newBlog);
     } catch (error) {
       res.status(500).json({ message: "Error creating blog", error });
@@ -55,7 +65,7 @@ export class BlogController {
 
     try {
       const blogRepository = getRepository(Blog);
-      const blog = await blogRepository.findOneBy({id});
+      const blog = await blogRepository.findOneBy({ id });
       if (!blog) {
         return res.status(404).json({ message: "Blog not found" });
       }

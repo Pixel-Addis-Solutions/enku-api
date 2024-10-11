@@ -16,6 +16,7 @@ import { SubCategory } from "./sub-category";
 import { SubSubCategory } from "./sub-sub-category";
 import { CartItem } from "./cart-item";
 import { FilterValue } from "./filter";
+import { Discount } from "./discount";
 
 @Entity()
 export class Product {
@@ -86,6 +87,9 @@ export class Product {
 
   @ManyToMany(() => FilterValue, (filterValue) => filterValue.products)
   filters!: FilterValue[];
+
+  @ManyToMany(() => Discount, (discount) => discount.products)
+  discounts!: Discount[];
 
   @CreateDateColumn()
   createdAt!: Date;

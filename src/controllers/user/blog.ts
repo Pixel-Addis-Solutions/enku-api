@@ -4,12 +4,34 @@ import { Blog } from "../../entities/blog";
 import { ResUtil } from "../../helper/response.helper";
 
 // Controller for fetching all blogs with optional type filtering
-export const getBlogs = async (req: Request, res: Response) => {
+export const getBlogTips = async (req: Request, res: Response) => {
   const blogRepository = getRepository(Blog);
 
   try {
     // Extract the 'type' query parameter from the request
-    const { type } = req.query;
+    const type = "tip";
+
+    // If the 'type' query exists, filter the blogs by type
+    const blogs = await blogRepository.find({
+      where: type ? { type: type } : {}, // Filter by 'type' if it exists
+      order: { id: "DESC" }, // Optional: Sort blogs by ID (newest first)
+    });
+
+    ResUtil.success({ res, data: blogs, message: "Tips Fetched" });
+  } catch (error) {
+    ResUtil.internalError({
+      message: "Failed to retrieve blogs",
+      data: error,
+      res,
+    });
+  }
+};
+export const getBlogVideos = async (req: Request, res: Response) => {
+  const blogRepository = getRepository(Blog);
+
+  try {
+
+    const type = "video";
 
     // If the 'type' query exists, filter the blogs by type
     const blogs = await blogRepository.find({

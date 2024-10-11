@@ -10,6 +10,7 @@ import { SubCategory } from "./sub-category";
 import { Product } from "./product";
 import { SubSubCategory } from "./sub-sub-category";
 import { Filter, FilterValue } from "./filter";
+import { Discount } from "./discount";
 
 @Entity()
 export class Category {
@@ -39,4 +40,7 @@ export class Category {
   filters!: Filter[];
   @OneToMany(() => FilterValue, (filterValue) => filterValue.category)
   filterValues!: FilterValue[];
+
+  @ManyToMany(() => Discount, (discount) => discount.products)
+  discounts!: Discount[];
 }

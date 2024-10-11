@@ -21,7 +21,7 @@ export class Blog {
   content!: string;
 
   @Column()
-  type!: string; // tip,video .....card
+  type!: string; // tip,video,tutorial .....card
   
   @Column()
   status!: string; // draft,approved,active,inactive

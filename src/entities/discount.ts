@@ -5,7 +5,11 @@ import {
   BaseEntity,
   CreateDateColumn,
   UpdateDateColumn,
+  JoinTable,
+  ManyToMany,
 } from "typeorm";
+import { Product } from "./product";
+import { Category } from "./category";
 
 @Entity()
 export class Discount extends BaseEntity {
@@ -30,6 +34,14 @@ export class Discount extends BaseEntity {
   @Column({ type: "varchar", nullable: true })
   code!: string; // Promo code (e.g., 'SAVE20')
 
+  @ManyToMany(() => Product, (product) => product.discounts)
+  @JoinTable()
+  products!: Product[];
+
+  @ManyToMany(() => Category, (category) => category.discounts)
+  @JoinTable()
+  categories!: Category[];
+  
   @CreateDateColumn()
   createdAt!: Date;
 
