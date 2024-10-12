@@ -5,6 +5,7 @@ import {
   getProductsBySubCategoryId,
   getProductsBySubSubCategoryId,
   getProductsWithFilters,
+  searchProducts,
 } from "../../controllers/user/product";
 
 const router = Router();
@@ -16,6 +17,8 @@ router.get(
   "/sub_sub_category/:subSubCategoryId",
   getProductsBySubSubCategoryId
 );
+router.get("/search", searchProducts);
+
 router.get("/:productId", getProductDetailById);
 
 export default router;
