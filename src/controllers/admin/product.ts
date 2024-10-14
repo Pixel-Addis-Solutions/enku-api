@@ -18,9 +18,17 @@ import { Brand } from "../../entities/brand";
 export const getProducts = async (req: Request, res: Response) => {
   try {
     const productRepository = getRepository(Product);
-    const { page = 1, limit = 10, categoryId, subCategoryId, subSubCategoryId, search } = req.query;
+    const {
+      page = 1,
+      limit = 10,
+      categoryId,
+      subCategoryId,
+      subSubCategoryId,
+      search,
+    } = req.query;
 
-    const query = productRepository.createQueryBuilder("product")
+    const query = productRepository
+      .createQueryBuilder("product")
       .leftJoinAndSelect("product.variations", "variations")
       .leftJoinAndSelect("product.category", "category")
       .leftJoinAndSelect("product.subCategory", "subCategory")
@@ -41,12 +49,17 @@ export const getProducts = async (req: Request, res: Response) => {
 
     // Filter by subSubCategoryId
     if (subSubCategoryId) {
-      query.andWhere("subSubCategory.id = :subSubCategoryId", { subSubCategoryId });
+      query.andWhere("subSubCategory.id = :subSubCategoryId", {
+        subSubCategoryId,
+      });
     }
 
     // Filter by search term
     if (search) {
-      query.andWhere("product.name LIKE :search OR product.description LIKE :search", { search: `%${search}%` });
+      query.andWhere(
+        "product.name LIKE :search OR product.description LIKE :search",
+        { search: `%${search}%` }
+      );
     }
 
     const [products, total] = await query.getManyAndCount();
@@ -56,10 +69,10 @@ export const getProducts = async (req: Request, res: Response) => {
       name: product.name,
       description: product.description,
       imageUrl: product.imageUrl,
-      category: {id:product?.category?.id,name: product?.category?.name },
+      category: { id: product?.category?.id, name: product?.category?.name },
       variationsCount: product.variations.length,
-      rate: 4,  // Assuming this is hard-coded for now
-      reviewCount: 4333,  // Assuming this is hard-coded for now
+      rate: 4, // Assuming this is hard-coded for now
+      reviewCount: 4333, // Assuming this is hard-coded for now
     }));
 
     return ResUtil.success({
@@ -128,7 +141,12 @@ export const getProductById = async (req: Request, res: Response) => {
     const productRepository = getRepository(Product);
     const product = await productRepository.findOne({
       where: { id },
-      relations: ["category", "brand", "variations.optionValue.option","variations.images"],
+      relations: [
+        "category",
+        "brand",
+        "variations.optionValue.option",
+        "variations.images",
+      ],
     });
 
     if (!product) {
@@ -174,7 +192,6 @@ export const createProduct = async (req: Request, res: Response) => {
       metaKeywords,
       origin,
       certified,
-
     } = req.body;
     await entityManager.transaction(async (transactionalEntityManager) => {
       const productRepository =
@@ -204,7 +221,7 @@ export const createProduct = async (req: Request, res: Response) => {
         metaTitle,
         metaDescription,
         metaKeywords,
-        certified
+        certified,
       });
       await productRepository.save(product);
 
@@ -213,52 +230,54 @@ export const createProduct = async (req: Request, res: Response) => {
         await productImageRepository.save(image);
       }
 
-      for (const variation of variations) {
-        const {
-          sku,
-          title,
-          quantity,
-          price,
-          images: variationImages,
-          optionValues,
-          color,
-          isFeatured,
-        } = variation;
+      if (variations?.length) {
+        for (const variation of variations) {
+          const {
+            sku,
+            title,
+            quantity,
+            price,
+            images: variationImages,
+            optionValues,
+            color,
+            isFeatured,
+          } = variation;
 
-        const productVariation = productVariationRepository.create({
-          sku,
-          title,
-          quantity,
-          price,
-          product,
-          color,
-          isFeatured,
-        });
-        await productVariationRepository.save(productVariation);
-
-        for (const imageUrl of variationImages) {
-          const image = productImageRepository.create({
-            url: imageUrl,
-            variation: productVariation,
+          const productVariation = productVariationRepository.create({
+            sku,
+            title,
+            quantity,
+            price,
+            product,
+            color,
+            isFeatured,
           });
-          await productImageRepository.save(image);
-        }
+          await productVariationRepository.save(productVariation);
 
-        for (const optionValue of optionValues) {
-          const { option: optionName, value } = optionValue;
-
-          let option = await optionRepository.findOneBy({ name: optionName });
-          if (!option) {
-            option = optionRepository.create({ name: optionName });
-            await optionRepository.save(option);
+          for (const imageUrl of variationImages) {
+            const image = productImageRepository.create({
+              url: imageUrl,
+              variation: productVariation,
+            });
+            await productImageRepository.save(image);
           }
 
-          const optionValueEntity = optionValueRepository.create({
-            value,
-            option,
-            variation: productVariation,
-          });
-          await optionValueRepository.save(optionValueEntity);
+          for (const optionValue of optionValues) {
+            const { option: optionName, value } = optionValue;
+
+            let option = await optionRepository.findOneBy({ name: optionName });
+            if (!option) {
+              option = optionRepository.create({ name: optionName });
+              await optionRepository.save(option);
+            }
+
+            const optionValueEntity = optionValueRepository.create({
+              value,
+              option,
+              variation: productVariation,
+            });
+            await optionValueRepository.save(optionValueEntity);
+          }
         }
       }
     });
@@ -309,7 +328,7 @@ export const updateProduct = async (req: Request, res: Response) => {
     metaKeywords,
     certified,
     images,
-    color
+    color,
   } = req.body;
 
   const productRepository = getRepository(Product);
@@ -333,7 +352,13 @@ export const updateProduct = async (req: Request, res: Response) => {
     // Fetch the product to update
     const product = await productRepository.findOne({
       where: { id },
-      relations: ["category", "subCategory", "subSubCategory", "brand","images"],
+      relations: [
+        "category",
+        "subCategory",
+        "subSubCategory",
+        "brand",
+        "images",
+      ],
     });
 
     if (!product) {
@@ -366,7 +391,9 @@ export const updateProduct = async (req: Request, res: Response) => {
     }
 
     if (subCategoryId) {
-      const subCategory = await subCategoryRepository.findOneBy({ id: subCategoryId });
+      const subCategory = await subCategoryRepository.findOneBy({
+        id: subCategoryId,
+      });
       if (!subCategory) {
         return ResUtil.badRequest({ res, message: "Invalid subCategoryId" });
       }
@@ -374,7 +401,9 @@ export const updateProduct = async (req: Request, res: Response) => {
     }
 
     if (subSubCategoryId) {
-      const subSubCategory = await subSubCategoryRepository.findOneBy({ id: subSubCategoryId });
+      const subSubCategory = await subSubCategoryRepository.findOneBy({
+        id: subSubCategoryId,
+      });
       if (!subSubCategory) {
         return ResUtil.badRequest({ res, message: "Invalid subSubCategoryId" });
       }
@@ -415,7 +444,6 @@ export const updateProduct = async (req: Request, res: Response) => {
     });
   }
 };
-
 
 export const deleteProduct = async (req: Request, res: Response) => {
   try {

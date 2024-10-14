@@ -271,7 +271,7 @@ export const searchProducts = async (req: Request, res: Response) => {
         .orWhere("product.ingredients LIKE :keyword", {
           keyword: `%${keyword}%`,
         })
-        .orWhere("product.how_to_use LIKE :keyword", {
+        .orWhere("product.howToUse LIKE :keyword", {
           keyword: `%${keyword}%`,
         });
     }
