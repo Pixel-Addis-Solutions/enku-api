@@ -25,9 +25,12 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
+      - name: Install sshpass
+        run: sudo apt-get update && sudo apt-get install -y sshpass
+      
       - name: Connect via SSH and run commands
         run: |
-          echo "${{ secrets.ENKU_AWS_PASSWORD }}" | sshpass ssh -o StrictHostKeyChecking=no "${{ secrets.ENKU_AWS_USER }}@${{ secrets.ENKU_AWS_HOST }}" << 'EOF'
+          sshpass -p "${{ secrets.ENKU_AWS_PASSWORD }}" ssh -o StrictHostKeyChecking=no "${{ secrets.ENKU_AWS_USER }}@${{ secrets.ENKU_AWS_HOST }}" << 'EOF'
             # Commands to run on the server
             echo "${{ secrets.ENKU_AWS_PASSWORD }}" | sudo -S docker-compose pull
             echo "${{ secrets.ENKU_AWS_PASSWORD }}" | sudo -S docker-compose up -d
