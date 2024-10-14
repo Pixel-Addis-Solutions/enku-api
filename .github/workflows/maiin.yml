@@ -28,6 +28,6 @@ jobs:
           port: 22
           script: |
             sudo docker rmi -f drjseifu/enku-backend:latest
-            sudo docker-compose -f enku-docker-compose.yml up -d
+            sudo docker-compose up -d
         env:
           SSH_VERBOSE: "-vvv"
