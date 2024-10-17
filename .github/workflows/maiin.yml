@@ -1,8 +1,9 @@
-name: CICD
+name: CI/CD Pipeline
 
 on:
   push:
-    branches: main
+    branches:
+      - main
 
 jobs:
   build:
@@ -10,10 +11,13 @@ jobs:
     steps:
       - name: Checkout source
         uses: actions/checkout@v3
+      
       - name: Login to Docker Hub
         run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+      
       - name: Build Docker image
         run: docker build -t drjseifu/enku-backend .
+      
       - name: Publish Docker image
         run: docker push drjseifu/enku-backend:latest
 
@@ -21,15 +25,13 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - name: SSH into Enku AWS Server
-        uses: appleboy/ssh-action@v0.1.5
-        with:
-          host: ${{ secrets.ENKU_AWS_HOST }}
-          username: ${{ secrets.ENKU_AWS_USER }}
-          key: ${{ secrets.ENKU_SSH_PRIVATE_KEY }}
-          port: 22
-          script: |
-            sudo docker rmi -f drjseifu/enku-backend:latest
-            sudo docker-compose -f enku-docker-compose.yml up -d
-        env:
-          SSH_VERBOSE: "-vvv"
+      - name: Install sshpass
+        run: sudo apt-get update && sudo apt-get install -y sshpass
+      
+      - name: Connect via SSH and run commands
+        run: |
+          sshpass -p "${{ secrets.ENKU_AWS_PASSWORD }}" ssh -o StrictHostKeyChecking=no "${{ secrets.ENKU_AWS_USER }}@${{ secrets.ENKU_AWS_HOST }}" << 'EOF'
+            # Commands to run on the server
+            echo "${{ secrets.ENKU_AWS_PASSWORD }}" | sudo -S docker-compose pull
+            echo "${{ secrets.ENKU_AWS_PASSWORD }}" | sudo -S docker-compose up -d
+          EOF
