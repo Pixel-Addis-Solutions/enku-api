@@ -7,11 +7,14 @@ import cartRoutes from "./cart";
 import orderRoutes from "./order";
 import cardRoutes from "./card";
 import blogRoutes from "./blog";
+import discountRoutes from "./discount";
 
-import { getFilters, getFiltersForCategory } from "../../controllers/user/filter";
+import {
+  getFilters,
+  getFiltersForCategory,
+} from "../../controllers/user/filter";
 import { getHomePageData } from "../../controllers/user/home";
 import loyaltyProgramsRoutes from "./loyalty-program";
-
 
 const router = Router();
 
@@ -27,7 +30,7 @@ router.use("/filters", getFilters);
 router.use("/home", getHomePageData);
 router.use("/loyalty_programs", loyaltyProgramsRoutes);
 router.use("/cards", cardRoutes);
+router.use("/discounts", discountRoutes);
 router.use("/", blogRoutes);
-
 
 export default router;
