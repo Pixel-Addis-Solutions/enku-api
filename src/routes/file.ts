@@ -3,6 +3,7 @@ import { multipleUpload, singleUpload } from "../middlewares/upload.middleware";
 import { File } from "../entities/file";
 import { unlinkFile } from "../helper/reused-methods";
 import path from "path";
+import fs from "fs";
 import { getRepository } from "../data-source";
 const router = express.Router();
 const fileRepository = getRepository(File);
@@ -32,11 +33,15 @@ router.get("/:id", async (req, res) => {
       return res.status(400).json({ message: "file not found" });
     }
     const filePath = path.resolve(__dirname, "..", "..", "uploads", file.name);
-    return res.sendFile(filePath);
+    if (fs.existsSync(filePath)) {
+      return res.sendFile(filePath);
+    } else {
+      return null;
+    }
     // return res.json(`${process.env?.API}/${file?.name}`);
   } catch (error) {
     console.log("file get", error);
-    return res.status(500).json({ message: "error while getting file" });
+    return res.status(200).json({ message: "error while getting file" });
   }
 });
 router.delete("/:id", async (req, res) => {
