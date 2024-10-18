@@ -36,7 +36,7 @@ router.get("/:id", async (req, res) => {
     if (fs.existsSync(filePath)) {
       return res.sendFile(filePath);
     } else {
-      return null;
+      return res.status(200).json(null);
     }
     // return res.json(`${process.env?.API}/${file?.name}`);
   } catch (error) {
