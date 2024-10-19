@@ -34,6 +34,9 @@ export class Discount extends BaseEntity {
   @Column({ type: "varchar", nullable: true })
   code!: string; // Promo code (e.g., 'SAVE20')
 
+  @Column({ type: "varchar", nullable: true })
+  ima!: string; // Promo code (e.g., 'SAVE20')
+
   @ManyToMany(() => Product, (product) => product.discounts)
   @JoinTable()
   products!: Product[];

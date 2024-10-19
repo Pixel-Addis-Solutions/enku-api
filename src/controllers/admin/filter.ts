@@ -39,6 +39,64 @@ export const createFilter = async (req: Request, res: Response) => {
   }
 };
 
+export const updateFilter = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params; // Get the filter ID from the request params
+    const { name, categoryIds } = req.body; // Get updated name and categories from the request body
+
+    const filterRepository = getRepository(Filter);
+    const categoryRepository = getRepository(Category);
+
+    // Find the existing filter by ID
+    const existingFilter = await filterRepository.findOne({
+      where: { id },
+      relations: ["categories"], // Load existing categories for this filter
+    });
+
+    if (!existingFilter) {
+      return ResUtil.notFound({
+        res,
+        message: "Filter not found",
+      });
+    }
+
+    // Fetch the new categories to be associated with the filter
+    const categories = await categoryRepository.find({
+      where: {
+        id: In(categoryIds),
+      },
+    });
+
+    if (categories.length === 0) {
+      return ResUtil.badRequest({
+        res,
+        message: "No valid categories found",
+      });
+    }
+
+    // Update the filter properties
+    existingFilter.name = name || existingFilter.name;
+    existingFilter.categories = categories;
+
+    // Save the updated filter to the database
+    const updatedFilter = await filterRepository.save(existingFilter);
+
+    return ResUtil.success({
+      res,
+      message: "Filter updated successfully",
+      data: updatedFilter,
+    });
+  } catch (error) {
+    logger.error(`Error updating filter: ${error}`);
+    return ResUtil.internalError({
+      res,
+      message: "Error updating filter",
+      data: error,
+    });
+  }
+};
+
+
 // Get all filters
 export const getFilters = async (req: Request, res: Response) => {
   try {
