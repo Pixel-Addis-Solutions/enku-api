@@ -199,36 +199,36 @@ export const getProductsWithFilters = async (req: Request, res: Response) => {
         brands: Array.isArray(brand) ? brand : [brand],
       });
     }
-    // if (filters) {
-    //   const valueIdsArray = (filters as string).split(",");
-    //   queryBuilder.andWhere("productFilter.id IN (:...filterIds)", {
-    //     filterIds: Array.isArray(valueIdsArray)
-    //       ? valueIdsArray
-    //       : [valueIdsArray],
-    //   });
-    // }
-
-    // Ensure all filter IDs are matched
     if (filters) {
       const valueIdsArray = (filters as string).split(",");
-
-      // Use subquery to ensure all filter IDs match for each product
-      queryBuilder.andWhere((qb) => {
-        const subQuery = qb
-          .subQuery()
-          .select("productFilter.productId")
-          .from("productFilter", "productFilter")
-          .where("productFilter.id IN (:...filterIds)", {
-            filterIds: valueIdsArray,
-          })
-          .groupBy("productFilter.productId")
-          .having("COUNT(productFilter.id) = :filterCount", {
-            filterCount: valueIdsArray.length,
-          })
-          .getQuery();
-        return `product.id IN (${subQuery})`;
+      queryBuilder.andWhere("productFilter.id IN (:...filterIds)", {
+        filterIds: Array.isArray(valueIdsArray)
+          ? valueIdsArray
+          : [valueIdsArray],
       });
     }
+
+    // Ensure all filter IDs are matched
+    // if (filters) {
+    //   const valueIdsArray = (filters as string).split(",");
+
+    //   // Use subquery to ensure all filter IDs match for each product
+    //   queryBuilder.andWhere((qb) => {
+    //     const subQuery = qb
+    //       .subQuery()
+    //       .select("productFilter.productId")
+    //       .from("productFilter", "productFilter")
+    //       .where("productFilter.id IN (:...filterIds)", {
+    //         filterIds: valueIdsArray,
+    //       })
+    //       .groupBy("productFilter.productId")
+    //       .having("COUNT(productFilter.id) = :filterCount", {
+    //         filterCount: valueIdsArray.length,
+    //       })
+    //       .getQuery();
+    //     return `product.id IN (${subQuery})`;
+    //   });
+    // }
 
     // Apply search functionality
     if (search) {
