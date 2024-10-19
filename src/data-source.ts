@@ -67,6 +67,8 @@ export const AppDataSource = new DataSource({
     HomePageCard
   ],
   migrations: [],
+  timezone:'Z'
+  
 }); 
 export const getRepository = (model: EntityTarget<any>) =>
   AppDataSource.getRepository(model);

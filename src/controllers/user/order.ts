@@ -73,7 +73,8 @@ export const createOrder = async (req: Request | any, res: Response) => {
 
       // Calculate total order amount
       const total = cart.items.reduce(
-        (acc: any, item: any) => acc + item.product.price * item.quantity,
+        (acc: any, item: any) =>
+          acc + (item.variation.price || item.product.price) * item.quantity,
         0
       );
 
@@ -95,7 +96,9 @@ export const createOrder = async (req: Request | any, res: Response) => {
           product: cartItem.product,
           variation: cartItem.variation,
           quantity: cartItem.quantity,
-          price: cartItem.variation ? cartItem.variation.price : cartItem.product.price,
+          price: cartItem.variation
+            ? cartItem.variation.price
+            : cartItem.product.price,
         });
         await orderItemRepository.save(orderItem);
       }
@@ -130,10 +133,16 @@ export const getOrders = async (req: any, res: Response) => {
 
   try {
     const orderRepository = getRepository(Order);
-    
+
     const orders = await orderRepository.find({
       where: { customer: { id: customerId } },
-      relations: ["customer", "items", "items.product", "items.variation","items.variation.optionValues.option"],
+      relations: [
+        "customer",
+        "items",
+        "items.product",
+        "items.variation",
+        "items.variation.optionValues.option",
+      ],
     });
 
     return ResUtil.success({
@@ -203,11 +212,15 @@ export const buyNow = async (req: Request | any, res: Response) => {
 
   try {
     await entityManager.transaction(async (transactionalEntityManager) => {
-      const productRepository = transactionalEntityManager.getRepository(Product);
+      const productRepository =
+        transactionalEntityManager.getRepository(Product);
       const orderRepository = transactionalEntityManager.getRepository(Order);
-      const orderItemRepository = transactionalEntityManager.getRepository(OrderItem);
-      const customerRepository = transactionalEntityManager.getRepository(Customer);
-      const variationRepository = transactionalEntityManager.getRepository(ProductVariation);
+      const orderItemRepository =
+        transactionalEntityManager.getRepository(OrderItem);
+      const customerRepository =
+        transactionalEntityManager.getRepository(Customer);
+      const variationRepository =
+        transactionalEntityManager.getRepository(ProductVariation);
 
       // Retrieve the product
       const product = await productRepository.findOne({
@@ -218,15 +231,15 @@ export const buyNow = async (req: Request | any, res: Response) => {
         throw new Error("Product not found");
       }
 
-          // Retrieve the variation
-          const variation = await variationRepository.findOne({
-            where: { id: variationId, product: { id: productId } },
-          });
-    
-          if (!variation) {
-            throw new Error("Variation not found");
-          }
-    
+      // Retrieve the variation
+      const variation = await variationRepository.findOne({
+        where: { id: variationId, product: { id: productId } },
+      });
+
+      if (!variation) {
+        throw new Error("Variation not found");
+      }
+
       // Handle customer identification
       if (!customerId && sessionId) {
         let customer = await customerRepository.findOneBy({
@@ -251,7 +264,7 @@ export const buyNow = async (req: Request | any, res: Response) => {
 
       // Create the order
       const order = orderRepository.create({
-        customer:customerId ,
+        customer: customerId,
         total,
         items: [],
         shippingPhoneNumber,
