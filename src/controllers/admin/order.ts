@@ -5,11 +5,7 @@ import { ResUtil } from "../../helper/response.helper";
 import logger from "../../util/logger";
 
 export const getAllOrders = async (req: any, res: Response) => {
-  const customerId = req.customer?.id;
 
-  if (!customerId) {
-    return ResUtil.unAuthorized({ res, message: "Customer not logged in" });
-  }
 
   try {
     const {
@@ -22,7 +18,6 @@ export const getAllOrders = async (req: any, res: Response) => {
     const orderRepository = getRepository(Order);
 
     const [orders, total] = await orderRepository.findAndCount({
-      where: { customer: { id: customerId } },
       relations: [
         "customer",
         "items",
