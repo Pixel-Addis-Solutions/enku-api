@@ -30,7 +30,6 @@ export const getBlogVideos = async (req: Request, res: Response) => {
   const blogRepository = getRepository(Blog);
 
   try {
-
     const type = "video";
 
     // If the 'type' query exists, filter the blogs by type
@@ -68,6 +67,41 @@ export const getBlogDetail = async (req: Request, res: Response) => {
   } catch (error) {
     ResUtil.internalError({
       message: "Failed to retrieve blog",
+      data: error,
+      res,
+    });
+  }
+};
+
+export const getAll = async (req: Request, res: Response) => {
+  try {
+    const { type, page = 1, limit = 10 } = req.query;
+
+    const blogRepository = getRepository(Blog);
+
+    const [blogs, total] = await blogRepository.findAndCount({
+      where: type ? { type: type } : {}, // Filter by 'type' if it exists
+      order: { id: "DESC" }, // Sort blogs by ID (newest first)
+      skip: (Number(page) - 1) * Number(limit), // Skip items for pagination
+      take: Number(limit), // Limit the number of items
+    });
+
+    const totalPages = Math.ceil(total / Number(limit));
+
+    return ResUtil.success({
+      res,
+      data: blogs,
+      message: "Blogs fetched successfully",
+      meta: {
+        total,
+        totalPages,
+        currentPage: Number(page),
+        itemsPerPage: Number(limit),
+      },
+    });
+  } catch (error) {
+    return ResUtil.internalError({
+      message: "Error fetching blogs",
       data: error,
       res,
     });
