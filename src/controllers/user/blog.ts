@@ -75,16 +75,29 @@ export const getBlogDetail = async (req: Request, res: Response) => {
 
 export const getAll = async (req: Request, res: Response) => {
   try {
-    const { type, page = 1, limit = 10 } = req.query;
+    const { type, page = 1, limit = 10, search } = req.query;
 
     const blogRepository = getRepository(Blog);
 
-    const [blogs, total] = await blogRepository.findAndCount({
-      where: type ? { type: type } : {}, // Filter by 'type' if it exists
-      order: { id: "DESC" }, // Sort blogs by ID (newest first)
-      skip: (Number(page) - 1) * Number(limit), // Skip items for pagination
-      take: Number(limit), // Limit the number of items
-    });
+    const queryBuilder = blogRepository.createQueryBuilder("blog")
+      .orderBy("blog.id", "DESC") // Sort blogs by ID (newest first)
+      .skip((Number(page) - 1) * Number(limit)) // Skip items for pagination
+      .take(Number(limit)); // Limit the number of items
+
+    // Apply filters
+    if (type) {
+      queryBuilder.andWhere("blog.type = :type", { type });
+    }
+
+    // Apply search functionality
+    if (search) {
+      queryBuilder.andWhere(
+        "(blog.title LIKE :search OR blog.description LIKE :search)",
+        { search: `%${search}%` }
+      );
+    }
+
+    const [blogs, total] = await queryBuilder.getManyAndCount();
 
     const totalPages = Math.ceil(total / Number(limit));
 
@@ -107,3 +120,4 @@ export const getAll = async (req: Request, res: Response) => {
     });
   }
 };
+
