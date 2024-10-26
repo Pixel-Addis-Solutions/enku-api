@@ -4,6 +4,7 @@ import { ResUtil } from "../../helper/response.helper";
 import logger from "../../util/logger";
 import { getRepository } from "../../data-source";
 import { Cart } from "../../entities/cart";
+import { Customer } from "../../entities/customer";
 
 export const registerCustomer = async (req: Request, res: Response) => {
   try {
@@ -61,4 +62,20 @@ export const loginCustomer = async (req: any, res: Response) => {
       data: error,
     });
   }
+};
+
+export const getCustomerById = async (req: Request, res: Response) => {
+  const customerRepository = getRepository(Customer);
+  const customer = await customerRepository.findOneBy({
+    id: req.params.id as string,
+  }); // Adjust based on how you fetch customer data
+
+  if (!customer) {
+    throw new Error("Customer not found");
+  }
+  return ResUtil.success({
+    res,
+    message: "Customer logged in successfully",
+    data: customer,
+  });
 };
