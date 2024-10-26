@@ -3,6 +3,7 @@ import {
   registerCustomer,
   loginCustomer,
   getCustomerById,
+  updateCustomer,
 } from "../../controllers/user/customer";
 
 const router = Router();
@@ -10,5 +11,6 @@ const router = Router();
 router.post("/register", registerCustomer);
 router.post("/login", loginCustomer);
 router.get("/me", getCustomerById);
+router.put("/me", updateCustomer);
 
 export default router;
