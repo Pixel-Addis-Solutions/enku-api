@@ -8,7 +8,7 @@ import { Product } from "../../entities/product";
 export const createDiscount = async (req: Request, res: Response) => {
   try {
     const discountRepo = getRepository(Discount);
-    const { type, value, startDate, endDate, status, code } = req.body;
+    const { type, value, startDate, endDate, status, code,image } = req.body;
 
     // Create a new discount
     const discount = discountRepo.create({
@@ -18,6 +18,7 @@ export const createDiscount = async (req: Request, res: Response) => {
       endDate,
       status: status,
       code,
+      image
     });
 
     await discountRepo.save(discount);
@@ -48,7 +49,7 @@ export const updateDiscount = async (req: Request, res: Response) => {
   try {
     const discountRepo = getRepository(Discount);
     const { id } = req.params; // Assuming you're sending the discount ID as a URL parameter
-    const { type, value, startDate, endDate, status, code } = req.body;
+    const { type, value, startDate, endDate, status, code,image } = req.body;
 
     // Find the discount by ID
     const discount = await discountRepo.findOne({
@@ -68,6 +69,7 @@ export const updateDiscount = async (req: Request, res: Response) => {
     discount.endDate = endDate ?? discount.endDate;
     discount.status = status ?? discount.status;
     discount.code = code ?? discount.code;
+    discount.image = image ?? discount.image;
 
     // Save the updated discount
     await discountRepo.save(discount);
