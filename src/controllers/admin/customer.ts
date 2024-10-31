@@ -10,17 +10,27 @@ const customerRepository = getRepository(Customer);
 
 export const getAllCustomers = async (req: Request, res: Response) => {
   try {
-    // Retrieve the customers
-    const customers = await customerRepository.find();
-    logger.info(`customers retrieved successfully:`);
-    ResUtil.success({
+    // Retrieve the customers without the password field
+    const customers = await customerRepository.find({
+      select: [
+        "id",
+        "fullName",
+        "phoneNumber",
+        "email",
+        "createdAt",
+        "updatedAt",
+      ],
+    });
+
+    logger.info(`Customers retrieved successfully`);
+    return ResUtil.success({
       res,
-      message: "customers retrieved successfully",
+      message: "Customers retrieved successfully",
       data: customers,
     });
   } catch (error: unknown) {
-    logger.error(`Error retrieving customers`, error);
-    ResUtil.internalError({
+    logger.error(`Error retrieving customers:`, error);
+    return ResUtil.internalError({
       res,
       message: "Error retrieving customers",
       data: error,
