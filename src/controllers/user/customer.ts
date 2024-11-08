@@ -79,8 +79,8 @@ export const loginCustomer = async (req: any, res: Response) => {
   try {
     const { phoneNumber, password } = req.body;
 
-    console.log('reeee',phoneNumber);
-    
+    console.log("reeee", phoneNumber);
+
     const { customer, token } = await CustomerService.login(
       phoneNumber,
       "123456"
@@ -116,6 +116,9 @@ export const loginCustomer = async (req: any, res: Response) => {
 
 export const getCustomerById = async (req: Request, res: Response) => {
   const customerRepository = getRepository(Customer);
+  if (!req.params.id) {
+    return;
+  }
   const customer = await customerRepository.findOneBy({
     id: req.params.id as string,
   }); // Adjust based on how you fetch customer data
