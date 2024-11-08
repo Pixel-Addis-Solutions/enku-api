@@ -35,6 +35,9 @@ export const updateCustomer = async (req: Request, res: Response) => {
     const { phoneNumber, fullName, email, password } = req.body;
 
     const userId = req.params.id;
+    if (!userId) {
+      return;
+    }
     const customerRepository = getRepository(Customer);
 
     const customer = (await customerRepository.findOne({

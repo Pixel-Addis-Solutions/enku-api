@@ -11,6 +11,6 @@ const router = Router();
 router.post("/register", registerCustomer);
 router.post("/login", loginCustomer);
 router.get("/me/:id", getCustomerById);
-router.put("/me", updateCustomer);
+router.put("/me/:id", updateCustomer);
 
 export default router;
