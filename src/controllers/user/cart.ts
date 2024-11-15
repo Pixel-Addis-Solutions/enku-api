@@ -219,6 +219,9 @@ export const updateCartItem = async (req: any, res: Response) => {
   const sessionId = req.headers["sessionid"];
   const userId = req.user?.id;
 
+  console.log("itemIditemId", itemId);
+  console.log("userId", userId);
+
   try {
     const cartItemRepository = getRepository(CartItem);
 
@@ -226,12 +229,9 @@ export const updateCartItem = async (req: any, res: Response) => {
       where: { id: itemId },
       relations: ["cart"],
     });
+    console.log("itd", cartItem);
 
-    if (
-      !cartItem ||
-      (cartItem.cart.sessionId !== sessionId &&
-        cartItem.cart.customerId !== userId)
-    ) {
+    if (!cartItem) {
       return ResUtil.notFound({ res, message: "Cart item not found" });
     }
 
