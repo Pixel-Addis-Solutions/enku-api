@@ -168,7 +168,7 @@ export const getCartItems = async (req: any, res: Response) => {
     let cart;
     if (userId) {
       cart = await cartRepository.findOne({
-        where: { customerId:userId },
+        where: { customerId: userId },
         relations: [
           "items",
           "items.variation.images",
@@ -189,7 +189,14 @@ export const getCartItems = async (req: any, res: Response) => {
     console.log("carts", cart);
 
     if (!cart) {
-      return ResUtil.notFound({ res, message: "Cart not found" });
+      let sessionCart = cartRepository.create({ sessionId });
+      sessionCart = await cartRepository.save(sessionCart);
+      return ResUtil.success({
+        res,
+        message: "Cart items fetched successfully",
+        data: { cartId: sessionCart.id, items: [] },
+      });
+      // return ResUtil.notFound({ res, message: "Cart not found" });
     }
 
     return ResUtil.success({
@@ -222,7 +229,8 @@ export const updateCartItem = async (req: any, res: Response) => {
 
     if (
       !cartItem ||
-      (cartItem.cart.sessionId !== sessionId && cartItem.cart.customerId !== userId)
+      (cartItem.cart.sessionId !== sessionId &&
+        cartItem.cart.customerId !== userId)
     ) {
       return ResUtil.notFound({ res, message: "Cart item not found" });
     }
@@ -241,7 +249,7 @@ export const updateCartItem = async (req: any, res: Response) => {
       res,
       message: "Error updating cart item",
       data: error,
-    }); 
+    });
   }
 };
 
