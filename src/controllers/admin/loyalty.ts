@@ -15,7 +15,7 @@ export class LoyaltyController {
       }
 
       const loyaltyPoints = new LoyaltyPoints();
-      loyaltyPoints.user = user;
+      loyaltyPoints.customer = user;
       loyaltyPoints.points = points;
       loyaltyPoints.reason = description;
 
