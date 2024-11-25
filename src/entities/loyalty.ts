@@ -8,6 +8,7 @@ import {
 } from "typeorm";
 import { User } from "./user"; // Assuming you have a User entity
 import { LoyaltyProgram } from "./loyalty-program";
+import { Customer } from "./customer";
 
 
 @Entity()
@@ -15,8 +16,8 @@ export class LoyaltyPoints {
   @PrimaryGeneratedColumn()
   id!: number;
 
-  @ManyToOne(() => User, (user) => user.loyaltyPoints, { onDelete: 'CASCADE' })
-  user!: User;
+  @ManyToOne(() => Customer, (customer) => customer.loyaltyPoints, { onDelete: 'CASCADE' })
+  customer!: Customer;
 
   @ManyToOne(() => LoyaltyProgram, (loyaltyProgram) => loyaltyProgram.id)
   loyaltyProgram!: LoyaltyProgram;

@@ -11,7 +11,7 @@ import { Product } from "./product";
 
 @Entity()
 export class SubCategory {
-  @PrimaryGeneratedColumn('increment')
+  @PrimaryGeneratedColumn('uuid')
   id!: string;
 
   @ManyToOne(() => Product, (product) => product.subCategory)

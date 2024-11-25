@@ -8,7 +8,7 @@ import {
 
 @Entity()
 export class Blog {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn("uuid")
   id!: number;
 
   @Column()

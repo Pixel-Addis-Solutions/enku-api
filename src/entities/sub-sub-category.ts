@@ -6,7 +6,7 @@ import { Product } from "./product";
 
 @Entity()
 export class SubSubCategory {
-  @PrimaryGeneratedColumn("increment")
+  @PrimaryGeneratedColumn("uuid")
   id!: string;
 
   @Column()

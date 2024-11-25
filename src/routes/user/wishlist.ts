@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { addProductToWishlist, removeProductFromWishlist, getWishlist } from '../../controllers/user/wishlist';
-import { authenticateCustomer } from '../../middlewares/authenticate-customer';
+import { authenticateCustomer } from '../../middlewares/authenticate';
 
 const router = Router();
 

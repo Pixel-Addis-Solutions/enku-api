@@ -36,9 +36,10 @@ const seed = async () => {
     // Create user and assign role
     const adminUser = new User();
     adminUser.email = "admin@admin.com";
+    adminUser.fullName = "admin admin";
     adminUser.password = await bcrypt.hash("123456", 10);
     adminUser.role = savedAdminRole;
-
+ 
     await userRepository.save(adminUser);
 
     console.log("Seeding completed");

@@ -12,7 +12,7 @@ import { CartItem } from "./cart-item";
 
 @Entity()
 export class ProductVariation {
-  @PrimaryGeneratedColumn("increment")
+  @PrimaryGeneratedColumn("uuid")
   id!: string;
 
   @Column({ nullable: true })

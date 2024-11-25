@@ -6,7 +6,7 @@ import {
   buyNow,
 } from "../../controllers/user/order";
 import { authenticate } from "../../middlewares/customer-login";
-import { authenticateCustomer } from "../../middlewares/authenticate-customer";
+import { authenticateCustomer } from "../../middlewares/authenticate";
 
 const router = Router();
 

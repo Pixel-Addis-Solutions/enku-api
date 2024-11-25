@@ -3,7 +3,7 @@ import { Product } from './product';
 
 @Entity()
 export class Brand {
-  @PrimaryGeneratedColumn('increment')
+  @PrimaryGeneratedColumn('uuid')
   id!: string;
 
   @Column({ type: 'varchar', length: 255 })

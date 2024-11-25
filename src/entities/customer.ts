@@ -7,6 +7,7 @@ import {
   OneToMany,
 } from "typeorm";
 import { Order } from "./order";
+import { LoyaltyPoints } from "./loyalty";
 
 @Entity()
 export class Customer {
@@ -24,6 +25,9 @@ export class Customer {
 
   @Column({ type: "varchar", length: 255, nullable: true })
   password!: string; // You might use a hashed password if needed
+
+  @OneToMany(() => LoyaltyPoints, (loyaltyPoint) => loyaltyPoint.customer)
+  loyaltyPoints!: LoyaltyPoints[];
 
   @OneToMany(() => Order, (order) => order.customer)
   orders!: Order[];

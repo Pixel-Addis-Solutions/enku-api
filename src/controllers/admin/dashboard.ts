@@ -7,6 +7,8 @@ import { Review } from "../../entities/review";
 import { ResUtil } from "../../helper/response.helper";
 import { User } from "../../entities/user";
 import { Category } from "../../entities/category";
+import logger from "../../util/logger";
+import { OrderItem } from "../../entities/order-item";
 
 export const getDashboardData = async (req: Request, res: Response) => {
   try {
@@ -65,10 +67,15 @@ export const getDashboardData = async (req: Request, res: Response) => {
       .leftJoinAndSelect("product.items", "orderItem")
       .groupBy("product.id")
       .orderBy("SUM(orderItem.quantity)", "DESC")
-      .select(["product.id", "product.name", "orderItem.id", "orderItem.quantity"])
+      .select([
+        "product.id",
+        "product.name",
+        "orderItem.id",
+        "orderItem.quantity",
+      ])
       .limit(5)
       .getMany();
- 
+
     // 7. Low Stock Products
     const lowStockProducts = await getRepository(Product)
       .createQueryBuilder("product")
@@ -118,6 +125,110 @@ export const getDashboardData = async (req: Request, res: Response) => {
     return ResUtil.internalError({
       res,
       message: "Failed to fetch dashboard data",
+    });
+  }
+};
+
+// Get top selling products
+export const getTopSellingProducts = async (req: Request, res: Response) => {
+  try {
+    const orderItemRepository = getRepository(OrderItem);
+
+    // Aggregate the total quantity and total price for each product sold, including product variations
+    const topSellingProducts = await orderItemRepository
+      .createQueryBuilder("orderItem")
+      .leftJoinAndSelect("orderItem.product", "product") // Join with Product table
+      .leftJoinAndSelect("orderItem.variation", "variation") // Join with ProductVariation table
+      .select([
+        "product.id",
+        "product.name",
+        "product.price",
+        "variation.id AS variationId",
+        "variation.title AS variationName",
+        "SUM(orderItem.quantity) AS totalQuantity", // Aggregate quantity sold
+        "SUM(orderItem.price * orderItem.quantity) AS totalRevenue", // Aggregate total revenue
+      ])
+      .groupBy("product.id, variation.id") // Group by product and variation
+      .orderBy("totalQuantity", "DESC") // Order by quantity sold
+      .limit(10) // Limit to top 10 products
+      .getRawMany();
+
+    logger.info("Top selling products fetched successfully");
+    return res.status(200).json({
+      message: "Top selling products fetched successfully",
+      data: topSellingProducts,
+    });
+  } catch (error) {
+    logger.error("Error fetching top selling products", error);
+    return res.status(500).json({
+      message: "Error fetching top selling products",
+      data: error,
+    });
+  }
+};
+
+// Get top liked products (assuming this data comes from product feedback or ratings)
+export const getTopLikedProducts = async (req: Request, res: Response) => {
+  try {
+    const productRepository = getRepository(Product);
+
+    // Assuming `likes` is a field that stores the number of likes or ratings.
+    const topLikedProducts = await productRepository
+      .createQueryBuilder("product")
+      .orderBy("product.likes", "DESC")
+      .limit(5)
+      .getMany();
+
+    logger.info("Top liked products fetched");
+    return ResUtil.success({
+      res,
+      message: "Top liked products fetched successfully",
+      data: topLikedProducts,
+    });
+  } catch (error) {
+    logger.error("Error fetching top liked products", error);
+    return ResUtil.internalError({
+      res,
+      message: "Error fetching top liked products",
+      data: error,
+    });
+  }
+};
+
+// Get order analytics (by year and month)
+export const getOrderAnalytics = async (req: Request, res: Response) => {
+  try {
+    const { year } = req.query;
+
+    const orderRepository = getRepository(Order);
+
+    // Fetch orders and calculate monthly data for the selected year
+    const orderAnalytics = await orderRepository
+      .createQueryBuilder("order")
+      .select([
+        "EXTRACT(MONTH FROM order.createdAt) AS month",
+        "COUNT(order.id) AS totalOrders",
+        "SUM(order.total) AS totalRevenue",
+        "SUM(CASE WHEN order.status = 'Completed' THEN 1 ELSE 0 END) AS completedOrders",
+        "SUM(CASE WHEN order.status = 'Canceled' THEN 1 ELSE 0 END) AS canceledOrders",
+      ])
+      .where("EXTRACT(YEAR FROM order.createdAt) = :year", { year })
+      .groupBy("month")
+      .orderBy("month")
+      .getRawMany();
+
+    logger.info(`Order analytics for year ${year} fetched`);
+    return ResUtil.success({
+      res,
+      message: "Order analytics fetched successfully",
+      data: orderAnalytics,
+    });
+  } catch (error) {
+    logger.error("Error fetching order analytics", error);
+    return ResUtil.internalError({
+      res,
+      message: "Error fetching order analytics",
+      data: error,
     });
   }
 };

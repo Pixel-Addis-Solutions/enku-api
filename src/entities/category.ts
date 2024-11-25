@@ -14,7 +14,7 @@ import { Discount } from "./discount";
 
 @Entity()
 export class Category {
-  @PrimaryGeneratedColumn("increment")
+  @PrimaryGeneratedColumn("uuid")
   id!: string;
 
   @Column()

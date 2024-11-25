@@ -30,7 +30,7 @@ export class Filter {
 // FilterValue Entity
 @Entity()
 export class FilterValue {
-  @PrimaryGeneratedColumn("increment")
+  @PrimaryGeneratedColumn("uuid")
   id!: string;
 
   @Column({ type: "varchar", length: 255 })

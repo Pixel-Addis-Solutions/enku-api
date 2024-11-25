@@ -8,10 +8,13 @@ import {
   getProductDetail,
   assignFilterValuesToProduct,
 } from "../../controllers/admin/product";
+import { getTopSellingProducts } from "../../controllers/admin/dashboard";
 
 const router = Router();
 
 router.get("/", getProducts);
+
+router.get("/:top-selling", getTopSellingProducts);
 router.get("/:id", getProductDetail);
 router.post("/", createProduct);
 router.put("/:id", updateProduct);

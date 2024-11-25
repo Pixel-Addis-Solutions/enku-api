@@ -21,7 +21,7 @@ import { Discount } from "./discount";
 
 @Entity()
 export class Product extends BaseEntity {
-  @PrimaryGeneratedColumn("increment")
+  @PrimaryGeneratedColumn("uuid")
   id!: string;
 
   @Column({ type: "varchar", length: 255 })
