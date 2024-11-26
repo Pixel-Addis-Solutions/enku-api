@@ -33,6 +33,8 @@ jobs:
           sshpass -p "${{ secrets.ENKU_AWS_PASSWORD }}" ssh -o StrictHostKeyChecking=no "${{ secrets.ENKU_AWS_USER }}@${{ secrets.ENKU_AWS_HOST }}" << 'EOF'
             # Commands to run on the server
             echo "${{ secrets.ENKU_AWS_PASSWORD }}" | sudo -S docker-compose pull
+               # Remove any old or unused images to free up space
+            echo "${{ secrets.ENKU_AWS_PASSWORD }}" | sudo -S docker image prune -af
             echo "${{ secrets.ENKU_AWS_PASSWORD }}" | sudo -S docker-compose down --remove-orphans	
             echo "${{ secrets.ENKU_AWS_PASSWORD }}" | sudo -S docker-compose up -d
           EOF
