@@ -4,6 +4,7 @@ import { User } from "../entities/user";
 import { Role } from "../entities/role";
 import { Permission } from "../entities/permission";
 import bcrypt from "bcrypt";
+
 const seed = async () => {
   try {
     await AppDataSource.initialize();
@@ -11,10 +12,9 @@ const seed = async () => {
     const userRepository = AppDataSource.getRepository(User);
     const roleRepository = AppDataSource.getRepository(Role);
     const permissionRepository = AppDataSource.getRepository(Permission);
- 
-    // Create permissions
+
     const permissions = [
-      { name: "create-Category" }, 
+      { name: "create-Category" },
       { name: "view-Category" },
       { name: "update-Category" },
       { name: "delete-Category" },
@@ -24,23 +24,37 @@ const seed = async () => {
       { name: "delete-User" },
     ];
 
-    const savedPermissions = await permissionRepository.save(permissions);
+    // Save permissions only if they don't exist in the database
+    const savedPermissions = [];
+    for (const permission of permissions) {
+      const existingPermission = await permissionRepository.findOne({ where: { name: permission.name } });
+      if (!existingPermission) {
+        const newPermission = permissionRepository.create(permission);
+        savedPermissions.push(await permissionRepository.save(newPermission));
+      } else {
+        savedPermissions.push(existingPermission);
+      }
+    }
 
-    // Create role and assign permissions
-    const adminRole = new Role();
-    adminRole.name = "admin";
-    adminRole.permissions = savedPermissions;
+    // Check if the admin role already exists
+    let adminRole = await roleRepository.findOne({where: { name: "admin"} });
+    if (!adminRole) {
+      adminRole = new Role();
+      adminRole.name = "admin";
+      adminRole.permissions = savedPermissions;
+      adminRole = await roleRepository.save(adminRole);
+    }
 
-    const savedAdminRole = await roleRepository.save(adminRole);
-
-    // Create user and assign role
-    const adminUser = new User();
-    adminUser.email = "admin@admin.com";
-    adminUser.fullName = "admin admin";
-    adminUser.password = await bcrypt.hash("123456", 10);
-    adminUser.role = savedAdminRole;
- 
-    await userRepository.save(adminUser);
+    // Check if the admin user already exists
+    let adminUser = await userRepository.findOne({ where: { email: "admin@admin.com" }} );
+    if (!adminUser) {
+      adminUser = new User();
+      adminUser.email = "admin@admin.com";
+      adminUser.fullName = "admin admin";
+      adminUser.password = await bcrypt.hash("123456", 10);
+      adminUser.role = adminRole;
+      adminUser = await userRepository.save(adminUser);
+    }
 
     console.log("Seeding completed");
   } catch (error) {
