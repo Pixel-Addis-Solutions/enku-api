@@ -20,21 +20,18 @@ jobs:
       
       - name: Publish Docker image
         run: docker push drjseifu/enku-backend:latest
-
+        
   deploy:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - name: Install sshpass
-        run: sudo apt-get update && sudo apt-get install -y sshpass
-      
-      - name: Connect via SSH and run commands
-        run: |
-          sshpass -p "${{ secrets.ENKU_AWS_PASSWORD }}" ssh -o StrictHostKeyChecking=no "${{ secrets.ENKU_AWS_USER }}@${{ secrets.ENKU_AWS_HOST }}" << 'EOF'
-            # Commands to run on the server
-            echo "${{ secrets.ENKU_AWS_PASSWORD }}" | sudo -S docker-compose pull
-               # Remove any old or unused images to free up space
-            echo "${{ secrets.ENKU_AWS_PASSWORD }}" | sudo -S docker image prune -af
-            echo "${{ secrets.ENKU_AWS_PASSWORD }}" | sudo -S docker-compose down --remove-orphans	
-            echo "${{ secrets.ENKU_AWS_PASSWORD }}" | sudo -S docker-compose up -d
-          EOF
+      - name: SSH into Hulu AWS Server
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.PIXEL_ADDIS_AWS_HOST }}
+          username: ${{ secrets.PIXEL_ADDIS_AWS_USER }}
+          key: ${{ secrets.PIXEL_ADDIS_SSH_PRIVATE_KEY }}
+          script: |
+            sudo docker-compose down --remove-orphans
+            sudo docker rmi -f drjseifu/enku-backend:latest
+            sudo docker-compose up -d
