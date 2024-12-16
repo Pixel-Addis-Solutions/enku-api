@@ -5,6 +5,8 @@ import {
   OneToMany,
   ManyToOne,
   ManyToMany,
+  CreateDateColumn,
+  UpdateDateColumn,
 } from "typeorm";
 import { SubCategory } from "./sub-category";
 import { Product } from "./product";
@@ -27,7 +29,7 @@ export class Category {
 
   @Column({ type: "varchar", length: 255 })
   imageUrl!: string;
- 
+
   @ManyToOne(() => Product, (product) => product.category)
   products!: Product;
 
@@ -43,4 +45,10 @@ export class Category {
 
   @ManyToMany(() => Discount, (discount) => discount.products)
   discounts!: Discount[];
+
+  @CreateDateColumn()
+  createdAt!: Date;
+
+  @UpdateDateColumn()
+  updatedAt!: Date;
 }

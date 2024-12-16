@@ -12,7 +12,7 @@ export const getCategories = async (req: Request, res: Response) => {
   try {
     // Retrieve the category
     const category = await categoryRepository.find({
-      relations: ["subCategories.subSubCategories"],
+      relations: ["subCategories.subSubCategories"],order:{updatedAt:'DESC'}
     });
     if (category) {
       logger.info(`Category retrieved successfully:`);
