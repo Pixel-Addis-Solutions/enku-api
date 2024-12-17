@@ -57,7 +57,7 @@ export const getBlogDetail = async (req: Request, res: Response) => {
     const { id } = req.params;
 
     // Find the blog by its ID
-    const blog = await blogRepository.findOneBy({ id: Number(id) });
+    const blog = await blogRepository.findOneBy({ id });
 
     if (!blog) {
       ResUtil.success({ res, message: "Blog not found" });
