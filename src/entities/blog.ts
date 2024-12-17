@@ -9,7 +9,7 @@ import {
 @Entity()
 export class Blog {
   @PrimaryGeneratedColumn("uuid")
-  id!: number;
+  id!: string;
 
   @Column()
   title!: string;
