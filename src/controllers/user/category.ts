@@ -74,7 +74,7 @@ export const getCategoriesWithSubcategories = async (
     const categoryRepository = getRepository(Category);
 
     const categories = await categoryRepository.find({
-      relations: ["subCategories", "subCategories.subSubCategories"],
+      relations: ["subCategories", "subCategories.subSubCategories"],order:{updatedAt:'DESC'}
     });
 
     return ResUtil.success({
