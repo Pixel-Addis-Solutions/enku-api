@@ -68,3 +68,25 @@ export const authenticateUser = async (
     return ResUtil.unAuthenticated({ res, message: "Unauthenticated" });
   }
 };
+
+export const can = (requiredPermissions: string[]) => {
+  return (req: any, res: Response, next: NextFunction) => {
+    // Get the current user's permissions from the request
+
+    const permissions = req?.user?.role?.permissions?.map(
+      (permission: any) => permission?.name
+    );
+    console.log("permissions", permissions);
+
+    // Check if the user has the required permissions
+    const hasPermission = requiredPermissions?.every((permission) =>
+      permissions?.includes(permission)
+    );
+
+    if (!hasPermission) {
+      return ResUtil.unAuthorized({ res, message: `UnAuthorized:You haven't ${requiredPermissions[0]} permission ` });
+    }
+    // Proceed to the next middleware or route handler
+    next();
+  };
+};

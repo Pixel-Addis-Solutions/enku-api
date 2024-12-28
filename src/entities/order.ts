@@ -9,9 +9,10 @@ import {
 } from "typeorm";
 import { Customer } from "./customer";
 import { OrderItem } from "./order-item";
+import { BaseEntity } from "./base-entity";
 
 @Entity()
-export class Order {
+export class Order extends BaseEntity {
   @PrimaryGeneratedColumn("uuid")
   id!: string;
 

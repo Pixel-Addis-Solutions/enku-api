@@ -1,8 +1,12 @@
 import { Request, Response } from "express";
-import { getRepository } from "../../data-source";
+import { AppDataSource, getRepository } from "../../data-source";
 import { Order } from "../../entities/order";
 import { ResUtil } from "../../helper/response.helper";
 import logger from "../../util/logger";
+import { Product } from "../../entities/product";
+import { OrderItem } from "../../entities/order-item";
+import { Customer } from "../../entities/customer";
+import { ProductVariation } from "../../entities/product-variation";
 
 export const getAllOrders = async (req: any, res: Response) => {
 
@@ -105,6 +109,125 @@ export const updateOrderStatus = async (req: Request, res: Response) => {
     return ResUtil.internalError({
       res,
       message: "Error updating order status",
+      data: error,
+    });
+  }
+};
+
+
+export const createOrder = async (req: Request | any, res: Response) => {
+  const { 
+    productId, 
+    customerId: providedCustomerId, 
+    shippingPhoneNumber, 
+    shippingAddress, 
+    customerName, 
+    agreed, 
+    quantity = 1, 
+    variationId 
+  } = req.body;
+
+  const entityManager = AppDataSource.manager;
+
+  try {
+    await entityManager.transaction(async (transactionalEntityManager) => {
+      const productRepository =
+        transactionalEntityManager.getRepository(Product);
+      const orderRepository = transactionalEntityManager.getRepository(Order);
+      const orderItemRepository =
+        transactionalEntityManager.getRepository(OrderItem);
+      const customerRepository =
+        transactionalEntityManager.getRepository(Customer);
+      const variationRepository =
+        transactionalEntityManager.getRepository(ProductVariation);
+
+      // Validate admin access (assuming req.user.role contains user role)
+      // if (!req.user || req.user.role !== "admin") {
+      //   throw new Error("Unauthorized. Only admins can create orders.");
+      // }
+
+      // Retrieve the product
+      const product = await productRepository.findOne({
+        where: { id: productId },
+      });
+
+      if (!product) {
+        throw new Error("Product not found");
+      }
+
+      // Retrieve the variation if provided
+      const variation = variationId
+        ? await variationRepository.findOne({
+            where: { id: variationId, product: { id: productId } },
+          })
+        : null;
+
+      if (variationId && !variation) {
+        throw new Error("Variation not found");
+      }
+
+      // Handle customer identification
+      let customerId = providedCustomerId;
+
+      if (!customerId) {
+        // Check if the customer already exists by phone number
+        let customer = await customerRepository.findOneBy({
+          phoneNumber: shippingPhoneNumber,
+        });
+
+        if (customer) {
+          customerId = customer.id;
+        } else if (agreed) {
+          // Create a new customer
+          customer = customerRepository.create({
+            phoneNumber: shippingPhoneNumber,
+            fullName: customerName,
+          });
+          await customerRepository.save(customer);
+          customerId = customer.id;
+        } 
+      }
+
+      // Calculate total price
+      const total = (variation?.price || product.price) * quantity;
+
+      // Create the order
+      const order = orderRepository.create({
+        customer: customerId,
+        total,
+        items: [],
+        shippingPhoneNumber,
+        shippingAddress,
+        customerName,
+        status: "pending", // Initial order status
+        // createdBy: req.user.id, // Track admin who created the order
+      });
+      await orderRepository.save(order);
+
+      if (variationId && !variation) {
+        return ;
+      }
+
+      // Create the order item
+      const orderItem = orderItemRepository.create({
+        order,
+        product,
+        variation: variation || undefined,
+        quantity,
+        price: variation?.price || product.price,
+      });
+      await orderItemRepository.save(orderItem);
+    });
+
+    return ResUtil.success({
+      res,
+      message: "Order created successfully by admin",
+    });
+  } catch (error: any) {
+    logger.error(`Error in Admin Create Order: ${error}`);
+    return ResUtil.internalError({
+      res,
+      message: error.message || "Error processing admin order creation",
       data: error,
     });
   }

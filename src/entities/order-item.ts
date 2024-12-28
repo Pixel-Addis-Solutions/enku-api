@@ -9,9 +9,10 @@ import {
   import { Order } from './order';
   import { Product } from './product';
   import { ProductVariation } from './product-variation';
+import { BaseEntity } from './base-entity';
   
   @Entity()
-  export class OrderItem {
+  export class OrderItem extends BaseEntity{
     @PrimaryGeneratedColumn('uuid')
     id!: string;
   
@@ -21,6 +22,7 @@ import {
     @ManyToOne(() => Product)
     product!: Product;
   
+    @Column({nullable:true})
     @ManyToOne(() => ProductVariation)
     variation!: ProductVariation;
   
