@@ -43,7 +43,7 @@ export class Product extends BaseEntity {
   quantity!: number;
 
   @Column({ type: "varchar", length: 255 })
-  imageUrl!: string;
+  imageUrl!: string; // used for banner image
  
   @Column({ type: "date", nullable: true })
   productionDate!: string;
