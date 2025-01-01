@@ -1,12 +1,15 @@
 import { Router } from "express";
-import { RoleController } from "../../controllers/admin/role";
+import {
+  assignPermissions,
+  getRolePermissions,
+} from "../../controllers/admin/role";
 
 const router = Router();
 
 // Assign permissions to a role..
-router.post("/:id/permissions", RoleController.assignPermissions);
+router.post("/:id/permissions", assignPermissions);
 
 // Retrieve permissions for a specific role...
-router.get("/:id/permissions", RoleController.getRolePermissions);
+router.get("/:id/permissions", getRolePermissions);
 
 export default router;

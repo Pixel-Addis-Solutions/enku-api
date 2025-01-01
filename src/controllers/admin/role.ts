@@ -1,103 +1,158 @@
 import { Request, Response } from "express";
-import { AppDataSource } from "../../data-source";
+import { In } from "typeorm";
+import { getRepository } from "../../data-source";
 import { Role } from "../../entities/role";
 import { Permission } from "../../entities/permission";
+import { ResUtil } from "../../helper/response.helper";
+import logger from "../../util/logger"; // Import the logger
 
-export class RoleController {
-  /**
-   * POST /api/roles/:id/permissions
-   * Assign permissions to a role
-   */
-  static async assignPermissions(
-    req: Request,
-    res: Response
-  ): Promise<Response> {
-    const { id: roleId } = req.params; // Role ID from the URL
-    const { permissions } = req.body; // Array of permission IDs from the request body
+// Helper function to validate an array of IDs
+const isValidIdArray = (array: any[]): boolean => {
+  return (
+    Array.isArray(array) &&
+    array.every((item) => typeof item === "string" || typeof item === "number")
+  );
+};
 
-    if (!Array.isArray(permissions) || !permissions.length) {
+/**
+ * Assign permissions to a role
+ * POST /api/roles/:id/permissions
+ */
+export const assignPermissions = async (
+  req: Request,
+  res: Response
+): Promise<Response> => {
+  const { id: roleId } = req.params;
+  const { permissions } = req.body as { permissions: Array<string | number> };
+
+  try {
+    // Validate input
+    if (!isValidIdArray(permissions) || permissions.length === 0) {
+      logger.warn(`Invalid permissions array for Role ID: ${roleId}`);
       return res
         .status(400)
-        .json({ message: "Permissions must be a non-empty array of IDs." });
-    }
-
-    try {
-      const roleRepository = AppDataSource.getRepository(Role);
-      const permissionRepository = AppDataSource.getRepository(Permission);
-
-      // Check if the role exists
-      const role = await roleRepository.findOne({
-        where: { id: roleId },
-        relations: ["permissions"],
-      });
-
-      if (!role) {
-        return res.status(404).json({ message: "Role not found." });
-      }
-
-      // Check if the permissions exist
-      const permissionEntities = await permissionRepository.findByIds(
-        permissions
-      );
-
-      if (permissions.length !== permissionEntities.length) {
-        return res.status(400).json({
-          message: "One or more permission IDs are invalid.",
+        .json({
+          message: "Permissions must be a non-empty array of valid IDs.",
         });
-      }
+    }
 
-      // Merge new permissions with existing ones (avoid duplicates)
-      const existingPermissionIds = role.permissions.map((perm) => perm.id);
-      const newPermissions = permissionEntities.filter(
-        (perm) => !existingPermissionIds.includes(perm.id)
+    // Repositories
+    const roleRepository = getRepository(Role);
+    const permissionRepository = getRepository(Permission);
+
+    // Check if the role exists
+    const role = await roleRepository.findOne({
+      where: { id: roleId },
+      relations: ["permissions"],
+    });
+
+    if (!role) {
+      logger.warn(`Role not found with ID: ${roleId}`);
+      return res.status(404).json({ message: "Role not found." });
+    }
+
+    // Validate permissions
+    const permissionEntities = await permissionRepository.find({
+      where: { id: In(permissions) },
+    });
+
+    if (permissions.length !== permissionEntities.length) {
+      logger.warn(
+        `One or more permission IDs are invalid for Role ID: ${roleId}`
       );
-
-      role.permissions = [...role.permissions, ...newPermissions];
-
-      // Save the updated role with new permissions
-      const updatedRole = await roleRepository.save(role);
-
-      return res.status(200).json({
-        message: "Permissions successfully assigned to the role.",
-        role: {
-          id: updatedRole.id,
-          name: updatedRole.name,
-          permissions: updatedRole.permissions,
-        },
-      });
-    } catch (error) {
-      console.error("Error assigning permissions:", error);
-      return res.status(500).json({ message: "Internal Server Error" });
+      return res
+        .status(400)
+        .json({ message: "One or more permission IDs are invalid." });
     }
-  }
 
-  /**
-   * GET /api/roles/:id/permissions
-   * Retrieve permissions for a specific role
-   */
-  static async getRolePermissions(
-    req: Request,
-    res: Response
-  ): Promise<Response> {
-    const { id: roleId } = req.params; // Role ID from the URL
+    // Merge new permissions with existing ones (avoid duplicates)
+    const existingPermissionIds = new Set(
+      role.permissions.map((perm: Permission) => perm.id)
+    );
+    const newPermissions = permissionEntities.filter(
+      (perm) => !existingPermissionIds.has(perm.id)
+    );
 
-    try {
-      const roleRepository = AppDataSource.getRepository(Role);
+    // Update role permissions
+    role.permissions = [...role.permissions, ...newPermissions];
 
-      // Find the role with its permissions
-      const role = await roleRepository.findOne({
-        where: { id: roleId },
-        relations: ["permissions"],
+    // Save the updated role
+    const updatedRole = await roleRepository.save(role);
+
+    logger.info(`Permissions assigned successfully to Role ID: ${roleId}`);
+
+    return res.status(200).json({
+      message: "Permissions successfully assigned to the role.",
+      data: {
+        id: updatedRole.id,
+        name: updatedRole.name,
+        permissions: updatedRole.permissions.map((perm: Permission) => ({
+          id: perm.id,
+          name: perm.name,
+        })),
+      },
+    });
+  } catch (error) {
+    logger.error(
+      `Error assigning permissions to Role ID: ${roleId} - ${
+        (error as Error).message
+      }`,
+      { stack: (error as Error).stack }
+    );
+    return res
+      .status(500)
+      .json({
+        message: "Error assigning permissions.",
+        data: (error as Error).message,
       });
-
-      if (!role) {
-        return res.status(404).json({ message: "Role not found." });
-      }
-
-      return res.status(200).json(role.permissions); // Return only the permissions
-    } catch (error) {
-      console.error("Error retrieving role permissions:", error);
-      return res.status(500).json({ message: "Internal Server Error" });
-    }
   }
-}
+};
+
+/**
+ * Retrieve permissions for a specific role
+ * GET /api/roles/:id/permissions
+ */
+export const getRolePermissions = async (
+  req: Request,
+  res: Response
+): Promise<Response> => {
+  const { id: roleId } = req.params;
+
+  try {
+    const roleRepository = getRepository(Role);
+
+    // Find the role with its permissions
+    const role = await roleRepository.findOne({
+      where: { id: roleId },
+      relations: ["permissions"],
+    });
+
+    if (!role) {
+      logger.warn(`Role not found with ID: ${roleId}`);
+      return res.status(404).json({ message: "Role not found." });
+    }
+
+    logger.info(`Permissions retrieved for Role ID: ${roleId}`);
+
+    return res.status(200).json({
+      message: "Permissions retrieved successfully.",
+      data: role.permissions.map((perm: Permission) => ({
+        id: perm.id,
+        name: perm.name,
+      })),
+    });
+  } catch (error) {
+    logger.error(
+      `Error retrieving permissions for Role ID: ${roleId} - ${
+        (error as Error).message
+      }`,
+      { stack: (error as Error).stack }
+    );
+    return res
+      .status(500)
+      .json({
+        message: "Error retrieving role permissions.",
+        data: (error as Error).message,
+      });
+  }
+};
