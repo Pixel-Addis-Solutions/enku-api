@@ -8,12 +8,17 @@ export class RoleController {
    * POST /api/roles/:id/permissions
    * Assign permissions to a role
    */
-  static async assignPermissions(req: Request, res: Response): Promise<Response> {
+  static async assignPermissions(
+    req: Request,
+    res: Response
+  ): Promise<Response> {
     const { id: roleId } = req.params; // Role ID from the URL
     const { permissions } = req.body; // Array of permission IDs from the request body
 
     if (!Array.isArray(permissions) || !permissions.length) {
-      return res.status(400).json({ message: "Permissions must be a non-empty array of IDs." });
+      return res
+        .status(400)
+        .json({ message: "Permissions must be a non-empty array of IDs." });
     }
 
     try {
@@ -31,7 +36,9 @@ export class RoleController {
       }
 
       // Check if the permissions exist
-      const permissionEntities = await permissionRepository.findByIds(permissions);
+      const permissionEntities = await permissionRepository.findByIds(
+        permissions
+      );
 
       if (permissions.length !== permissionEntities.length) {
         return res.status(400).json({
@@ -68,7 +75,10 @@ export class RoleController {
    * GET /api/roles/:id/permissions
    * Retrieve permissions for a specific role
    */
-  static async getRolePermissions(req: Request, res: Response): Promise<Response> {
+  static async getRolePermissions(
+    req: Request,
+    res: Response
+  ): Promise<Response> {
     const { id: roleId } = req.params; // Role ID from the URL
 
     try {

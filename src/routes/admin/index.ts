@@ -14,11 +14,13 @@ import customerRoutes from "../admin/customer";
 import dashboardRoutes from "../admin/dashboard";
 import blogRoutes from "../admin/blog";
 import cardRoutes from "../admin/card";
+import roleRoutes from "../admin/role";
 import discountRoutes from "../admin/discount";
 import testimonialsRoutes from "../admin/testimonial";
 import loyaltyProgramsRoutes from "../admin/loyalty-program";
 import { updateProductVariation } from "../../controllers/admin/variation";
 import { deleteProductImage } from "../../controllers/admin/product";
+
 
 const router = Router();
 
@@ -30,6 +32,7 @@ router.use("/auth", authRoutes);
 router.use("/brands", brandRoutes);
 router.use("/orders", orderRoutes);
 router.use("/carts", cartRoutes);
+router.use("/roles", roleRoutes);
 router.use("/filters", filterRoutes);
 router.use("/filter_values", filterValueRoutes);
 router.use("/carousels", carouselRoutes);
