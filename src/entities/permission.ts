@@ -9,6 +9,9 @@ export class Permission {
   @Column({ unique: true })
   name!: string;
 
+  @Column()
+  description!: string; // Description column to store information about the permission
+
   @ManyToMany(() => Role, (role) => role.permissions, { cascade: true })
   roles!: Role[];
 }

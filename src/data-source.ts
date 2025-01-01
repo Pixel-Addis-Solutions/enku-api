@@ -72,4 +72,3 @@ export const AppDataSource = new DataSource({
 }); 
 export const getRepository = (model: EntityTarget<any>) =>
   AppDataSource.getRepository(model);
- 
