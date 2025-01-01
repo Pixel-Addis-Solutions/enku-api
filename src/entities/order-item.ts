@@ -22,7 +22,7 @@ import { BaseEntity } from './base-entity';
     @ManyToOne(() => Product)
     product!: Product;
   
-    @Column({nullable:true})
+    // @Column({nullable:true}) Removed @Column from the variation property. It should only have the @ManyToOne decorator
     @ManyToOne(() => ProductVariation)
     variation!: ProductVariation;
   
@@ -38,4 +38,3 @@ import { BaseEntity } from './base-entity';
     @UpdateDateColumn()
     updatedAt!: Date;
   }
-  

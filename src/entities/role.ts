@@ -21,11 +21,14 @@ export class Role {
 
   @OneToMany(() => User, (user) => user.role)
   users!: User[];
+
   @CreateDateColumn()
   createdDate!: Date;
+
   @UpdateDateColumn()
   updatedDate!: Date;
+
   @ManyToMany(() => Permission)
-  @JoinTable() 
+  @JoinTable() // This will automatically create the 'role_permissions' pivot table
   permissions!: Permission[];
 }
