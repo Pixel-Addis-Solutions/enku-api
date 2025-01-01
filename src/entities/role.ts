@@ -19,6 +19,9 @@ export class Role {
   @Column({ unique: true })
   name!: string;
 
+  @Column({ nullable:true })
+  description!: string;
+
   @OneToMany(() => User, (user) => user.role)
   users!: User[];
 
