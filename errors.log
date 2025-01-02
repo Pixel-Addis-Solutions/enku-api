@@ -2,3 +2,5 @@
 2025-01-01T17:03:13.704Z [[31merror[39m]: [object Object]
 2025-01-01T17:03:15.473Z [[31merror[39m]: [object Object]
 2025-01-01T17:09:34.088Z [[31merror[39m]: [object Object]
+2025-01-02T15:30:51.250Z [[31merror[39m]: Error creating user - Duplicate entry 'abe@gmail.com' for key 'IDX_e12875dfb3b1d92d7d7c5377e2'
+2025-01-02T15:32:17.921Z [[31merror[39m]: Error creating user - Duplicate entry '+2519034746654' for key 'IDX_f2578043e491921209f5dadd08'

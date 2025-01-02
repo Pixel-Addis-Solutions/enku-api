@@ -2,3 +2,13 @@
 2025-01-01T17:03:13.704Z [[31merror[39m]: [object Object]
 2025-01-01T17:03:15.473Z [[31merror[39m]: [object Object]
 2025-01-01T17:09:34.088Z [[31merror[39m]: [object Object]
+2025-01-02T15:06:44.228Z [[32minfo[39m]: User created successfully with email: abe@gmail.com
+2025-01-02T15:13:16.859Z [[32minfo[39m]: User updated successfully with ID: b19dca95-d0fb-4c58-9bd5-2827d5ad6c08
+2025-01-02T15:14:24.229Z [[32minfo[39m]: User deleted successfully with ID: b19dca95-d0fb-4c58-9bd5-2827d5ad6c08
+2025-01-02T15:30:29.802Z [[32minfo[39m]: User created successfully with email: abe@gmail.com
+2025-01-02T15:30:51.250Z [[31merror[39m]: Error creating user - Duplicate entry 'abe@gmail.com' for key 'IDX_e12875dfb3b1d92d7d7c5377e2'
+2025-01-02T15:31:34.516Z [[33mwarn[39m]: User not found with ID: b19dca95-d0fb-4c58-9bd5-2827d5ad6c08
+2025-01-02T15:32:17.921Z [[31merror[39m]: Error creating user - Duplicate entry '+2519034746654' for key 'IDX_f2578043e491921209f5dadd08'
+2025-01-02T15:32:37.006Z [[32minfo[39m]: User created successfully with email: kebede@gmail.com
+2025-01-02T15:40:28.031Z [[33mwarn[39m]: User not found with ID: b19dca95-d0fb-4c58-9bd5-2827d5ad6c08
+2025-01-02T15:40:54.575Z [[32minfo[39m]: Retrieved user with ID: f0641ede-a5d4-4ab9-b227-c7d0af74518b
