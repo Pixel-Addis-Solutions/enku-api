@@ -7,7 +7,7 @@ import routes from "./routes/index";
 import * as Sentry from '@sentry/node';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
-
+ 
 require('dotenv').config();
 // Sentry.init({ dsn: "your-dsn-here" });
 
