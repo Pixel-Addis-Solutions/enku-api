@@ -36,4 +36,4 @@ RUN mkdir -p ./uploads
 
 EXPOSE 5000
 # Default command to run when the container starts in production mode
-CMD npm run prod
+CMD npm run prod && npm run seed
