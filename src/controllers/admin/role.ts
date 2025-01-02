@@ -2,18 +2,26 @@ import { Request, Response } from "express";
 import { AppDataSource } from "../../data-source";
 import { Role } from "../../entities/role";
 import { Permission } from "../../entities/permission";
+import { ResUtil } from "../../helper/response.helper";
+import logger from "../../util/logger";
+require("dotenv").config();
 
 export class RoleController {
   /**
    * POST /api/roles/:id/permissions
    * Assign permissions to a role
    */
-  static async assignPermissions(req: Request, res: Response): Promise<Response> {
+  static async assignPermissions(
+    req: Request,
+    res: Response
+  ): Promise<Response> {
     const { id: roleId } = req.params; // Role ID from the URL
     const { permissions } = req.body; // Array of permission IDs from the request body
 
     if (!Array.isArray(permissions) || !permissions.length) {
-      return res.status(400).json({ message: "Permissions must be a non-empty array of IDs." });
+      return res
+        .status(400)
+        .json({ message: "Permissions must be a non-empty array of IDs." });
     }
 
     try {
@@ -31,7 +39,9 @@ export class RoleController {
       }
 
       // Check if the permissions exist
-      const permissionEntities = await permissionRepository.findByIds(permissions);
+      const permissionEntities = await permissionRepository.findByIds(
+        permissions
+      );
 
       if (permissions.length !== permissionEntities.length) {
         return res.status(400).json({
@@ -68,7 +78,10 @@ export class RoleController {
    * GET /api/roles/:id/permissions
    * Retrieve permissions for a specific role
    */
-  static async getRolePermissions(req: Request, res: Response): Promise<Response> {
+  static async getRolePermissions(
+    req: Request,
+    res: Response
+  ): Promise<Response> {
     const { id: roleId } = req.params; // Role ID from the URL
 
     try {
@@ -91,3 +104,137 @@ export class RoleController {
     }
   }
 }
+
+
+
+
+const roleRepository = AppDataSource.getRepository(Role);
+
+export const createRole = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  const { name, description } = req.body;
+
+  try {
+    const existingRole = await roleRepository.findOneBy({ name });
+    if (existingRole) {
+      ResUtil.badRequest({ res, message: "Role name must be unique" });
+      return;
+    }
+
+    const role = roleRepository.create({ name, description });
+    const savedRole = await roleRepository.save(role);
+    ResUtil.success({
+      res,
+      message: "Role Created Successfully",
+      data: savedRole,
+    });
+  } catch (error) {
+    ResUtil.internalError({
+      res,
+      message: "Error while creating role",
+      data: error,
+    });
+    logger.error({ error });
+  }
+};
+
+export const getAllRoles = async (_: Request, res: Response): Promise<void> => {
+  try {
+    const roles = await roleRepository.find();
+    ResUtil.success({
+      res,
+      message: "Roles fetched successfully",
+      data: roles,
+    });
+  } catch (error) {
+    ResUtil.internalError({
+      res,
+      message: "Error while fetching roles",
+      data: error,
+    });
+    logger.error({ error });
+  }
+};
+
+export const getRoleById = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  const { id } = req.params;
+
+  try {
+    const role = await roleRepository.findOneBy({ id });
+    if (!role) {
+      ResUtil.notFound({ res, message: "Role not found" });
+      return;
+    }
+    ResUtil.success({ res, message: "Role fetched successfully", data: role });
+  } catch (error) {
+    ResUtil.internalError({
+      res,
+      message: "Error while fetching role",
+      data: error,
+    });
+    logger.error({ error });
+  }
+};
+
+export const updateRole = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  const { id } = req.params;
+  const { name, description } = req.body;
+
+  try {
+    const role = await roleRepository.findOneBy({ id });
+    if (!role) {
+      ResUtil.notFound({ res, message: "Role not found" });
+      return;
+    }
+
+    role.name = name || role.name;
+    role.description = description || role.description;
+
+    const updatedRole = await roleRepository.save(role);
+    ResUtil.success({
+      res,
+      message: "Role updated successfully",
+      data: updatedRole,
+    });
+  } catch (error) {
+    ResUtil.internalError({
+      res,
+      message: "Error while updating role",
+      data: error,
+    });
+    logger.error({ error });
+  }
+};
+
+export const deleteRole = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  const { id } = req.params;
+
+  try {
+    const role = await roleRepository.findOneBy({ id });
+    if (!role) {
+      ResUtil.notFound({ res, message: "Role not found" });
+      return;
+    }
+
+    await roleRepository.remove(role);
+    ResUtil.success({ res, message: "Role deleted successfully" });
+  } catch (error) {
+    ResUtil.internalError({
+      res,
+      message: "Error while deleting role",
+      data: error,
+    });
+    logger.error({ error });
+  }
+};
