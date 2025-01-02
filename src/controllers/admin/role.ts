@@ -1,240 +1,266 @@
 import { Request, Response } from "express";
-import { AppDataSource } from "../../data-source";
+import { getRepository } from "../../data-source";
 import { Role } from "../../entities/role";
 import { Permission } from "../../entities/permission";
+import { roleSchema } from "../../util/validation/roleValidation"; // Ensure this path is correct or update it
 import { ResUtil } from "../../helper/response.helper";
 import logger from "../../util/logger";
-require("dotenv").config();
 
-export class RoleController {
-  /**
-   * POST /api/roles/:id/permissions
-   * Assign permissions to a role
-   */
-  static async assignPermissions(
-    req: Request,
-    res: Response
-  ): Promise<Response> {
-    const { id: roleId } = req.params; // Role ID from the URL
-    const { permissions } = req.body; // Array of permission IDs from the request body
-
-    if (!Array.isArray(permissions) || !permissions.length) {
-      return res
-        .status(400)
-        .json({ message: "Permissions must be a non-empty array of IDs." });
-    }
-
-    try {
-      const roleRepository = AppDataSource.getRepository(Role);
-      const permissionRepository = AppDataSource.getRepository(Permission);
-
-      // Check if the role exists
-      const role = await roleRepository.findOne({
-        where: { id: roleId },
-        relations: ["permissions"],
-      });
-
-      if (!role) {
-        return res.status(404).json({ message: "Role not found." });
-      }
-
-      // Check if the permissions exist
-      const permissionEntities = await permissionRepository.findByIds(
-        permissions
-      );
-
-      if (permissions.length !== permissionEntities.length) {
-        return res.status(400).json({
-          message: "One or more permission IDs are invalid.",
-        });
-      }
-
-      // Merge new permissions with existing ones (avoid duplicates)
-      const existingPermissionIds = role.permissions.map((perm) => perm.id);
-      const newPermissions = permissionEntities.filter(
-        (perm) => !existingPermissionIds.includes(perm.id)
-      );
-
-      role.permissions = [...role.permissions, ...newPermissions];
-
-      // Save the updated role with new permissions
-      const updatedRole = await roleRepository.save(role);
-
-      return res.status(200).json({
-        message: "Permissions successfully assigned to the role.",
-        role: {
-          id: updatedRole.id,
-          name: updatedRole.name,
-          permissions: updatedRole.permissions,
-        },
-      });
-    } catch (error) {
-      console.error("Error assigning permissions:", error);
-      return res.status(500).json({ message: "Internal Server Error" });
-    }
-  }
-
-  /**
-   * GET /api/roles/:id/permissions
-   * Retrieve permissions for a specific role
-   */
-  static async getRolePermissions(
-    req: Request,
-    res: Response
-  ): Promise<Response> {
-    const { id: roleId } = req.params; // Role ID from the URL
-
-    try {
-      const roleRepository = AppDataSource.getRepository(Role);
-
-      // Find the role with its permissions
-      const role = await roleRepository.findOne({
-        where: { id: roleId },
-        relations: ["permissions"],
-      });
-
-      if (!role) {
-        return res.status(404).json({ message: "Role not found." });
-      }
-
-      return res.status(200).json(role.permissions); // Return only the permissions
-    } catch (error) {
-      console.error("Error retrieving role permissions:", error);
-      return res.status(500).json({ message: "Internal Server Error" });
-    }
-  }
-}
-
-
-
-
-const roleRepository = AppDataSource.getRepository(Role);
-
-export const createRole = async (
-  req: Request,
-  res: Response
-): Promise<void> => {
-  const { name, description } = req.body;
-
+// Create a new role
+export const createRole = async (req: Request, res: Response): Promise<void> => {
   try {
-    const existingRole = await roleRepository.findOneBy({ name });
-    if (existingRole) {
-      ResUtil.badRequest({ res, message: "Role name must be unique" });
-      return;
+    const { error } = roleSchema.validate(req.body);
+    if (error) {
+      logger.warn(`Validation error: ${error.message}`);
+      return ResUtil.badRequest({ res, message: error.message });
     }
 
-    const role = roleRepository.create({ name, description });
+    const roleRepository = getRepository(Role);
+    const role = roleRepository.create(req.body);
     const savedRole = await roleRepository.save(role);
-    ResUtil.success({
+
+    logger.info(`Role created successfully: ${savedRole.id}`);
+    return ResUtil.success({
       res,
-      message: "Role Created Successfully",
+      message: "Role created successfully",
       data: savedRole,
     });
   } catch (error) {
-    ResUtil.internalError({
+    logger.error("Error creating role", error);
+    return ResUtil.internalError({
       res,
-      message: "Error while creating role",
+      message: "Error creating role",
       data: error,
     });
-    logger.error({ error });
   }
 };
 
-export const getAllRoles = async (_: Request, res: Response): Promise<void> => {
+// Get all roles
+export const getAllRoles = async (req: Request, res: Response): Promise<void> => {
   try {
+    const roleRepository = getRepository(Role);
     const roles = await roleRepository.find();
-    ResUtil.success({
+
+    logger.info("Roles retrieved successfully");
+    return ResUtil.success({
       res,
-      message: "Roles fetched successfully",
+      message: "Roles retrieved successfully",
       data: roles,
     });
   } catch (error) {
-    ResUtil.internalError({
+    logger.error("Error retrieving roles", error);
+    return ResUtil.internalError({
       res,
-      message: "Error while fetching roles",
+      message: "Error retrieving roles",
       data: error,
     });
-    logger.error({ error });
   }
 };
 
-export const getRoleById = async (
-  req: Request,
-  res: Response
-): Promise<void> => {
-  const { id } = req.params;
+// Get a single role by ID
+export const getRoleById = async (req: Request, res: Response): Promise<void> => {
+  const { id: roleId } = req.params; // Role ID from the URL
 
   try {
-    const role = await roleRepository.findOneBy({ id });
+    const roleRepository = getRepository(Role);
+    const role = await roleRepository.findOne({
+      where: { id: roleId },
+      relations: ["permissions"],
+    });
+
     if (!role) {
-      ResUtil.notFound({ res, message: "Role not found" });
-      return;
+      logger.warn(`Role not found with ID: ${roleId}`);
+      return ResUtil.notFound({ res, message: "Role not found" });
     }
-    ResUtil.success({ res, message: "Role fetched successfully", data: role });
+
+    logger.info(`Role retrieved successfully: ${roleId}`);
+    return ResUtil.success({
+      res,
+      message: "Role retrieved successfully",
+      data: role,
+    });
   } catch (error) {
-    ResUtil.internalError({
+    logger.error("Error retrieving role by ID", error);
+    return ResUtil.internalError({
       res,
-      message: "Error while fetching role",
+      message: "Error retrieving role by ID",
       data: error,
     });
-    logger.error({ error });
   }
 };
 
-export const updateRole = async (
-  req: Request,
-  res: Response
-): Promise<void> => {
-  const { id } = req.params;
-  const { name, description } = req.body;
+// Update a role by ID
+export const updateRole = async (req: Request, res: Response): Promise<void> => {
+  const { id: roleId } = req.params;
+  const { error } = roleSchema.validate(req.body);
+  if (error) {
+    logger.warn(`Validation error: ${error.message}`);
+    return ResUtil.badRequest({ res, message: error.message });
+  }
 
   try {
-    const role = await roleRepository.findOneBy({ id });
+    const roleRepository = getRepository(Role);
+    const role = await roleRepository.findOneBy({ id: roleId });
+
     if (!role) {
-      ResUtil.notFound({ res, message: "Role not found" });
-      return;
+      logger.warn(`Role not found with ID: ${roleId}`);
+      return ResUtil.notFound({ res, message: "Role not found" });
     }
 
-    role.name = name || role.name;
-    role.description = description || role.description;
-
+    roleRepository.merge(role, req.body);
     const updatedRole = await roleRepository.save(role);
-    ResUtil.success({
+
+    logger.info(`Role updated successfully: ${roleId}`);
+    return ResUtil.success({
       res,
       message: "Role updated successfully",
       data: updatedRole,
     });
   } catch (error) {
-    ResUtil.internalError({
+    logger.error("Error updating role", error);
+    return ResUtil.internalError({
       res,
-      message: "Error while updating role",
+      message: "Error updating role",
       data: error,
     });
-    logger.error({ error });
   }
 };
 
-export const deleteRole = async (
-  req: Request,
-  res: Response
-): Promise<void> => {
-  const { id } = req.params;
+// Delete a role by ID
+export const deleteRole = async (req: Request, res: Response): Promise<void> => {
+  const { id: roleId } = req.params;
 
   try {
-    const role = await roleRepository.findOneBy({ id });
+    const roleRepository = getRepository(Role);
+    const role = await roleRepository.findOneBy({ id: roleId });
+
     if (!role) {
-      ResUtil.notFound({ res, message: "Role not found" });
-      return;
+      logger.warn(`Role not found with ID: ${roleId}`);
+      return ResUtil.notFound({ res, message: "Role not found" });
     }
 
     await roleRepository.remove(role);
-    ResUtil.success({ res, message: "Role deleted successfully" });
+
+    logger.info(`Role deleted successfully: ${roleId}`);
+    return ResUtil.noContent({ res, message: "Role deleted successfully" });
   } catch (error) {
-    ResUtil.internalError({
+    logger.error("Error deleting role", error);
+    return ResUtil.internalError({
       res,
-      message: "Error while deleting role",
+      message: "Error deleting role",
       data: error,
     });
-    logger.error({ error });
+  }
+};
+
+// Assign permissions to a role
+export const assignPermissions = async (req: Request, res: Response): Promise<void> => {
+  const { id: roleId } = req.params; // Role ID from the URL
+  const { permissions } = req.body; // Array of permission IDs from the request body
+
+  if (!Array.isArray(permissions) || !permissions.length) {
+    logger.warn("Permissions must be a non-empty array of IDs.");
+    return ResUtil.badRequest({
+      res,
+      message: "Permissions must be a non-empty array of IDs.",
+    });
+  }
+
+  try {
+    const roleRepository = getRepository(Role);
+    const permissionRepository = getRepository(Permission);
+
+    const role = await roleRepository.findOne({
+      where: { id: roleId },
+      relations: ["permissions"],
+    });
+
+    if (!role) {
+      logger.warn(`Role not found with ID: ${roleId}`);
+      return ResUtil.notFound({ res, message: "Role not found" });
+    }
+
+    const permissionsEntities = await permissionRepository.findByIds(permissions);
+
+    if (permissionsEntities.length !== permissions.length) {
+      logger.warn("Some permissions not found");
+      return ResUtil.badRequest({
+        res,
+        message: "Some permissions not found",
+      });
+    }
+
+    role.permissions = permissionsEntities;
+    await roleRepository.save(role);
+
+    logger.info(`Permissions assigned successfully to role ID: ${roleId}`);
+    return ResUtil.success({
+      res,
+      message: "Permissions assigned successfully",
+      data: role,
+    });
+  } catch (error) {
+    logger.error("Error assigning permissions", error);
+    return ResUtil.internalError({
+      res,
+      message: "Error assigning permissions",
+      data: error,
+    });
+  }
+};
+
+// Get all permissions
+export const getAllPermissions = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const permissionRepository = getRepository(Permission);
+    const permissions = await permissionRepository.find();
+
+    logger.info("Permissions retrieved successfully");
+    return ResUtil.success({
+      res,
+      message: "Permissions retrieved successfully",
+      data: permissions,
+    });
+  } catch (error) {
+    logger.error("Error retrieving permissions", error);
+    return ResUtil.internalError({
+      res,
+      message: "Error retrieving permissions",
+      data: error,
+    });
+  }
+};
+
+// Get permissions for a specific role
+export const getRolePermissions = async (req: Request, res: Response): Promise<void> => {
+  const { id: roleId } = req.params; // Role ID from the URL
+
+  try {
+    const roleRepository = getRepository(Role);
+
+    // Find the role with its permissions
+    const role = await roleRepository.findOne({
+      where: { id: roleId },
+      relations: ["permissions"],
+    });
+
+    if (!role) {
+      logger.warn(`Role not found with ID: ${roleId}`);
+      return ResUtil.notFound({ res, message: "Role not found" });
+    }
+
+    logger.info(`Permissions retrieved successfully for role ID: ${roleId}`);
+    return ResUtil.success({
+      res,
+      message: "Permissions retrieved successfully",
+      data: role.permissions,
+    });
+  } catch (error) {
+    logger.error("Error retrieving permissions for role", error);
+    return ResUtil.internalError({
+      res,
+      message: "Error retrieving permissions for role",
+      data: error,
+    });
   }
 };

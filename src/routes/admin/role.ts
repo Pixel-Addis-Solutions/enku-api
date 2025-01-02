@@ -1,26 +1,29 @@
 import { Router } from "express";
 import {
-  RoleController,
   createRole,
   getAllRoles,
   getRoleById,
   updateRole,
   deleteRole,
+  getAllPermissions,
+  assignPermissions,
+  getRolePermissions,
 } from "../../controllers/admin/role";
 
 const router = Router();
 
-// Assign permissions to a role..
-router.post("/:id/permissions", RoleController.assignPermissions);
+// Assign permissions to a role
+router.post("/:id/permissions", assignPermissions);
 
-// Retrieve permissions for a specific role...
-router.get("/:id/permissions", RoleController.getRolePermissions);
+// Retrieve permissions for a specific role
+router.get("/:id/permissions", getRolePermissions);
+router.get("/permissions", getAllPermissions); // Get all permissions
 
-// //role Crude Operation
-router.post("/", createRole); //to create role
-router.get("/", getAllRoles); //to get role
-router.get("/:id", getRoleById); //to get role by Id role
-router.put("/:id", updateRole); //to update role
-router.delete("/:id", deleteRole); //to delete role
+// Role CRUD Operations
+router.post("/", createRole); // Create role
+router.get("/", getAllRoles); // Get all roles
+router.get("/:id", getRoleById); // Get role by ID
+router.put("/:id", updateRole); // Update role
+router.delete("/:id", deleteRole); // Delete role
 
 export default router;
