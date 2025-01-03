@@ -14,6 +14,7 @@ import customerRoutes from "../admin/customer";
 import dashboardRoutes from "../admin/dashboard";
 import blogRoutes from "../admin/blog";
 import roleRoutes from "../admin/role";
+import usersRoutes from "../admin/users";
 import cardRoutes from "../admin/card";
 import discountRoutes from "../admin/discount";
 import testimonialsRoutes from "../admin/testimonial";
@@ -44,6 +45,7 @@ router.use("/testimonials", authenticateUser,testimonialsRoutes);
 router.use("/loyalty_programs", authenticateUser,loyaltyProgramsRoutes);
 router.put("/variations/:id", authenticateUser,updateProductVariation);
 router.delete("/images/:id", authenticateUser,deleteProductImage);
+
 
 export default router;
  
