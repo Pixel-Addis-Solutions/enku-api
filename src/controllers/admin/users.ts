@@ -4,6 +4,7 @@ import { User } from "../../entities/user";
 import { Role } from "../../entities/role";
 import bcrypt from "bcrypt";
 import logger from "../../util/logger";
+import { ResUtil } from '../../helper/response.helper';
 
 /**
  * Helper function to exclude sensitive fields like password from user responses
@@ -28,7 +29,11 @@ export const createUser = async (req: Request, res: Response): Promise<Response>
     const role = await roleRepository.findOne({ where: { id: roleId } });
     if (!role) {
       logger.warn(`Invalid role ID: ${roleId}`);
-      return res.status(400).json({ message: "Invalid role ID." });
+      ResUtil.badRequest({
+        res,
+        message: "Invalid role ID.",
+      });
+      return res; // Explicitly return res
     }
 
     // Hash password
@@ -46,18 +51,22 @@ export const createUser = async (req: Request, res: Response): Promise<Response>
     const savedUser = await userRepository.save(newUser);
 
     logger.info(`User created successfully with email: ${email}`);
-    return res.status(201).json({
+    ResUtil.success({
+      res,
       message: "User created successfully.",
       data: excludePassword(savedUser), // Exclude password from response
     });
+    return res; // Explicitly return res
   } catch (error) {
     logger.error(`Error creating user - ${(error as Error).message}`, {
       stack: (error as Error).stack,
     });
-    return res.status(500).json({
+    ResUtil.badRequest({
+      res,
       message: "Error creating user.",
       data: (error as Error).message,
     });
+    return res; // Explicitly return res
   }
 };
 
@@ -71,18 +80,22 @@ export const getAllUsers = async (_req: Request, res: Response): Promise<Respons
     const users = await userRepository.find({ relations: ["role"] });
 
     logger.info(`Retrieved all users.`);
-    return res.status(200).json({
+    ResUtil.success({
+      res,
       message: "Users retrieved successfully.",
       data: users.map((user) => excludePassword(user)), // Exclude passwords from all users
     });
+    return res; // Explicitly return res
   } catch (error) {
     logger.error(`Error retrieving users - ${(error as Error).message}`, {
       stack: (error as Error).stack,
     });
-    return res.status(500).json({
+    ResUtil.badRequest({
+      res,
       message: "Error retrieving users.",
       data: (error as Error).message,
     });
+    return res; // Explicitly return res
   }
 };
 
@@ -103,22 +116,30 @@ export const getUserById = async (req: Request, res: Response): Promise<Response
 
     if (!user) {
       logger.warn(`User not found with ID: ${id}`);
-      return res.status(404).json({ message: "User not found." });
+      ResUtil.badRequest({
+        res,
+        message: "User not found.",
+      });
+      return res; // Explicitly return res
     }
 
     logger.info(`Retrieved user with ID: ${id}`);
-    return res.status(200).json({
+    ResUtil.success({
+      res,
       message: "User retrieved successfully.",
       data: excludePassword(user), // Exclude password from response
     });
+    return res; // Explicitly return res
   } catch (error) {
     logger.error(`Error retrieving user with ID: ${id} - ${(error as Error).message}`, {
       stack: (error as Error).stack,
     });
-    return res.status(500).json({
+    ResUtil.badRequest({
+      res,
       message: "Error retrieving user.",
       data: (error as Error).message,
     });
+    return res; // Explicitly return res
   }
 };
 
@@ -138,7 +159,11 @@ export const updateUser = async (req: Request, res: Response): Promise<Response>
     const user = await userRepository.findOne({ where: { id } });
     if (!user) {
       logger.warn(`User not found with ID: ${id}`);
-      return res.status(404).json({ message: "User not found." });
+      ResUtil.badRequest({
+        res,
+        message: "User not found.",
+      });
+      return res; // Explicitly return res
     }
 
     // Validate role if provided
@@ -147,7 +172,11 @@ export const updateUser = async (req: Request, res: Response): Promise<Response>
       role = await roleRepository.findOne({ where: { id: roleId } });
       if (!role) {
         logger.warn(`Invalid role ID: ${roleId}`);
-        return res.status(400).json({ message: "Invalid role ID." });
+        ResUtil.badRequest({
+          res,
+          message: "Invalid role ID.",
+        });
+        return res; // Explicitly return res
       }
     }
 
@@ -164,18 +193,22 @@ export const updateUser = async (req: Request, res: Response): Promise<Response>
     const updatedUser = await userRepository.save(user);
 
     logger.info(`User updated successfully with ID: ${id}`);
-    return res.status(200).json({
+    ResUtil.success({
+      res,
       message: "User updated successfully.",
       data: excludePassword(updatedUser), // Exclude password from response
     });
+    return res; // Explicitly return res
   } catch (error) {
     logger.error(`Error updating user with ID: ${id} - ${(error as Error).message}`, {
       stack: (error as Error).stack,
     });
-    return res.status(500).json({
+    ResUtil.badRequest({
+      res,
       message: "Error updating user.",
       data: (error as Error).message,
     });
+    return res; // Explicitly return res
   }
 };
 
@@ -193,23 +226,31 @@ export const deleteUser = async (req: Request, res: Response): Promise<Response>
     const user = await userRepository.findOne({ where: { id } });
     if (!user) {
       logger.warn(`User not found with ID: ${id}`);
-      return res.status(404).json({ message: "User not found." });
+      ResUtil.badRequest({
+        res,
+        message: "User not found.",
+      });
+      return res; // Explicitly return res
     }
 
     // Delete user
     await userRepository.remove(user);
 
     logger.info(`User deleted successfully with ID: ${id}`);
-    return res.status(200).json({
+    ResUtil.success({
+      res,
       message: "User deleted successfully.",
     });
+    return res; // Explicitly return res
   } catch (error) {
     logger.error(`Error deleting user with ID: ${id} - ${(error as Error).message}`, {
       stack: (error as Error).stack,
     });
-    return res.status(500).json({
+    ResUtil.badRequest({
+      res,
       message: "Error deleting user.",
       data: (error as Error).message,
     });
+    return res; // Explicitly return res
   }
 };

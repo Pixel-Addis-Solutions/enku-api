@@ -3,3 +3,5 @@
 2025-01-01T17:03:15.473Z [[31merror[39m]: [object Object]
 2025-01-01T17:09:34.088Z [[31merror[39m]: [object Object]
 2025-01-02T21:26:29.514Z [[32minfo[39m]: Retrieved user with ID: f0641ede-a5d4-4ab9-b227-c7d0af74518b
+2025-01-03T08:48:36.540Z [[32minfo[39m]: Retrieved user with ID: f0641ede-a5d4-4ab9-b227-c7d0af74518b
+2025-01-03T08:48:52.390Z [[31merror[39m]: Error creating user - Duplicate entry 'kebede@gmail.com' for key 'IDX_e12875dfb3b1d92d7d7c5377e2'
