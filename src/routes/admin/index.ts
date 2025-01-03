@@ -28,7 +28,7 @@ router.use("/products", authenticateUser,productRoutes);
 router.use("/categories", authenticateUser,categoryRoutes);
 router.use("/sub_categories", authenticateUser,subCategoryRoutes);
 router.use("/sub_sub_categories", authenticateUser,subSubCategoryRoutes);
-router.use("/auth", authenticateUser,authRoutes);
+router.use("/auth", authRoutes);
 router.use("/brands", authenticateUser, brandRoutes);
 router.use("/orders", authenticateUser,orderRoutes);
 router.use("/carts", authenticateUser,cartRoutes);
