@@ -2,3 +2,16 @@
 2025-01-01T17:03:13.704Z [[31merror[39m]: [object Object]
 2025-01-01T17:03:15.473Z [[31merror[39m]: [object Object]
 2025-01-01T17:09:34.088Z [[31merror[39m]: [object Object]
+2025-01-03T10:08:46.036Z [[33mwarn[39m]: Invalid product ID: d2947c9e-5633-4b7c-89fd-92d4df86f445
+2025-01-03T10:22:39.908Z [[33mwarn[39m]: Invalid product ID: d2947c9e-5633-4b7c-89fd-92d4df86f445
+2025-01-03T10:59:20.658Z [[33mwarn[39m]: Invalid product ID:  
+2025-01-03T11:13:02.453Z [[31merror[39m]: Foreign key constraint error: Cannot add or update a child row: a foreign key constraint fails (`enku_shop`.`product`, CONSTRAINT `FK_ff0c0301a95e517153df97f6812` FOREIGN KEY (`categoryId`) REFERENCES `category` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION)
+2025-01-03T11:18:50.336Z [[31merror[39m]: Foreign key constraint error: Cannot add or update a child row: a foreign key constraint fails (`enku_shop`.`product`, CONSTRAINT `FK_ff0c0301a95e517153df97f6812` FOREIGN KEY (`categoryId`) REFERENCES `category` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION)
+2025-01-03T11:19:00.107Z [[33mwarn[39m]: Invalid product ID:  
+2025-01-03T17:06:48.299Z [[33mwarn[39m]: Invalid variation ID:  
+2025-01-03T17:06:58.942Z [[33mwarn[39m]: Invalid variation ID: 1
+2025-01-05T07:59:35.931Z [[33mwarn[39m]: Invalid variation ID: 1
+2025-01-05T10:34:59.565Z [[32minfo[39m]: Product variation created successfully: 7cf7e708-a63a-484b-adba-bfa497d00df8
+2025-01-05T10:35:40.516Z [[31merror[39m]: Error creating review - No metadata for "ProductReview" was found.
+2025-01-05T10:47:33.563Z [[31merror[39m]: Error creating review - No metadata for "ProductReview" was found.
+2025-01-05T10:54:16.896Z [[32minfo[39m]: Review created successfully for product ID: 8bec96f6-c1a5-412f-bd02-1aa50193db9d

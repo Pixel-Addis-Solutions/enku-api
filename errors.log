@@ -2,3 +2,7 @@
 2025-01-01T17:03:13.704Z [[31merror[39m]: [object Object]
 2025-01-01T17:03:15.473Z [[31merror[39m]: [object Object]
 2025-01-01T17:09:34.088Z [[31merror[39m]: [object Object]
+2025-01-03T11:13:02.453Z [[31merror[39m]: Foreign key constraint error: Cannot add or update a child row: a foreign key constraint fails (`enku_shop`.`product`, CONSTRAINT `FK_ff0c0301a95e517153df97f6812` FOREIGN KEY (`categoryId`) REFERENCES `category` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION)
+2025-01-03T11:18:50.336Z [[31merror[39m]: Foreign key constraint error: Cannot add or update a child row: a foreign key constraint fails (`enku_shop`.`product`, CONSTRAINT `FK_ff0c0301a95e517153df97f6812` FOREIGN KEY (`categoryId`) REFERENCES `category` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION)
+2025-01-05T10:35:40.516Z [[31merror[39m]: Error creating review - No metadata for "ProductReview" was found.
+2025-01-05T10:47:33.563Z [[31merror[39m]: Error creating review - No metadata for "ProductReview" was found.

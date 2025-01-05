@@ -18,7 +18,7 @@ import cardRoutes from "../admin/card";
 import discountRoutes from "../admin/discount";
 import testimonialsRoutes from "../admin/testimonial";
 import loyaltyProgramsRoutes from "../admin/loyalty-program";
-import { updateProductVariation } from "../../controllers/admin/variation";
+import { updateProductVariation} from "../../controllers/admin/variation";
 import { deleteProductImage } from "../../controllers/admin/product";
 
 const router = Router();
@@ -43,6 +43,7 @@ router.use("/discounts", discountRoutes);
 router.use("/testimonials", testimonialsRoutes);
 router.use("/loyalty_programs", loyaltyProgramsRoutes);
 router.put("/variations/:id", updateProductVariation);
+// router.post("/variations", createProductVariation);
 router.delete("/images/:id", deleteProductImage);
 
 export default router;

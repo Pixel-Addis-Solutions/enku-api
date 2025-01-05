@@ -15,7 +15,7 @@ import {
 } from "../../controllers/user/filter";
 import { getHomePageData } from "../../controllers/user/home";
 import loyaltyProgramsRoutes from "./loyalty-program";
-
+import productReviewRoutes from "./product-review";
 const router = Router();
 
 // Register route modules
@@ -24,6 +24,7 @@ router.use("/products", productRoutes);
 router.use("/categories", categoryRoutes);
 router.use("/carts", cartRoutes);
 router.use("/auth", authRoutes);
+router.use("/product_reviews", productReviewRoutes);
 router.use("/orders", orderRoutes);
 router.use("/filters/:categoryId", getFiltersForCategory);
 router.use("/filters", getFilters);

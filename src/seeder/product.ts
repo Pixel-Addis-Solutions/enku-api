@@ -185,19 +185,19 @@ const seedDatabase = async () => {
   }
 
   // Seed products
-  //   for (const productData of products) {
-  //     const subSubCategory = await subSubCategoryRepository.findOne({
-  //       where: { name: productData.subSubCategoryName },
-  //       relations: ["subCategory.category"],
-  //     });
-  //     if (subSubCategory) {
-  //       const product = productRepository.create({
-  //         ...productData,
-  //         subSubCategory,
-  //       });
-  //       await productRepository.save(product);
-  //     }
-  //   }
+    for (const productData of products) {
+      const subSubCategory = await subSubCategoryRepository.findOne({
+        where: { name: productData.subSubCategoryName },
+        relations: ["subCategory.category"],
+      });
+      if (subSubCategory) {
+        const product = productRepository.create({
+          ...productData,
+          subSubCategory,
+        });
+        await productRepository.save(product);
+      }
+    }
 
   console.log("Database seeding completed.");
 };
