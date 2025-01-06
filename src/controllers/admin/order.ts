@@ -141,11 +141,6 @@ export const createOrder = async (req: Request | any, res: Response) => {
       const variationRepository =
         transactionalEntityManager.getRepository(ProductVariation);
 
-      // Validate admin access (assuming req.user.role contains user role)
-      // if (!req.user || req.user.role !== "admin") {
-      //   throw new Error("Unauthorized. Only admins can create orders.");
-      // }
-
       // Retrieve the product
       const product = await productRepository.findOne({
         where: { id: productId },
@@ -177,7 +172,7 @@ export const createOrder = async (req: Request | any, res: Response) => {
 
         if (customer) {
           customerId = customer.id;
-        } else if (agreed) {
+        } else {
           // Create a new customer
           customer = customerRepository.create({
             phoneNumber: shippingPhoneNumber,

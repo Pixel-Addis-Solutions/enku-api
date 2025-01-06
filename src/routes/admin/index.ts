@@ -36,7 +36,7 @@ router.use("/filters", authenticateUser,filterRoutes);
 router.use("/filter_values", authenticateUser,filterValueRoutes);
 router.use("/carousels", authenticateUser,carouselRoutes);
 router.use("/customers", authenticateUser,customerRoutes);
-router.use("/dashboards", authenticateUser,dashboardRoutes);
+router.use("/users", authenticateUser,usersRoutes);
 router.use("/blogs", authenticateUser,blogRoutes);
 router.use("/roles", authenticateUser,roleRoutes);
 router.use("/cards", authenticateUser,cardRoutes);
