@@ -30,7 +30,7 @@ router.use("/sub_categories", authenticateUser,subCategoryRoutes);
 router.use("/sub_sub_categories", authenticateUser,subSubCategoryRoutes);
 router.use("/auth", authRoutes);
 router.use("/brands", authenticateUser, brandRoutes);
-router.use("/orders", authenticateUser,orderRoutes);
+router.use("/orders",orderRoutes);
 router.use("/carts", authenticateUser,cartRoutes);
 router.use("/filters", authenticateUser,filterRoutes);
 router.use("/filter_values", authenticateUser,filterValueRoutes);
