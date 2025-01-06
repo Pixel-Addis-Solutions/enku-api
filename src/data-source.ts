@@ -24,6 +24,7 @@ import { Blog } from "./entities/blog";
 import { Discount } from "./entities/discount";
 import { Testimonial } from "./entities/testimonial";
 import { HomePageCard } from "./entities/card";
+import { Favorite } from "./entities/favorite";
 require("dotenv").config();
 
 console.log("process.env.DATABASE_HOST", process.env.DB_HOST);
@@ -64,7 +65,8 @@ export const AppDataSource = new DataSource({
     Blog,
     Discount,
     Testimonial,
-    HomePageCard
+    HomePageCard,
+    Favorite
   ],
   migrations: [],
   timezone:'Z'
