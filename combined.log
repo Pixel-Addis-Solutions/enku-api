@@ -6,3 +6,6 @@
 2025-01-03T08:48:36.540Z [[32minfo[39m]: Retrieved user with ID: f0641ede-a5d4-4ab9-b227-c7d0af74518b
 2025-01-03T08:48:52.390Z [[31merror[39m]: Error creating user - Duplicate entry 'kebede@gmail.com' for key 'IDX_e12875dfb3b1d92d7d7c5377e2'
 2025-01-06T20:10:30.342Z [[32minfo[39m]: user logged in:
+2025-01-08T07:18:21.592Z [[31merror[39m]: Token verification failed:TokenExpiredError: jwt expired
+2025-01-08T07:19:20.587Z [[31merror[39m]: Token verification failed:TokenExpiredError: jwt expired
+2025-01-08T07:22:06.309Z [[32minfo[39m]: user logged in:

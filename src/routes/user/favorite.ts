@@ -4,8 +4,7 @@ import {
     createFavorite, 
     getFavorites, 
     getFavoriteCount, 
-    getProductReviews,
-    getProductAverageRating
+    deleteFavorite
 } from '../../controllers/user/favorite';
 
 const router = express.Router();
@@ -13,7 +12,6 @@ const router = express.Router();
 router.post("/", authenticate, createFavorite);
 router.get("/", authenticate, getFavorites);
 router.get("/count/:productId", authenticate, getFavoriteCount);
-router.get("/reviews/:productId",authenticate, getProductReviews);
-router.get("/reviews/rating/:productId",authenticate, getProductAverageRating);
+router.delete("/:favoriteId", authenticate, deleteFavorite);
 
 export default router;

@@ -3,8 +3,8 @@ import { getRepository } from '../../data-source';
 import { Favorite } from '../../entities/favorite';
 import { ResUtil } from '../../helper/response.helper';
 import logger from "../../util/logger";
-import { ProductReview } from '../../entities/product-review';
 
+// Type assertion to AuthRequest
 interface AuthRequest extends Request {
     user: {
       id: string;
@@ -91,84 +91,22 @@ export const getFavoriteCount = async (req: Request, res: Response) => {
     }
 };
 
-
-export const getProductReviews = async (req: Request, res: Response) => {
-    const productId = req.params.productId;
-    const { variationId } = req.query;
-    const reviewRepository = getRepository(ProductReview);
+export const deleteFavorite = async (req: Request, res: Response) => {
+    const { favoriteId } = req.params;
+    const favoriteRepository = getRepository(Favorite);
 
     try {
-        if (!productId) {
-            return ResUtil.badRequest({
-                res,
-                message: "ProductId is required"
-            });
-        }
-
-        const whereClause: any = {
-            product: { id: productId }
-        };
-        
-        if (variationId) {
-            whereClause.variation = { id: variationId };
-        }
-
-        const reviews = await reviewRepository.find({
-            where: whereClause,
-            relations: ['customer', 'product', 'variation'],
-            select: {
-                id: true,
-                rate: true,
-                comment: true,
-                customerId: true,
-                productId: true,
-                variationId: true,
-                createdAt: true,
-                updatedAt: true
-            },
-            order: {
-                createdAt: 'DESC'
-            }
-        });
-
+        await favoriteRepository.delete(favoriteId);
         return ResUtil.success({
             res,
-            message: "Product reviews retrieved successfully",
-            data: reviews
+            message: "Favorite deleted successfully"
         });
     } catch (error: any) {
-        logger.error("Error fetching product reviews", error);
+        logger.error("Error deleting favorite", error);
         return ResUtil.internalError({
             res,
-            message: "Error fetching product reviews",
+            message: "Error deleting favorite",
             data: error
-        });
+        } );
     }
-};
-
-export const getProductAverageRating = async (req: Request, res: Response) => {
-    const { productId } = req.params;
-    const reviewRepository = getRepository(ProductReview);
-
-    try {
-        const result = await reviewRepository
-            .createQueryBuilder("review")
-            .where("review.productId = :productId", { productId })
-            .select("AVG(review.rate)", "averageRating")
-            .addSelect("COUNT(*)", "totalReviews")
-            .getRawOne();
-
-        return ResUtil.success({
-            res,
-            message: "Product rating retrieved successfully",
-            data: result
-        });
-    } catch (error: any) {
-        logger.error("Error fetching product rating", error);
-        return ResUtil.internalError({
-            res,
-            message: "Error fetching product rating",
-            data: error
-        });
-    }
-};
+}
