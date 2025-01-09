@@ -3,6 +3,7 @@ import {
   getAllOrders,
   updateOrderStatus,
   getOrderById,
+  createOrder,
 } from "../../controllers/admin/order";
 import { getOrderAnalytics } from "../../controllers/admin/dashboard";
 
@@ -12,5 +13,6 @@ router.get("/", getAllOrders);
 router.put("/:id", updateOrderStatus);
 router.get("/analytics", getOrderAnalytics);
 router.get("/:id", getOrderById);
+router.post("/", createOrder);
 
 export default router;
