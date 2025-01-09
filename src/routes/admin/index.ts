@@ -19,9 +19,11 @@ import cardRoutes from "../admin/card";
 import discountRoutes from "../admin/discount";
 import testimonialsRoutes from "../admin/testimonial";
 import loyaltyProgramsRoutes from "../admin/loyalty-program";
-import { updateProductVariation } from "../../controllers/admin/variation";
+import productVariationRoutes from "./Variation";
 import { deleteProductImage } from "../../controllers/admin/product";
 import { authenticateUser } from "../../middlewares/authenticate";
+
+
 const router = Router();
 
 router.use("/products", authenticateUser,productRoutes);
@@ -43,7 +45,7 @@ router.use("/cards", authenticateUser,cardRoutes);
 router.use("/discounts", authenticateUser,discountRoutes);
 router.use("/testimonials", authenticateUser,testimonialsRoutes);
 router.use("/loyalty_programs", authenticateUser,loyaltyProgramsRoutes);
-router.put("/variations/:id", authenticateUser,updateProductVariation);
+router.use("/variations", productVariationRoutes);
 router.delete("/images/:id", authenticateUser,deleteProductImage);
 
 
