@@ -25,6 +25,7 @@ import { authenticateUser } from "../../middlewares/authenticate";
 const router = Router();
 
 router.use("/products", authenticateUser,productRoutes);
+router.use("/dashboards", authenticateUser,dashboardRoutes);
 router.use("/categories", authenticateUser,categoryRoutes);
 router.use("/sub_categories", authenticateUser,subCategoryRoutes);
 router.use("/sub_sub_categories", authenticateUser,subSubCategoryRoutes);
