@@ -15,8 +15,7 @@ import {
   export class ProductReview {
     @PrimaryGeneratedColumn("uuid")
     id!: string;
-  
-    @ManyToOne(() => User, (user) => user.id, { nullable: false })
+
     @JoinColumn({ name: "customerId" })
     customer!: User;
   
