@@ -71,8 +71,8 @@ export const getProducts = async (req: Request, res: Response) => {
       imageUrl: product.imageUrl,
       category: { id: product?.category?.id, name: product?.category?.name },
       variationsCount: product.variations.length,
-      rate: 4, // Assuming this is hard-coded for now
-      reviewCount: 4333, // Assuming this is hard-coded for now
+      rate: 0, // Assuming this is hard-coded for now
+      reviewCount: 0, // Assuming this is hard-coded for now
     }));
 
     return ResUtil.success({
@@ -449,16 +449,31 @@ export const deleteProduct = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     const productRepository = getRepository(Product);
-    const product = await productRepository.findOneBy({ id });
+    
+    // Find the product with all its relations
+    const product = await productRepository.findOne({
+      where: { id },
+      relations: [
+        'variations',
+        'variations.images',
+        'variations.optionValues',
+        'images',
+        'filters'
+      ]
+    });
 
     if (!product) {
       return ResUtil.notFound({ res, message: "Product not found" });
     }
 
+    // Delete the product which will cascade delete related entities
     await productRepository.remove(product);
 
-    logger.info(`Product deleted successfully: ${id}`);
-    return ResUtil.success({ res, message: "Product deleted successfully" });
+    logger.info(`Product deleted successfully with ID: ${id}`);
+    return ResUtil.success({ 
+      res, 
+      message: "Product and all related data deleted successfully" 
+    });
   } catch (error) {
     logger.error("Error deleting product", error);
     return ResUtil.internalError({

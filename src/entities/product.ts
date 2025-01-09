@@ -77,13 +77,19 @@ export class Product extends BaseEntity {
   @ManyToOne(() => Brand, (brand) => brand.products)
   brand!: Brand;
 
-  @OneToMany(() => ProductVariation, (variation) => variation.product)
+  @OneToMany(() => ProductVariation, variation => variation.product, {
+    cascade: true,
+    onDelete: 'CASCADE'
+  })
   variations!: ProductVariation[];
 
   @OneToMany(() => CartItem, (item) => item.product)
   items!: CartItem[];
 
-  @OneToMany(() => ProductImage, (image) => image.product)
+  @OneToMany(() => ProductImage, image => image.product, {
+    cascade: true,
+    onDelete: 'CASCADE'
+  })
   images!: ProductImage[];
 
   @ManyToMany(() => FilterValue, (filterValue) => filterValue.products)
