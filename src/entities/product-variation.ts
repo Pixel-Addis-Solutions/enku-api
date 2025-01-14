@@ -4,11 +4,13 @@ import {
   Column,
   ManyToOne,
   OneToMany,
+  ManyToMany,
 } from "typeorm";
 import { Product } from "./product";
 import { OptionValue } from "./option-value";
 import { ProductImage } from "./product-image";
 import { CartItem } from "./cart-item";
+import { Discount } from "./discount";
 
 @Entity()
 export class ProductVariation {
@@ -28,7 +30,7 @@ export class ProductVariation {
 
   @Column("decimal", { precision: 10, scale: 2, nullable: true })
   price!: number;
-  
+
   @Column()
   quantity!: number;
 
@@ -42,4 +44,7 @@ export class ProductVariation {
 
   @OneToMany(() => CartItem, (item) => item.product)
   items!: CartItem[];
+
+  @ManyToMany(() => Discount, (discount) => discount.products)
+  discounts!: Discount[];
 }

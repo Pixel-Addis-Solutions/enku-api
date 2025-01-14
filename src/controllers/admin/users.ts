@@ -18,10 +18,18 @@ const excludePassword = (user: User) => {
  * Create a new user
  * POST /admin/users
  */
-export const createUser = async (req: Request, res: Response): Promise<Response> => {
+export const createUser = async (req: Request, res: Response) => {
   const { fullName, email, phoneNumber, password, roleId } = req.body;
 
   try {
+
+    if(!fullName || !email || !password){
+      logger.warn(`Required Validation failed`);
+      return ResUtil.badRequest({
+        res,
+        message: "please fill required data",
+      });
+    }
     const userRepository = getRepository(User);
     const roleRepository = getRepository(Role);
 

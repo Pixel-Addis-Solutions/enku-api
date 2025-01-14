@@ -115,8 +115,9 @@ export const deleteDiscount = async (req: Request, res: Response) => {
 /**
  * Attach a discount to a product
  */
-export const attachDiscountToProduct = async (req: Request, res: Response) => {
+export const attachDiscountToProductOrVariationOrCategory = async (req: Request, res: Response) => {
   try {
+    // incomplete code for melAKU
     const { productId, discountId } = req.body;
 
     // Find the product by ID
@@ -154,7 +155,7 @@ export const attachDiscountToProduct = async (req: Request, res: Response) => {
   }
 };
 
-export const detachDiscount = async (req: Request, res: Response) => {
+export const detachDiscountFromProductVariationCategory = async (req: Request, res: Response) => {
   try {
     const discountRepo = getRepository(Discount);
     const productRepo = getRepository(Product);
@@ -176,7 +177,7 @@ export const detachDiscount = async (req: Request, res: Response) => {
     if (productId) {
       const product = await productRepo.findOne({
         where: { id: parseInt(productId, 10) },
-        relations: ["discounts"], // Assuming a ManyToMany relationship between Product and Discount
+        relations: ["discounts"], 
       });
 
       if (!product) {

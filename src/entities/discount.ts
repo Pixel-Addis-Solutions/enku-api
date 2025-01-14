@@ -10,6 +10,7 @@ import {
 } from "typeorm";
 import { Product } from "./product";
 import { Category } from "./category";
+import { ProductVariation } from "./product-variation";
 
 @Entity()
 export class Discount extends BaseEntity {
@@ -17,7 +18,8 @@ export class Discount extends BaseEntity {
   id!: number;
 
   @Column({ type: "varchar" })
-  type!: string; // e.g., percentage, fixed amount, bundle, BOGO
+  type!: string; // make enum //   
+  // e.g., percentage, fixed amount, bundle, BOGO
 
   @Column({ type: "float" })
   value!: number; // Discount value (e.g., 10% or $5 off)
@@ -40,6 +42,10 @@ export class Discount extends BaseEntity {
   @ManyToMany(() => Product, (product) => product.discounts)
   @JoinTable()
   products!: Product[];
+
+  @ManyToMany(() => ProductVariation, (variation) => variation.discounts)
+  @JoinTable()
+  variations!: ProductVariation[];
 
   @ManyToMany(() => Category, (category) => category.discounts)
   @JoinTable()
