@@ -111,7 +111,6 @@ export const createOrder = async (req: Request | any, res: Response) => {
         shippingPhoneNumber,
         shippingAddress,
         customerName,
-        discount:{id:discountId}, // entity relationship should be defined
       });
       await orderRepository.save(order);
 
