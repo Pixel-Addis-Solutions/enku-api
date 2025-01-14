@@ -11,9 +11,10 @@ import { OptionValue } from "./option-value";
 import { ProductImage } from "./product-image";
 import { CartItem } from "./cart-item";
 import { Discount } from "./discount";
+import { BaseEntity } from "./base-entity";
 
 @Entity()
-export class ProductVariation {
+export class ProductVariation extends BaseEntity {
   @PrimaryGeneratedColumn("uuid")
   id!: string;
 

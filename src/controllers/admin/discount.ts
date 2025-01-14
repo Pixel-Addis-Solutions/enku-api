@@ -4,6 +4,8 @@ import { Discount } from "../../entities/discount";
 import { ResUtil } from "../../helper/response.helper";
 import logger from "../../util/logger";
 import { Product } from "../../entities/product";
+import { Category } from "../../entities/category";
+import { ProductVariation } from "../../entities/product-variation";
 
 export const createDiscount = async (req: Request, res: Response) => {
   try {
@@ -118,7 +120,7 @@ export const deleteDiscount = async (req: Request, res: Response) => {
 export const attachDiscountToProductOrVariationOrCategory = async (req: Request, res: Response) => {
   try {
     // incomplete code for melAKU
-    const { productId, discountId } = req.body;
+    const { productId, discountId,categoryId,variationId } = req.body;
 
     // Find the product by ID
     const product = await Product.findOne({
@@ -127,7 +129,7 @@ export const attachDiscountToProductOrVariationOrCategory = async (req: Request,
     });
 
     if (!product) {
-      return res.status(404).json({ message: "Product not found" });
+      return ResUtil.badRequest({res, message: "Product not found" });
     }
 
     // Find the discount by ID
@@ -136,22 +138,39 @@ export const attachDiscountToProductOrVariationOrCategory = async (req: Request,
     });
 
     if (!discount) {
-      return res.status(404).json({ message: "Discount not found" });
+      return ResUtil.badRequest({res, message: "Discount not found" });
     }
 
     // Add the discount to the product's discounts array
     product.discounts.push(discount);
 
+    const category = await Category.findOne({ 
+      where: { id: categoryId },
+      relations: ["discounts"],
+    });
+
+    if (!category) {
+      return ResUtil.badRequest({res, message: "Category not found" });
+    }
+
+    category.discounts.push(discount);
+  
+    const variation = await ProductVariation.findOne({
+      where: { id: variationId },
+      relations: ["discounts"],
+    });
+
+    if (variation) {
+      variation.discounts.push(discount);
+    }
+
+  
     // Save the updated product with the new discount
     await product.save();
 
-    return res
-      .status(200)
-      .json({ message: "Discount successfully attached to product" });
+    return ResUtil.success({res, message: "Discount successfully attached to product" });
   } catch (error) {
-    return res
-      .status(500)
-      .json({ message: "Error attaching discount to product", error });
+    ResUtil.internalError({res, message: "Error attaching discount to product", data:error });
   }
 };
 
@@ -160,7 +179,7 @@ export const detachDiscountFromProductVariationCategory = async (req: Request, r
     const discountRepo = getRepository(Discount);
     const productRepo = getRepository(Product);
     const { id } = req.params; // The discount ID to detach
-    const { productId } = req.body; // The product ID to detach discount from (if needed)
+    const { productId,variationId, categoryId } = req.body; // The product ID to detach discount from (if needed)
 
     // Find the discount by ID
     const discount = await discountRepo.findOne({
@@ -190,6 +209,12 @@ export const detachDiscountFromProductVariationCategory = async (req: Request, r
       product.discounts = product.discounts.filter((d: Discount) => d.id !== discount.id);
       await productRepo.save(product);
 
+
+      const category = await Category.findOne({
+        where: { id},
+        relations: ["discounts"], 
+      });
+      
       return res.status(200).json({
         message: `Discount detached from product ${productId} successfully`,
       });
