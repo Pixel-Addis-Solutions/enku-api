@@ -10,7 +10,7 @@ import { ProductVariation } from "../../entities/product-variation";
 export const createDiscount = async (req: Request, res: Response) => {
   try {
     const discountRepo = getRepository(Discount);
-    const { type, value, startDate, endDate, status, code,image } = req.body;
+    const { type, value, startDate, endDate, status, code, image } = req.body;
 
     // Create a new discount
     const discount = discountRepo.create({
@@ -20,7 +20,7 @@ export const createDiscount = async (req: Request, res: Response) => {
       endDate,
       status: status,
       code,
-      image
+      image,
     });
 
     await discountRepo.save(discount);
@@ -51,7 +51,7 @@ export const updateDiscount = async (req: Request, res: Response) => {
   try {
     const discountRepo = getRepository(Discount);
     const { id } = req.params; // Assuming you're sending the discount ID as a URL parameter
-    const { type, value, startDate, endDate, status, code,image } = req.body;
+    const { type, value, startDate, endDate, status, code, image } = req.body;
 
     // Find the discount by ID
     const discount = await discountRepo.findOne({
@@ -117,69 +117,83 @@ export const deleteDiscount = async (req: Request, res: Response) => {
 /**
  * Attach a discount to a product
  */
-export const attachDiscountToProductOrVariationOrCategory = async (req: Request, res: Response) => {
+export const attachDiscountToProductOrVariationOrCategory = async (
+  req: Request,
+  res: Response
+) => {
   try {
     // incomplete code for melAKU
-    const { productId, discountId,categoryId,variationId } = req.body;
-
-    // Find the product by ID
-    const product = await Product.findOne({
-      where: { id: productId },
-      relations: ["discounts"],
-    });
-
-    if (!product) {
-      return ResUtil.badRequest({res, message: "Product not found" });
-    }
+    const { productId, discountId, categoryId, variationId } = req.body;
 
     // Find the discount by ID
     const discount = await Discount.findOne({
       where: { id: discountId },
     });
-
     if (!discount) {
-      return ResUtil.badRequest({res, message: "Discount not found" });
+      return ResUtil.badRequest({ res, message: "Discount not found" });
     }
+    // Find the product by ID
 
-    // Add the discount to the product's discounts array
-    product.discounts.push(discount);
+    if (productId) {
+      const product = await Product.findOne({
+        where: { id: productId },
+        relations: ["discounts"],
+      });
 
-    const category = await Category.findOne({ 
-      where: { id: categoryId },
-      relations: ["discounts"],
-    });
+      if (!product) {
+        return ResUtil.badRequest({ res, message: "Product not found" });
+      }
 
-    if (!category) {
-      return ResUtil.badRequest({res, message: "Category not found" });
+      // Add the discount to the product's discounts array
+      product.discounts.push(discount);
+      await product.save();
+    } else if (categoryId) {
+      const category = await Category.findOne({
+        where: { id: categoryId },
+        relations: ["discounts"],
+      });
+
+      if (!category) {
+        return ResUtil.badRequest({ res, message: "Category not found" });
+      }
+
+      category.discounts.push(discount);
+      await category.save();
+    } else {
+      const variation = await ProductVariation.findOne({
+        where: { id: variationId },
+        relations: ["discounts"],
+      });
+
+      if (variation) {
+        variation.discounts.push(discount);
+      }
+      await variation?.save();
     }
-
-    category.discounts.push(discount);
-  
-    const variation = await ProductVariation.findOne({
-      where: { id: variationId },
-      relations: ["discounts"],
-    });
-
-    if (variation) {
-      variation.discounts.push(discount);
-    }
-
-  
     // Save the updated product with the new discount
-    await product.save();
 
-    return ResUtil.success({res, message: "Discount successfully attached to product" });
+    return ResUtil.success({
+      res,
+      message: "Discount successfully attached to product",
+    });
   } catch (error) {
-    ResUtil.internalError({res, message: "Error attaching discount to product", data:error });
+    ResUtil.internalError({
+      res,
+      message: "Error attaching discount to product",
+      data: error,
+    });
   }
 };
 
-export const detachDiscountFromProductVariationCategory = async (req: Request, res: Response) => {
+export const detachDiscountFromProductVariationCategory = async (
+  req: Request,
+  res: Response
+) => {
   try {
     const discountRepo = getRepository(Discount);
     const productRepo = getRepository(Product);
     const { id } = req.params; // The discount ID to detach
-    const { productId,variationId, categoryId } = req.body; // The product ID to detach discount from (if needed)
+    const { productId, variationId, categoryId } = req.body; // The product ID to detach discount from (if needed)
 
     // Find the discount by ID
     const discount = await discountRepo.findOne({
@@ -196,7 +210,7 @@ export const detachDiscountFromProductVariationCategory = async (req: Request, r
     if (productId) {
       const product = await productRepo.findOne({
         where: { id: parseInt(productId, 10) },
-        relations: ["discounts"], 
+        relations: ["discounts"],
       });
 
       if (!product) {
@@ -206,15 +220,16 @@ export const detachDiscountFromProductVariationCategory = async (req: Request, r
       }
 
       // Remove the discount from the product
-      product.discounts = product.discounts.filter((d: Discount) => d.id !== discount.id);
+      product.discounts = product.discounts.filter(
+        (d: Discount) => d.id !== discount.id
+      );
       await productRepo.save(product);
 
-
       const category = await Category.findOne({
-        where: { id},
-        relations: ["discounts"], 
+        where: { id },
+        relations: ["discounts"],
       });
-      
+
       return res.status(200).json({
         message: `Discount detached from product ${productId} successfully`,
       });
