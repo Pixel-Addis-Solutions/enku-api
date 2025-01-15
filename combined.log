@@ -5,3 +5,9 @@
 2025-01-02T21:26:29.514Z [[32minfo[39m]: Retrieved user with ID: f0641ede-a5d4-4ab9-b227-c7d0af74518b
 2025-01-03T08:48:36.540Z [[32minfo[39m]: Retrieved user with ID: f0641ede-a5d4-4ab9-b227-c7d0af74518b
 2025-01-03T08:48:52.390Z [[31merror[39m]: Error creating user - Duplicate entry 'kebede@gmail.com' for key 'IDX_e12875dfb3b1d92d7d7c5377e2'
+2025-01-15T20:20:54.107Z [[32minfo[39m]: user logged in:
+2025-01-15T20:20:54.243Z [[31merror[39m]: Error fetching linked accounts Property "platformUserId" was not found in "SocialAccount". Make sure your query is correct.
+2025-01-15T20:27:01.406Z [[32minfo[39m]: user logged in:
+2025-01-15T20:27:01.465Z [[31merror[39m]: Error linking social account Not implemented
+2025-01-15T20:37:19.147Z [[32minfo[39m]: user logged in:
+2025-01-15T20:37:19.202Z [[31merror[39m]: Error linking social account
