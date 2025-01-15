@@ -311,3 +311,137 @@ export const searchProducts = async (req: Request, res: Response) => {
     });
   }
 };
+
+
+
+export const getProductsWithFiltersAndDiscounts = async (
+  req: Request,
+  res: Response
+) => {
+  try {
+    const {
+      category,
+      subCategory,
+      subSubCategory,
+      brand,
+      filters,
+      search,
+      sortBy = "createdAt", // Default sorting by name
+      sortOrder = "ASC", // Default ascending order
+      page = 1, // Default to page 1
+      limit = 10, // Default to 10 items per page
+    } = req.query;
+
+    const productRepository = getRepository(Product);
+
+    const queryBuilder = productRepository
+      .createQueryBuilder("product")
+      .leftJoinAndSelect("product.category", "category")
+      .leftJoinAndSelect("product.subCategory", "subCategory")
+      .leftJoinAndSelect("product.subSubCategory", "subSubCategory")
+      .leftJoinAndSelect("product.brand", "brand")
+      .leftJoinAndSelect("product.filters", "productFilter")
+      .leftJoinAndSelect("product.discounts", "productDiscount")
+      .leftJoinAndSelect(
+        "product.variations",
+        "variation",
+        "variation.isFeatured = :isFeatured",
+        { isFeatured: true }
+      ) // Fetch the featured variation
+      .leftJoinAndSelect("variation.images", "variationImages") // Include variation images if available
+      .leftJoinAndSelect("product.images", "productImages") // Include product images if there are no variations
+      .where("productDiscount.status = :status", { status: true }) // Only include active discounts
+      .select([
+        "product.id",
+        "product.name",
+        "product.description",
+        "product.price",
+        "product.imageUrl",
+        "product.createdAt",
+        "category.name",
+        "subCategory.name",
+        "subSubCategory.name",
+        "brand.name",
+        "productFilter.id",
+        "productFilter.value",
+        "variation.id", // Include the variation ID
+        "variation.title", // Include the variation name
+        "variation.price", // Include the variation price
+        "variation.isFeatured", // Include the isFeatured flag
+        "variationImages.id", // Include the image id for the variation
+        "variationImages.url", // Include the image URLs for the variation
+        "productImages.id", // Include the image id for the product itself
+        "productImages.url", // Include the image URLs for the product itself
+        "productDiscount.id", // Include the discount ID
+        "productDiscount.type", // Include the discount type
+        "productDiscount.value", // Include the discount value
+        "productDiscount.sta", // Include the discount start date
+        "productDiscount.endDate", // Include the discount end date
+      ]);
+
+    // Apply filters
+    if (category) {
+      queryBuilder.andWhere("category.name IN (:...categories)", {
+        categories: Array.isArray(category) ? category : [category],
+      });
+    }
+    if (subCategory) {
+      queryBuilder.andWhere("subCategory.name IN (:...subCategories)", {
+        subCategories: Array.isArray(subCategory) ? subCategory : [subCategory],
+      });
+    }
+    if (subSubCategory) {
+      queryBuilder.andWhere("subSubCategory.name IN (:...subSubCategories)", {
+        subSubCategories: Array.isArray(subSubCategory)
+          ? subSubCategory
+          : [subSubCategory],
+      });
+    }
+    if (brand) {
+      queryBuilder.andWhere("brand.name IN (:...brands)", {
+        brands: Array.isArray(brand) ? brand : [brand],
+      });
+    }
+    if (filters) {
+      const valueIdsArray = (filters as string).split(",");
+      queryBuilder.andWhere("productFilter.id IN (:...filterIds)", {
+        filterIds: Array.isArray(valueIdsArray)
+          ? valueIdsArray
+          : [valueIdsArray],
+      });
+    }
+
+    // Apply search functionality
+    if (search) {
+      queryBuilder.andWhere(
+        "product.name LIKE :search OR product.description LIKE :search",
+        { search: `%${search}%` }
+      );
+    }
+
+    // Apply sorting
+    queryBuilder.orderBy(`product.${sortBy}`, sortOrder as "ASC" | "DESC");
+
+    // Apply pagination
+    queryBuilder.skip((Number(page) - 1) * Number(limit)).take(Number(limit));
+
+    const products = await queryBuilder.getMany();
+
+    return ResUtil.success({
+      res,
+      message: "Products fetched successfully",
+      data: products,
+      meta: {
+        currentPage: Number(page),
+        itemsPerPage: Number(limit),
+      },
+    });
+  } catch (error) {
+    logger.error(`Error fetching products with filters: ${error}`);
+    return ResUtil.internalError({
+      res,
+      message: "Error fetching products",
+      data: error,
+    });
+  }
+};

@@ -7,6 +7,7 @@ import {
   ManyToMany,
   CreateDateColumn,
   UpdateDateColumn,
+  BaseEntity,
 } from "typeorm";
 import { SubCategory } from "./sub-category";
 import { Product } from "./product";
@@ -15,7 +16,7 @@ import { Filter, FilterValue } from "./filter";
 import { Discount } from "./discount";
 
 @Entity()
-export class Category {
+export class Category extends BaseEntity {
   @PrimaryGeneratedColumn("uuid")
   id!: string;
 

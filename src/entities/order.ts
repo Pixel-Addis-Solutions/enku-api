@@ -10,7 +10,7 @@ import {
 import { Customer } from "./customer";
 import { OrderItem } from "./order-item";
 import { BaseEntity } from "./base-entity";
-
+import { Discount } from "./discount";
 @Entity()
 export class Order extends BaseEntity {
   @PrimaryGeneratedColumn("uuid")
@@ -24,7 +24,8 @@ export class Order extends BaseEntity {
 
   @Column({ type: "decimal", precision: 10, scale: 2 })
   total!: number;
-
+  @ManyToOne(() => Discount, { nullable: true, onDelete: "SET NULL" })
+  discount!: Discount | null; // Optional discount applied to the order
   @Column({ type: "varchar", length: 20, default: "pending" })
   status!: string;
 

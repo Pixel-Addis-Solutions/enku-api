@@ -4,6 +4,7 @@ import {
   Column,
   ManyToOne,
   OneToMany,
+  BaseEntity,
 } from "typeorm";
 import { Product } from "./product";
 import { OptionValue } from "./option-value";
@@ -11,7 +12,7 @@ import { ProductImage } from "./product-image";
 import { CartItem } from "./cart-item";
 
 @Entity()
-export class ProductVariation {
+export class ProductVariation  extends BaseEntity{
   @PrimaryGeneratedColumn("uuid")
   id!: string;
 
