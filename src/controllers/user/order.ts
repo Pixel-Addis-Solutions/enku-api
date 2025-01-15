@@ -9,18 +9,12 @@ import { Customer } from "../../entities/customer";
 import { CartItem } from "../../entities/cart-item";
 import { Product } from "../../entities/product";
 import { ProductVariation } from "../../entities/product-variation";
-import { Discount } from "../../entities/discount";
-
+import {Discount} from "../../entities/discount";
 export const createOrder = async (req: Request | any, res: Response) => {
   let customerId = req.user?.id;
   const sessionId = req.headers["sessionid"] as string;
-  const {
-    shippingPhoneNumber,
-    shippingAddress,
-    customerName,
-    agreed,
-    discountId,
-  } = req.body;
+  const { shippingPhoneNumber, shippingAddress, customerName, agreed,discountId } =
+    req.body;
 
   const entityManager = AppDataSource.manager;
 
@@ -35,17 +29,28 @@ export const createOrder = async (req: Request | any, res: Response) => {
       const cartItemRepository =
         transactionalEntityManager.getRepository(CartItem);
 
+
+ let discount: Discount | null = null;
+ if (discountId) {
+   const discountRepository =
+     transactionalEntityManager.getRepository(Discount);
+   discount = await discountRepository.findOne({
+     where: { id: discountId },
+     relations: ["products", "categories", "variations"],
+   });
+ }
+
       let cart;
 
-      let discount: Discount | null = null;
-      if (discountId) {
-        const discountRepository =
-          transactionalEntityManager.getRepository(Discount);
-        discount = await discountRepository.findOne({
-          where: { id: discountId },
-          relations: ["products", "categories", "variations"],
-        });
-      }
+      // let discount: Discount | null = null;
+      // if (discountId) {
+      //   const discountRepository =
+      //     transactionalEntityManager.getRepository(Discount);
+      //   discount = await discountRepository.findOne({
+      //     where: { id: discountId },
+      //     relations: ["products", "categories", "variations"],
+      //   });
+      // }
 
       // Retrieve the cart for the logged-in customer
       if (customerId) {
@@ -102,11 +107,10 @@ export const createOrder = async (req: Request | any, res: Response) => {
           discountAmount = total - discount.value;
         }
       }
-
       // Create new order
       const order = orderRepository.create({
         customer: { id: customerId },
-        total: total - discountAmount,
+        total: total-discountAmount,
         items: [],
         shippingPhoneNumber,
         shippingAddress,
@@ -324,27 +328,59 @@ export const buyNow = async (req: Request | any, res: Response) => {
   }
 };
 
+
+
 export const validateDiscount = async (req: Request, res: Response) => {
   const { code } = req.body;
 
   try {
     const discountRepository = getRepository(Discount);
 
+    // Fetch the discount along with related entities
     const discount = await discountRepository.findOne({
       where: { code },
       relations: ["products", "categories", "variations"],
     });
 
+    // Check if the discount exists
     if (!discount) {
       return ResUtil.notFound({ res, message: "Discount not found" });
     }
 
+    // Check if the discount is active and valid
+    const currentDate = new Date();
+    if (
+      !discount.status || // Ensure discount is active
+      currentDate < discount.startDate || // Ensure the discount has started
+      currentDate > discount.endDate // Ensure the discount has not expired
+    ) {
+      return ResUtil.badRequest({
+        res,
+        message: "Discount is invalid or expired",
+      });
+    }
+
+    // If valid, return the discount with its relations
     return ResUtil.success({
       res,
       message: "Discount validated successfully",
-      data: discount,
+      data: {
+        id: discount.id,
+        code: discount.code,
+        type: discount.type,
+        value: discount.value,
+        startDate: discount.startDate,
+        endDate: discount.endDate,
+        status: discount.status,
+        relatedEntities: {
+          products: discount.products,
+          categories: discount.categories,
+          variations: discount.variations,
+        },
+      },
     });
   } catch (error) {
+    // Log and return an internal server error
     logger.error(`Error validating discount: ${error}`);
     return ResUtil.internalError({
       res,

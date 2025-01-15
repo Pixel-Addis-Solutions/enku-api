@@ -5,7 +5,7 @@ import {
   ManyToOne,
   OneToMany,
   ManyToMany,
-} from "typeorm";
+  } from "typeorm";
 import { Product } from "./product";
 import { OptionValue } from "./option-value";
 import { ProductImage } from "./product-image";
@@ -14,7 +14,7 @@ import { Discount } from "./discount";
 import { BaseEntity } from "./base-entity";
 
 @Entity()
-export class ProductVariation extends BaseEntity {
+export class ProductVariation  extends BaseEntity{
   @PrimaryGeneratedColumn("uuid")
   id!: string;
 

@@ -7,6 +7,7 @@ import {
   ManyToMany,
   CreateDateColumn,
   UpdateDateColumn,
+  BaseEntity,
 } from "typeorm";
 import { SubCategory } from "./sub-category";
 import { Product } from "./product";
