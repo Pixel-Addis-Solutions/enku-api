@@ -14,6 +14,7 @@ import { Product } from "./product";
 import { SubSubCategory } from "./sub-sub-category";
 import { Filter, FilterValue } from "./filter";
 import { Discount } from "./discount";
+import { BaseEntity } from "./base-entity";
 
 @Entity()
 export class Category extends BaseEntity {

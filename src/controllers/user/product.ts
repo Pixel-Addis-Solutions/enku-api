@@ -312,8 +312,6 @@ export const searchProducts = async (req: Request, res: Response) => {
   }
 };
 
-
-
 export const getProductsWithFiltersAndDiscounts = async (
   req: Request,
   res: Response

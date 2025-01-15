@@ -10,7 +10,7 @@ import { ProductDiscounts } from "../../entities/ProductDiscounts";
 export const createDiscount = async (req: Request, res: Response) => {
   try {
     const discountRepo = getRepository(Discount);
-    const { type, value, startDate, endDate, status, code,image } = req.body;
+    const { type, value, startDate, endDate, status, code, image } = req.body;
 
     // Create a new discount
     const discount = discountRepo.create({
@@ -20,7 +20,7 @@ export const createDiscount = async (req: Request, res: Response) => {
       endDate,
       status: status,
       code,
-      image
+      image,
     });
 
     await discountRepo.save(discount);
@@ -51,7 +51,7 @@ export const updateDiscount = async (req: Request, res: Response) => {
   try {
     const discountRepo = getRepository(Discount);
     const { id } = req.params; // Assuming you're sending the discount ID as a URL parameter
-    const { type, value, startDate, endDate, status, code,image } = req.body;
+    const { type, value, startDate, endDate, status, code, image } = req.body;
 
     // Find the discount by ID
     const discount = await discountRepo.findOne({
@@ -184,5 +184,41 @@ export const attachDiscountToProductOrVariationOrCategory = async (
    }
  };
 
+ 
+//     // Detach the discount from a specific product, if productId is provided
+//     if (productId) {
+//       const product = await productRepo.findOne({
+//         where: { id: parseInt(productId, 10) },
+//         relations: ["discounts"],
+//       });
 
 
+//       // Remove the discount from the product
+//       product.discounts = product.discounts.filter(
+//         (d: Discount) => d.id !== discount.id
+//       );
+//       await productRepo.save(product);
+
+//       const category = await Category.findOne({
+//         where: { id },
+//         relations: ["discounts"],
+//       });
+
+//       return res.status(200).json({
+//         message: `Discount detached from product ${productId} successfully`,
+//       });
+//     }
+
+//     // If no productId is provided, delete the discount completely
+//     await discountRepo.remove(discount);
+
+//     res.status(200).json({
+//       message: "Discount detached and removed successfully",
+//     });
+//   } catch (error) {
+//     res.status(500).json({
+//       message: "Error detaching discount",
+//       error,
+//     });
+//   }
+// };

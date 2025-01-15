@@ -42,6 +42,16 @@ export const createOrder = async (req: Request | any, res: Response) => {
 
       let cart;
 
+      // let discount: Discount | null = null;
+      // if (discountId) {
+      //   const discountRepository =
+      //     transactionalEntityManager.getRepository(Discount);
+      //   discount = await discountRepository.findOne({
+      //     where: { id: discountId },
+      //     relations: ["products", "categories", "variations"],
+      //   });
+      // }
+
       // Retrieve the cart for the logged-in customer
       if (customerId) {
         cart = await cartRepository.findOne({
@@ -88,7 +98,6 @@ export const createOrder = async (req: Request | any, res: Response) => {
           acc + (item.variation.price || item.product.price) * item.quantity,
         0
       );
-
 
       let discountAmount = 0;
       if (discount) {
@@ -153,7 +162,7 @@ export const getOrders = async (req: any, res: Response) => {
 
   try {
     const orderRepository = getRepository(Order);
- 
+
     const orders = await orderRepository.find({
       where: { customer: { id: customerId } },
       relations: [
