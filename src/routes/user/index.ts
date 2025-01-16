@@ -8,7 +8,7 @@ import orderRoutes from "./order";
 import cardRoutes from "./card";
 import blogRoutes from "./blog";
 import discountRoutes from "./discount";
-
+import PostRoutes from "./post";
 import {
   getFilters,
   getFiltersForCategory,
@@ -31,6 +31,7 @@ router.use("/home", getHomePageData);
 router.use("/loyalty_programs", loyaltyProgramsRoutes);
 router.use("/cards", cardRoutes);
 router.use("/discounts", discountRoutes);
+router.use("/posts", PostRoutes);
 router.use("/", blogRoutes);
-
+ 
 export default router;
