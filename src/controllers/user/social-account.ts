@@ -68,6 +68,10 @@ export const linkSocialAccount: RequestHandler = async (req: Request, res: Respo
 
         await socialAccountRepository.save(socialAccount);
 
+        if (new Date() > new Date(socialAccount.tokenExpiration)) {
+            return ResUtil.badRequest({ res, message: "Token expired, please re-link your account" });
+        }
+
         return ResUtil.success({
             res,
             message: "Social account linked successfully",

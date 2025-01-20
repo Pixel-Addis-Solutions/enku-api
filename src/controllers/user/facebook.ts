@@ -1,10 +1,13 @@
 import { Request, Response, RequestHandler } from 'express';
-import { FacebookService } from '../../services/facebook.service';
+import { FacebookService, getFacebookUserId } from '../../services/facebook.service';
 import { ResUtil } from '../../helper/response.helper';
 import logger from '../../util/logger';
-import { getRepository } from 'typeorm';
+import { getRepository } from '../../data-source';
 import { User } from '../../entities/user';
-
+import { SocialAccount } from "../../entities/social-account";
+/**
+ * Create a Facebook Post
+ */
 export const createFacebookPost: RequestHandler = async (req: Request, res: Response) => {
     const userId = req.user?.id;
     const { message, link, image, scheduledTime } = req.body;
@@ -28,7 +31,7 @@ export const createFacebookPost: RequestHandler = async (req: Request, res: Resp
             data: result
         });
     } catch (error: any) {
-        logger.error("Error posting to Facebook", error);
+        logger.error("Error posting to Facebook", { error: error.message, stack: error.stack });
         return ResUtil.internalError({
             res,
             message: `Error posting to Facebook: ${error.message}`,
@@ -37,6 +40,9 @@ export const createFacebookPost: RequestHandler = async (req: Request, res: Resp
     }
 };
 
+/**
+ * Get Facebook Page Details
+ */
 export const getFacebookPageDetails: RequestHandler = async (req: Request, res: Response) => {
     const userId = req.user?.id;
 
@@ -54,7 +60,7 @@ export const getFacebookPageDetails: RequestHandler = async (req: Request, res: 
             data: details
         });
     } catch (error: any) {
-        logger.error("Error getting Facebook page details", error);
+        logger.error("Error getting Facebook page details", { error: error.message, stack: error.stack });
         return ResUtil.internalError({
             res,
             message: `Error getting Facebook page details: ${error.message}`,
@@ -63,6 +69,9 @@ export const getFacebookPageDetails: RequestHandler = async (req: Request, res: 
     }
 };
 
+/**
+ * Get Facebook Insights
+ */
 export const getFacebookInsights: RequestHandler = async (req: Request, res: Response) => {
     const userId = req.user?.id;
 
@@ -80,7 +89,7 @@ export const getFacebookInsights: RequestHandler = async (req: Request, res: Res
             data: insights
         });
     } catch (error: any) {
-        logger.error("Error getting Facebook insights", error);
+        logger.error("Error getting Facebook insights", { error: error.message, stack: error.stack });
         return ResUtil.internalError({
             res,
             message: `Error getting Facebook insights: ${error.message}`,
@@ -89,7 +98,10 @@ export const getFacebookInsights: RequestHandler = async (req: Request, res: Res
     }
 };
 
-export const linkFacebookAccount: RequestHandler = async (req: Request, res: Response) => {
+/**
+ * Link Facebook Account
+ */
+export const linkFacebookAccount: RequestHandler = async (req, res) => {
     const userId = req.user?.id;
     const { accessToken } = req.body;
 
@@ -98,37 +110,57 @@ export const linkFacebookAccount: RequestHandler = async (req: Request, res: Res
     }
 
     try {
-        // First verify user exists
         const userRepository = getRepository(User);
-        const user = await userRepository.findOne({ where: { id: userId } });
+        const socialAccountRepository = getRepository(SocialAccount);
 
+        const user = await userRepository.findOne({ where: { id: userId } });
         if (!user) {
-            logger.error('User not found in database:', { userId });
-            return ResUtil.notFound({
+            return ResUtil.notFound({ res, message: "User not found" });
+        }
+
+        // Fetch the Facebook User ID (platformUserId)
+        const platformUserId = await getFacebookUserId(accessToken);
+
+        // Check if this platformUserId is already linked
+        const existingAccount = await socialAccountRepository.findOne({
+            where: { platform: "facebook", platformUserId },
+        });
+
+        if (existingAccount) {
+            return ResUtil.badRequest({
                 res,
-                message: "User not found",
-                data: { userId }
+                message: "Facebook account already linked by another user",
             });
         }
 
-        const facebookService = new FacebookService();
-        await facebookService.linkAccount(user.id, accessToken); // Pass verified user ID
+        // Save the new social account
+        const newAccount = socialAccountRepository.create({
+            user,
+            platform: "facebook",
+            accountName: "Facebook Account", // Or fetch the actual account name from the API
+            platformUserId,
+            accountId: platformUserId, // Optional: Store as accountId as well
+            accessToken,
+            tokenExpiration: null, // Populate if available from the API
+            refreshToken: null, // Populate if available from the API
+        });
+
+        await socialAccountRepository.save(newAccount);
 
         return ResUtil.success({
             res,
             message: "Facebook account linked successfully",
-            data: {}
+            data: { platformUserId },
         });
     } catch (error: any) {
         logger.error("Error linking Facebook account", {
             userId,
             error: error.message,
-            stack: error.stack
+            stack: error.stack,
         });
         return ResUtil.internalError({
             res,
             message: `Error linking social account: ${error.message}`,
-            data: {}
         });
     }
-}; 
+};

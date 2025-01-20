@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 interface TokenData {
     accessToken: string;
     refreshToken?: string;
@@ -11,33 +13,69 @@ export class SocialAuthService {
         switch (platform) {
             case 'facebook':
                 return this.exchangeFacebookAuthCode(authCode);
-            case 'instagram':
-                return this.exchangeInstagramAuthCode(authCode);
-            case 'google':
-                return this.exchangeGoogleAuthCode(authCode);
             default:
                 throw new Error('Unsupported platform');
         }
     }
 
     private async exchangeFacebookAuthCode(authCode: string): Promise<TokenData> {
-        // Mock implementation for testing
-        return {
-            accessToken: "mock_access_token",
-            refreshToken: "mock_refresh_token",
-            expiresAt: new Date(Date.now() + 3600000), // 1 hour from now
-            userId: "mock_user_id",
-            accountName: "Mock User"
-        };
+        const appId = process.env.FACEBOOK_APP_ID;
+        const appSecret = process.env.FACEBOOK_APP_SECRET;
+        const redirectUri = process.env.FACEBOOK_REDIRECT_URI;
+
+        try {
+            console.log('Exchanging auth code for access token:', {
+                appId,
+                redirectUri,
+                authCode
+            });
+
+            const response = await axios.get('https://graph.facebook.com/v18.0/oauth/access_token', {
+                params: {
+                    client_id: appId,
+                    redirect_uri: redirectUri,
+                    client_secret: appSecret,
+                    code: authCode
+                }
+            });
+
+            const { access_token, expires_in } = response.data;
+
+            // Fetch user details with the access token
+            const userResponse = await axios.get('https://graph.facebook.com/me', {
+                params: {
+                    fields: 'id,name,email', // Add email if needed
+                    access_token: access_token
+                }
+            });
+
+            const { id, name } = userResponse.data;
+
+            return {
+                accessToken: access_token,
+                expiresAt: new Date(Date.now() + expires_in * 1000),
+                userId: id,
+                accountName: name
+            };
+        } catch (error: any) {
+            console.error('Error exchanging auth code:', error.response?.data || error.message);
+            throw new Error('Failed to exchange auth code for access token');
+        }
     }
 
-    private async exchangeInstagramAuthCode(authCode: string): Promise<TokenData> {
-        // Implement Instagram OAuth token exchange
-        throw new Error('Not implemented');
-    }
+    async getFacebookUserData(accessToken: string) {
+        try {
+            const userResponse = await axios.get('https://graph.facebook.com/me', {
+                params: {
+                    fields: 'id,name,email', // Add email if needed
+                    access_token: accessToken
+                }
+            });
 
-    private async exchangeGoogleAuthCode(authCode: string): Promise<TokenData> {
-        // Implement Google OAuth token exchange
-        throw new Error('Not implemented');
+            return userResponse.data;
+        } catch (error: any) {
+            console.error('Error fetching user data from Facebook:', error.response?.data || error.message);
+            throw new Error('Failed to fetch user data from Facebook');
+        }
     }
-} 
+}

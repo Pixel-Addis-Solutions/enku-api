@@ -21,6 +21,9 @@ export class SocialAccount {
     @Column({ type: "text" })
     accessToken!: string;
 
+    @Column({ type: "uuid" })
+    platformUserId!: string;
+
     @Column({ type: "timestamp", nullable: true })
     tokenExpiration!: Date | null;
 

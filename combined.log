@@ -43,3 +43,65 @@
 2025-01-16T21:10:34.432Z [[31merror[39m]: Error linking social account
 2025-01-16T21:13:57.820Z [[32minfo[39m]: user logged in:
 2025-01-16T21:13:57.935Z [[31merror[39m]: Error linking social account
+2025-01-17T14:50:53.533Z [[31merror[39m]: Token verification failed:TokenExpiredError: jwt expired
+2025-01-17T14:51:06.405Z [[31merror[39m]: Token verification failed:TokenExpiredError: jwt expired
+2025-01-17T14:51:28.461Z [[32minfo[39m]: user logged in:
+2025-01-17T14:51:28.525Z [[31merror[39m]: Error linking social account
+2025-01-17T15:14:43.865Z [[31merror[39m]: Error creating user - Duplicate entry 'johnd12oe@example.com' for key 'IDX_e12875dfb3b1d92d7d7c5377e2'
+2025-01-17T15:17:23.897Z [[32minfo[39m]: User logged in: admin@admin.com
+2025-01-17T15:20:51.501Z [[31merror[39m]: Error fetching linked accounts Property "platformUserId" was not found in "SocialAccount". Make sure your query is correct.
+2025-01-17T15:33:02.423Z [[31merror[39m]: Error posting to Facebook FB is not defined
+2025-01-17T17:57:45.526Z [[31merror[39m]: Error posting to Facebook: Request failed with status code 400
+2025-01-17T17:57:45.532Z [[31merror[39m]: Error posting to Facebook
+2025-01-17T18:00:25.954Z [[31merror[39m]: Error posting to Facebook: Request failed with status code 400
+2025-01-17T18:00:25.962Z [[31merror[39m]: Error posting to Facebook
+2025-01-17T18:00:36.749Z [[31merror[39m]: Error linking social account
+2025-01-17T18:03:46.904Z [[31merror[39m]: Error linking social account
+2025-01-17T18:11:24.380Z [[31merror[39m]: Error linking social account
+2025-01-17T18:11:39.177Z [[31merror[39m]: Error linking social account
+2025-01-17T18:11:48.395Z [[31merror[39m]: Error posting to Facebook: Request failed with status code 400
+2025-01-17T18:11:48.397Z [[31merror[39m]: Error posting to Facebook
+2025-01-17T18:11:59.085Z [[31merror[39m]: Error linking social account
+2025-01-17T18:12:11.482Z [[31merror[39m]: Error linking social account
+2025-01-17T18:17:27.788Z [[31merror[39m]: Error linking social account
+2025-01-17T18:17:36.686Z [[31merror[39m]: Error posting to Facebook: Request failed with status code 400
+2025-01-17T18:17:36.689Z [[31merror[39m]: Error posting to Facebook
+2025-01-17T18:17:42.603Z [[31merror[39m]: Error linking social account
+2025-01-17T18:20:12.413Z [[31merror[39m]: Error linking social account
+2025-01-17T18:22:32.005Z [[31merror[39m]: Error linking social account
+2025-01-17T18:25:59.389Z [[31merror[39m]: Error linking social account
+2025-01-17T18:30:28.160Z [[31merror[39m]: Error posting to Facebook: Request failed with status code 400
+2025-01-17T18:30:28.168Z [[31merror[39m]: Error posting to Facebook
+2025-01-17T18:30:36.034Z [[31merror[39m]: Error linking social account
+2025-01-17T18:33:02.908Z [[31merror[39m]: Error linking social account
+2025-01-17T18:34:21.655Z [[31merror[39m]: Error linking social account
+2025-01-17T18:35:45.427Z [[31merror[39m]: Error linking social account
+2025-01-17T18:37:06.901Z [[31merror[39m]: Error linking social account
+2025-01-17T18:41:02.625Z [[31merror[39m]: Error linking social account
+2025-01-17T18:41:45.526Z [[31merror[39m]: Error linking social account
+2025-01-17T18:48:36.655Z [[31merror[39m]: Error linking social account
+2025-01-17T19:24:05.640Z [[31merror[39m]: Error linking social account
+2025-01-17T19:25:45.809Z [[31merror[39m]: Error linking social account
+2025-01-17T19:30:26.086Z [[31merror[39m]: Error linking social account
+2025-01-17T19:46:12.801Z [[31merror[39m]: Error linking social account
+2025-01-17T20:23:39.321Z [[31merror[39m]: Error linking social account
+2025-01-17T20:28:00.489Z [[31merror[39m]: Error linking social account
+2025-01-17T20:30:38.613Z [[31merror[39m]: Error linking social account
+2025-01-17T20:39:31.659Z [[31merror[39m]: Error posting to Facebook: Request failed with status code 400
+2025-01-17T20:39:31.694Z [[31merror[39m]: Error posting to Facebook
+2025-01-17T20:39:37.604Z [[31merror[39m]: Error linking social account
+2025-01-18T07:17:05.643Z [[31merror[39m]: Error posting to Facebook: Request failed with status code 400
+2025-01-18T07:17:05.649Z [[31merror[39m]: Error posting to Facebook
+2025-01-18T07:48:48.039Z [[31merror[39m]: Error linking social account
+2025-01-18T08:37:20.434Z [[31merror[39m]: Error linking social account
+2025-01-18T08:47:51.646Z [[31merror[39m]: Error linking social account
+2025-01-20T17:06:23.237Z [[31merror[39m]: Error linking social account
+2025-01-20T17:06:30.361Z [[31merror[39m]: Error linking social account
+2025-01-20T17:25:27.287Z [[31merror[39m]: Unhandled error: Expected double-quoted property name in JSON at position 230 (line 4 column 1)
+2025-01-20T17:26:56.944Z [[31merror[39m]: Error linking social account
+2025-01-20T19:32:11.575Z [[31merror[39m]: Error linking social account
+2025-01-20T20:05:04.680Z [[31merror[39m]: Error linking social account
+2025-01-20T20:11:13.766Z [[31merror[39m]: Error linking social account
+2025-01-20T20:11:26.686Z [[31merror[39m]: Error linking social account
+2025-01-20T20:11:32.181Z [[31merror[39m]: Error linking social account
+2025-01-20T20:27:04.144Z [[31merror[39m]: Error linking social account
