@@ -1,6 +1,7 @@
 // src/types/express.d.ts
 import "express";
 import { Customer } from "../entities/customer";
+import { User } from '../entities/user';
 
 declare global {
   namespace Express {
@@ -9,6 +10,9 @@ declare global {
       user?: {
         id: string;
       };
+    }
+    interface User {
+      id: string;
     }
   }
 }

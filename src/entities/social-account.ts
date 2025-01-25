@@ -6,8 +6,8 @@ export class SocialAccount {
     @PrimaryGeneratedColumn("uuid")
     id!: string;
 
-    @ManyToOne(() => User, (user) => user.socialAccounts)
-    user!: User;
+    @ManyToOne(() => User, (user) => user.socialAccounts, { onDelete: "CASCADE" })
+     user!: User;
 
     @Column({ type: "varchar", length: 255 })
     platform!: string;

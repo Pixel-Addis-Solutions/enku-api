@@ -17,7 +17,7 @@ declare global {
 }
 
 export const linkSocialAccount: RequestHandler = async (req: Request, res: Response) => {
-    const { platform, authCode } = req.body;
+    const { platform, accessToken } = req.body;
     const userId = req.user?.id;
 
     if (!userId) {
@@ -35,9 +35,27 @@ export const linkSocialAccount: RequestHandler = async (req: Request, res: Respo
             });
         }
 
-        // Exchange auth code for access token
+        // Fetch user data using access token
         const socialAuthService = new SocialAuthService();
-        const tokenData = await socialAuthService.exchangeAuthCode(platform, authCode);
+        let userData;
+        if (platform === 'facebook') {
+            userData = await socialAuthService.getFacebookUserData(accessToken);
+        } else if (platform === 'google') {
+            userData = await socialAuthService.getGoogleUserData(accessToken);
+        } else {
+            return ResUtil.badRequest({
+                res,
+                message: "Unsupported platform"
+            });
+        }
+
+        // Ensure userData contains the necessary fields
+        if (!userData.id || !userData.name) {
+            return ResUtil.internalError({
+                res,
+                message: "Failed to fetch user data from platform"
+            });
+        }
 
         // Check for existing account
         let socialAccount = await socialAccountRepository.findOne({
@@ -49,28 +67,25 @@ export const linkSocialAccount: RequestHandler = async (req: Request, res: Respo
 
         if (socialAccount) {
             // Update existing account
-            socialAccount.accessToken = tokenData.accessToken;
-            socialAccount.refreshToken = tokenData.refreshToken;
-            socialAccount.tokenExpiration = tokenData.expiresAt;
+            socialAccount.accessToken = accessToken;
             socialAccount.isActive = true;
+            socialAccount.accountName = userData.name;
+            socialAccount.accountId = userData.id;
+            socialAccount.platformUserId = userData.id; // Ensure platformUserId is set
         } else {
             // Create new account
             socialAccount = socialAccountRepository.create({
                 user: { id: userId },
                 platform,
-                accountName: tokenData.accountName,
-                accountId: tokenData.userId,
-                accessToken: tokenData.accessToken,
-                refreshToken: tokenData.refreshToken,
-                tokenExpiration: tokenData.expiresAt
+                accountName: userData.name,
+                accountId: userData.id,
+                platformUserId: userData.id, // Ensure platformUserId is set
+                accessToken: accessToken,
+                isActive: true
             });
         }
 
         await socialAccountRepository.save(socialAccount);
-
-        if (new Date() > new Date(socialAccount.tokenExpiration)) {
-            return ResUtil.badRequest({ res, message: "Token expired, please re-link your account" });
-        }
 
         return ResUtil.success({
             res,
@@ -108,7 +123,7 @@ export const getLinkedAccounts: RequestHandler = async (req: Request, res: Respo
                 user: { id: userId },
                 isActive: true
             },
-            select: ['platform', 'platformUserId', 'createdAt']
+            select: ['platform', 'accountId', 'createdAt']
         });
 
         return ResUtil.success({
@@ -209,4 +224,4 @@ export const getSocialAccountByPlatform: RequestHandler = async (req: Request, r
             data: error
         });
     }
-}; 
+};

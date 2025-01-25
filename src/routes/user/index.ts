@@ -8,7 +8,7 @@ import orderRoutes from "./order";
 import cardRoutes from "./card";
 import blogRoutes from "./blog";
 import discountRoutes from "./discount";
-import socialRoutes from "./social";
+import socialRoutes from "./social-post";
 import socialAuthRoutes from "./socialAuth";
 
 import {
