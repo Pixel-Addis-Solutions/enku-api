@@ -28,7 +28,7 @@ export const linkSocialAccount: RequestHandler = async (req: Request, res: Respo
 
     try {
         // Validate platform
-        if (!['facebook', 'instagram', 'google'].includes(platform)) {
+        if (!['facebook', 'instagram', 'google', 'twitter'].includes(platform)) {
             return ResUtil.badRequest({
                 res,
                 message: "Invalid platform"
@@ -38,19 +38,26 @@ export const linkSocialAccount: RequestHandler = async (req: Request, res: Respo
         // Fetch user data using access token
         const socialAuthService = new SocialAuthService();
         let userData;
-        if (platform === 'facebook') {
-            userData = await socialAuthService.getFacebookUserData(accessToken);
-        } else if (platform === 'google') {
-            userData = await socialAuthService.getGoogleUserData(accessToken);
-        } else {
-            return ResUtil.badRequest({
-                res,
-                message: "Unsupported platform"
-            });
+
+        switch (platform) {
+            case 'facebook':
+                userData = await socialAuthService.getFacebookUserData(accessToken);
+                break;
+            case 'google':
+                userData = await socialAuthService.getGoogleUserData(accessToken);
+                break;
+            case 'instagram':
+                userData = await socialAuthService.getInstagramUserData(accessToken);
+                break;
+            default:
+                return ResUtil.badRequest({
+                    res,
+                    message: "Unsupported platform"
+                });
         }
 
         // Ensure userData contains the necessary fields
-        if (!userData.id || !userData.name) {
+        if (!userData?.id || !userData?.username) {
             return ResUtil.internalError({
                 res,
                 message: "Failed to fetch user data from platform"
@@ -69,7 +76,7 @@ export const linkSocialAccount: RequestHandler = async (req: Request, res: Respo
             // Update existing account
             socialAccount.accessToken = accessToken;
             socialAccount.isActive = true;
-            socialAccount.accountName = userData.name;
+            socialAccount.accountName = userData.username || userData.name; // Use username for Instagram
             socialAccount.accountId = userData.id;
             socialAccount.platformUserId = userData.id; // Ensure platformUserId is set
         } else {
@@ -77,7 +84,7 @@ export const linkSocialAccount: RequestHandler = async (req: Request, res: Respo
             socialAccount = socialAccountRepository.create({
                 user: { id: userId },
                 platform,
-                accountName: userData.name,
+                accountName: userData.username || userData.name, // Use username for Instagram
                 accountId: userData.id,
                 platformUserId: userData.id, // Ensure platformUserId is set
                 accessToken: accessToken,

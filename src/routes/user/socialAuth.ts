@@ -7,11 +7,11 @@ import { getRepository } from '../../data-source';
 import { ResUtil } from '../../helper/response.helper';
 import logger from '../../util/logger';
 import { User } from '../../entities/user';
+import { InstagramService } from '../../services/instagram.service';
 
 const router = express.Router();
 
 // Initiate Facebook OAuth flow
-
 router.get('/auth/facebook/login', (req, res, next) => {
     const redirectUri = "http://localhost:5000/user/social/facebook/callback";
     const authUrl = `https://www.facebook.com/v18.0/dialog/oauth?client_id=${process.env.FACEBOOK_APP_ID}&redirect_uri=${redirectUri}&scope=email,pages_show_list,pages_manage_posts`;
@@ -54,10 +54,6 @@ router.get('/facebook/callback',
                     socialAccount.refreshToken = fbProfile.refreshToken;
                     socialAccount.accountName = fbProfile.displayName || '';
                     socialAccount.platformUserId = fbProfile.id;
-                    socialAccount.platformSettings = {
-                        ...socialAccount.platformSettings,
-                        pages
-                    };
                 } else {
                     // Create new account
                     socialAccount = socialAccountRepo.create({
@@ -68,9 +64,6 @@ router.get('/facebook/callback',
                         accessToken: fbProfile.accessToken,
                         refreshToken: fbProfile.refreshToken,
                         isActive: true,
-                        platformSettings: {
-                            pages
-                        }
                     });
                 }
             } else {
@@ -89,9 +82,6 @@ router.get('/facebook/callback',
                     accessToken: fbProfile.accessToken,
                     refreshToken: fbProfile.refreshToken,
                     isActive: true,
-                    platformSettings: {
-                        pages
-                    }
                 });
             }
 
@@ -152,4 +142,137 @@ router.delete('/remove/facebook', authenticate, async (req, res) => {
     }
 });
 
+// Initiate Instagram OAuth flow
+// Initiate Instagram OAuth flow
+// Initiate Instagram OAuth flow
+router.get('/auth/instagram/login', (req, res, next) => {
+    const redirectUri = "http://localhost:5000/user/social/instagram/callback";
+    const authUrl = `https://www.facebook.com/v18.0/dialog/oauth?client_id=${process.env.INSTAGRAM_CLIENT_ID}&redirect_uri=${redirectUri}&scope=instagram_basic,pages_show_list`;
+    
+    console.log("Instagram OAuth URL:", authUrl); // Log the OAuth URL
+    res.redirect(authUrl);
+});
+
+
+// Instagram OAuth callback (handles both linking and standalone login)
+router.get('/instagram/callback', 
+    passport.authenticate('instagram', { failureRedirect: '/login' }),
+    async (req, res) => {
+        try {
+            const userId = req.user?.id; // For linking to an existing account
+            const instagramProfile = req.user as any; // Change type to 'any' for flexibility
+
+            if (!instagramProfile) {
+                logger.error('Instagram authentication failed: No profile data received');
+                return res.redirect('/error?message=authentication_failed');
+            }
+
+            const socialAccountRepo = getRepository(SocialAccount);
+
+            // Fetch Instagram user data (e.g., profile, media)
+            const userData = await InstagramService.getUserProfile(instagramProfile.accessToken);
+
+            let socialAccount;
+            if (userId) {
+                // Linking to an existing account
+                socialAccount = await socialAccountRepo.findOne({
+                    where: {
+                        user: { id: userId },
+                        platform: 'instagram'
+                    }
+                });
+
+                if (socialAccount) {
+                    // Update existing account
+                    socialAccount.accessToken = instagramProfile.accessToken;
+                    socialAccount.refreshToken = instagramProfile.refreshToken;
+                    socialAccount.accountName = instagramProfile.username || '';
+                    socialAccount.platformUserId = instagramProfile.id;
+                } else {
+                    // Create new account
+                    socialAccount = socialAccountRepo.create({
+                        user: { id: userId },
+                        platform: 'instagram',
+                        accountName: instagramProfile.username || '',
+                        platformUserId: instagramProfile.id,
+                        accessToken: instagramProfile.accessToken,
+                        refreshToken: instagramProfile.refreshToken,
+                        isActive: true,
+                    });
+                }
+            } else {
+                // Standalone login - create a new user and social account
+                const userRepo = getRepository(User);
+                const user = userRepo.create({ 
+                    email: instagramProfile.emails?.[0]?.value || '' 
+                });
+                await userRepo.save(user);
+
+                socialAccount = socialAccountRepo.create({
+                    user,
+                    platform: 'instagram',
+                    accountName: instagramProfile.username || '',
+                    platformUserId: instagramProfile.id,
+                    accessToken: instagramProfile.accessToken,
+                    refreshToken: instagramProfile.refreshToken,
+                    isActive: true,
+                });
+            }
+
+            await socialAccountRepo.save(socialAccount);
+
+            logger.info('Instagram account linked successfully', {
+                userId: socialAccount.user.id,
+                platform: 'instagram',
+                accountId: socialAccount.id
+            });
+
+            res.redirect('/dashboard?message=account_linked');
+        } catch (error: any) {
+            logger.error('Error linking Instagram account', {
+                error: error.message,
+                stack: error.stack
+            });
+            res.redirect('/error?message=linking_failed');
+        }
+    }
+);
+
+// Unlink Instagram account
+router.delete('/remove/instagram', authenticate, async (req, res) => {
+    const userId = req.user?.id;
+
+    if (!userId) {
+        return ResUtil.unAuthorized({ res, message: "User not authenticated" });
+    }
+
+    try {
+        const socialAccountRepo = getRepository(SocialAccount);
+        await socialAccountRepo.update(
+            {
+                user: { id: userId },
+                platform: 'instagram',
+                isActive: true
+            },
+            {
+                isActive: false
+            }
+        );
+
+        return ResUtil.success({
+            res,
+            message: "Instagram account unlinked successfully"
+        });
+    } catch (error: any) {
+        logger.error('Error unlinking Instagram account', {
+            error: error.message,
+            stack: error.stack,
+            userId
+        });
+        return ResUtil.internalError({
+            res,
+            message: "Error unlinking Instagram account"
+        });
+    }
+});
 export default router;

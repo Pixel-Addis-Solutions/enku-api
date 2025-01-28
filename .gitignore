@@ -3,3 +3,6 @@ dist
 .env
 combined.log
 errors.log
+errors.log
+combined.log
+errors.log

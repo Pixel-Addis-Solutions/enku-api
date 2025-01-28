@@ -94,4 +94,26 @@ export class SocialAuthService {
             throw new Error('Failed to fetch user data from Google');
         }
     }
+
+    async getInstagramUserData(accessToken: string) {
+        try {
+            const response = await axios.get(`https://graph.instagram.com/me`, {
+                params: {
+                    fields: 'id,username',
+                    access_token: accessToken,
+                },
+            });
+
+            return response.data;
+        } catch (error: any) {
+            console.error('Error fetching Instagram user data:', {
+                message: error.message,
+                status: error.response?.status,
+                data: error.response?.data,
+                stack: error.stack,
+            });
+
+            throw new Error('Failed to fetch Instagram user data');
+        }
+    }
 }

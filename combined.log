@@ -105,3 +105,316 @@
 2025-01-20T20:11:26.686Z [[31merror[39m]: Error linking social account
 2025-01-20T20:11:32.181Z [[31merror[39m]: Error linking social account
 2025-01-20T20:27:04.144Z [[31merror[39m]: Error linking social account
+2025-01-20T21:06:15.546Z [[31merror[39m]: Error posting to Facebook: Request failed with status code 400
+2025-01-20T21:06:15.552Z [[31merror[39m]: Error posting to Facebook
+2025-01-20T21:06:21.821Z [[31merror[39m]: Error linking social account
+2025-01-21T17:08:03.143Z [[31merror[39m]: Error linking social account
+2025-01-21T17:33:56.094Z [[31merror[39m]: Error linking social account
+2025-01-21T18:02:09.507Z [[31merror[39m]: Error linking social account
+2025-01-21T19:03:14.176Z [[31merror[39m]: Error linking social account
+2025-01-21T19:06:07.907Z [[31merror[39m]: Error linking social account
+2025-01-21T19:09:25.393Z [[31merror[39m]: Error linking social account
+2025-01-21T19:13:13.460Z [[31merror[39m]: Error linking social account
+2025-01-21T19:19:08.102Z [[31merror[39m]: Error linking social account
+2025-01-21T19:49:04.128Z [[31merror[39m]: Error linking social account
+2025-01-21T19:50:26.608Z [[31merror[39m]: Error linking social account
+2025-01-21T19:52:07.447Z [[31merror[39m]: Error linking social account
+2025-01-21T20:30:51.680Z [[31merror[39m]: Error posting to Facebook: Request failed with status code 403
+2025-01-21T20:30:51.697Z [[31merror[39m]: Error posting to Facebook
+2025-01-21T20:39:55.162Z [[31merror[39m]: Error posting to Facebook: No linked Facebook account found
+2025-01-21T20:39:55.182Z [[31merror[39m]: Error posting to Facebook
+2025-01-21T20:41:23.749Z [[31merror[39m]: Error posting to Facebook: No linked Facebook account found
+2025-01-21T20:41:23.751Z [[31merror[39m]: Error posting to Facebook
+2025-01-21T20:42:52.197Z [[31merror[39m]: Error posting to Facebook: No linked Facebook account found
+2025-01-21T20:42:52.199Z [[31merror[39m]: Error posting to Facebook
+2025-01-21T20:48:29.100Z [[31merror[39m]: Error posting to Facebook: No linked Facebook account found
+2025-01-21T20:48:29.107Z [[31merror[39m]: Error posting to Facebook
+2025-01-21T20:50:15.501Z [[31merror[39m]: Error posting to Facebook: No linked Facebook account found
+2025-01-21T20:50:15.507Z [[31merror[39m]: Error posting to Facebook
+2025-01-21T20:54:11.577Z [[31merror[39m]: Error posting to Facebook: No linked Facebook account found
+2025-01-21T20:54:11.584Z [[31merror[39m]: Error posting to Facebook
+2025-01-21T20:58:52.207Z [[31merror[39m]: Error posting to Facebook: No linked Facebook account found
+2025-01-21T20:58:52.212Z [[31merror[39m]: Error posting to Facebook
+2025-01-21T20:59:42.894Z [[31merror[39m]: Error posting to Facebook: No linked Facebook account found
+2025-01-21T20:59:42.902Z [[31merror[39m]: Error posting to Facebook
+2025-01-21T21:01:50.750Z [[31merror[39m]: Error posting to Facebook: No linked Facebook account found
+2025-01-21T21:01:50.754Z [[31merror[39m]: Error posting to Facebook
+2025-01-21T21:08:11.150Z [[32minfo[39m]: Fetching linked Facebook account for userId: 761b8483-b9f0-4077-adb3-e9b084f3773f
+2025-01-21T21:08:11.167Z [[32minfo[39m]: Linked Facebook Account: {"id":"56ab4031-7a1e-4b7e-88fb-1d0de8c8a72f","platform":"facebook","accountName":"Dmc Real States","accountId":"122130710186426184","accessToken":"EAAkCQ1ZCIiskBO3dypvZB6LziK9bLJrgL4UdylFTwZBIJUvzW8ZARKTZAh0gVWpwEsNzrBMGM05Ys8PpoZBqpZAWuHMuqZA8qSYBPrXjT1XInI2doEKzn1AfHp9Fa0RX3aFVN40tZAIcyDIZBW5DYCDtm2pFEQwCzIyyWTq5Wl6wpiCvn5dYUjhioRD5c4rUbc7q1q","platformUserId":"122130710186426184","tokenExpiration":null,"refreshToken":null,"isActive":true,"createdAt":"2025-01-21T12:25:34.188Z","updatedAt":"2025-01-21T12:25:34.188Z"}
+2025-01-21T21:08:11.194Z [[31merror[39m]: Error posting to Facebook: No linked Facebook account found
+2025-01-21T21:08:11.195Z [[31merror[39m]: Error posting to Facebook
+2025-01-21T21:12:52.528Z [[32minfo[39m]: Fetching linked Facebook account for userId: 761b8483-b9f0-4077-adb3-e9b084f3773f
+2025-01-21T21:12:52.538Z [[32minfo[39m]: Linked Facebook Account: {"id":"56ab4031-7a1e-4b7e-88fb-1d0de8c8a72f","platform":"facebook","accountName":"Dmc Real States","accountId":"122130710186426184","accessToken":"EAAkCQ1ZCIiskBO3dypvZB6LziK9bLJrgL4UdylFTwZBIJUvzW8ZARKTZAh0gVWpwEsNzrBMGM05Ys8PpoZBqpZAWuHMuqZA8qSYBPrXjT1XInI2doEKzn1AfHp9Fa0RX3aFVN40tZAIcyDIZBW5DYCDtm2pFEQwCzIyyWTq5Wl6wpiCvn5dYUjhioRD5c4rUbc7q1q","platformUserId":"122130710186426184","tokenExpiration":null,"refreshToken":null,"isActive":true,"createdAt":"2025-01-21T12:25:34.188Z","updatedAt":"2025-01-21T12:25:34.188Z"}
+2025-01-21T21:12:52.540Z [[32minfo[39m]: Using access token: EAAkCQ1ZCIiskBO3dypvZB6LziK9bLJrgL4UdylFTwZBIJUvzW8ZARKTZAh0gVWpwEsNzrBMGM05Ys8PpoZBqpZAWuHMuqZA8qSYBPrXjT1XInI2doEKzn1AfHp9Fa0RX3aFVN40tZAIcyDIZBW5DYCDtm2pFEQwCzIyyWTq5Wl6wpiCvn5dYUjhioRD5c4rUbc7q1q
+2025-01-21T21:12:52.558Z [[31merror[39m]: Error posting to Facebook: No linked Facebook account found
+2025-01-21T21:12:52.559Z [[31merror[39m]: Error posting to Facebook
+2025-01-21T21:15:15.826Z [[32minfo[39m]: Fetching linked Facebook account for userId: 761b8483-b9f0-4077-adb3-e9b084f3773f
+2025-01-21T21:15:15.843Z [[32minfo[39m]: Linked Facebook Account: {"id":"56ab4031-7a1e-4b7e-88fb-1d0de8c8a72f","platform":"facebook","accountName":"Dmc Real States","accountId":"122130710186426184","accessToken":"EAAkCQ1ZCIiskBO3dypvZB6LziK9bLJrgL4UdylFTwZBIJUvzW8ZARKTZAh0gVWpwEsNzrBMGM05Ys8PpoZBqpZAWuHMuqZA8qSYBPrXjT1XInI2doEKzn1AfHp9Fa0RX3aFVN40tZAIcyDIZBW5DYCDtm2pFEQwCzIyyWTq5Wl6wpiCvn5dYUjhioRD5c4rUbc7q1q","platformUserId":"122130710186426184","tokenExpiration":null,"refreshToken":null,"isActive":true,"createdAt":"2025-01-21T12:25:34.188Z","updatedAt":"2025-01-21T12:25:34.188Z"}
+2025-01-21T21:15:15.845Z [[32minfo[39m]: Using access token: EAAkCQ1ZCIiskBO3dypvZB6LziK9bLJrgL4UdylFTwZBIJUvzW8ZARKTZAh0gVWpwEsNzrBMGM05Ys8PpoZBqpZAWuHMuqZA8qSYBPrXjT1XInI2doEKzn1AfHp9Fa0RX3aFVN40tZAIcyDIZBW5DYCDtm2pFEQwCzIyyWTq5Wl6wpiCvn5dYUjhioRD5c4rUbc7q1q
+2025-01-21T21:15:15.856Z [[31merror[39m]: Error posting to Facebook:
+2025-01-21T21:15:15.867Z [[31merror[39m]: Error posting to Facebook
+2025-01-21T21:22:01.072Z [[32minfo[39m]: Fetching linked Facebook account for userId: 761b8483-b9f0-4077-adb3-e9b084f3773f
+2025-01-21T21:22:01.081Z [[32minfo[39m]: Linked Facebook Account: {"id":"56ab4031-7a1e-4b7e-88fb-1d0de8c8a72f","platform":"facebook","accountName":"Dmc Real States","accountId":"122130710186426184","accessToken":"EAAkCQ1ZCIiskBO3dypvZB6LziK9bLJrgL4UdylFTwZBIJUvzW8ZARKTZAh0gVWpwEsNzrBMGM05Ys8PpoZBqpZAWuHMuqZA8qSYBPrXjT1XInI2doEKzn1AfHp9Fa0RX3aFVN40tZAIcyDIZBW5DYCDtm2pFEQwCzIyyWTq5Wl6wpiCvn5dYUjhioRD5c4rUbc7q1q","platformUserId":"122130710186426184","tokenExpiration":null,"refreshToken":null,"isActive":true,"createdAt":"2025-01-21T12:25:34.188Z","updatedAt":"2025-01-21T12:25:34.188Z"}
+2025-01-21T21:22:01.083Z [[32minfo[39m]: Using access token: EAAkCQ1ZCIiskBO3dypvZB6LziK9bLJrgL4UdylFTwZBIJUvzW8ZARKTZAh0gVWpwEsNzrBMGM05Ys8PpoZBqpZAWuHMuqZA8qSYBPrXjT1XInI2doEKzn1AfHp9Fa0RX3aFVN40tZAIcyDIZBW5DYCDtm2pFEQwCzIyyWTq5Wl6wpiCvn5dYUjhioRD5c4rUbc7q1q
+2025-01-21T21:22:01.087Z [[31merror[39m]: Error posting to Facebook:
+2025-01-21T21:22:01.098Z [[31merror[39m]: Error posting to Facebook
+2025-01-21T21:22:28.954Z [[32minfo[39m]: Fetching linked Facebook account for userId: 761b8483-b9f0-4077-adb3-e9b084f3773f
+2025-01-21T21:22:28.960Z [[32minfo[39m]: Linked Facebook Account: {"id":"56ab4031-7a1e-4b7e-88fb-1d0de8c8a72f","platform":"facebook","accountName":"Dmc Real States","accountId":"122130710186426184","accessToken":"EAAkCQ1ZCIiskBO3dypvZB6LziK9bLJrgL4UdylFTwZBIJUvzW8ZARKTZAh0gVWpwEsNzrBMGM05Ys8PpoZBqpZAWuHMuqZA8qSYBPrXjT1XInI2doEKzn1AfHp9Fa0RX3aFVN40tZAIcyDIZBW5DYCDtm2pFEQwCzIyyWTq5Wl6wpiCvn5dYUjhioRD5c4rUbc7q1q","platformUserId":"122130710186426184","tokenExpiration":null,"refreshToken":null,"isActive":true,"createdAt":"2025-01-21T12:25:34.188Z","updatedAt":"2025-01-21T12:25:34.188Z"}
+2025-01-21T21:22:28.961Z [[32minfo[39m]: Using access token: EAAkCQ1ZCIiskBO3dypvZB6LziK9bLJrgL4UdylFTwZBIJUvzW8ZARKTZAh0gVWpwEsNzrBMGM05Ys8PpoZBqpZAWuHMuqZA8qSYBPrXjT1XInI2doEKzn1AfHp9Fa0RX3aFVN40tZAIcyDIZBW5DYCDtm2pFEQwCzIyyWTq5Wl6wpiCvn5dYUjhioRD5c4rUbc7q1q
+2025-01-21T21:22:28.965Z [[31merror[39m]: Error posting to Facebook:
+2025-01-21T21:22:28.967Z [[31merror[39m]: Error posting to Facebook
+2025-01-21T21:23:37.970Z [[32minfo[39m]: Fetching linked Facebook account for userId: 761b8483-b9f0-4077-adb3-e9b084f3773f
+2025-01-21T21:23:37.984Z [[32minfo[39m]: Linked Facebook Account: {"id":"56ab4031-7a1e-4b7e-88fb-1d0de8c8a72f","platform":"facebook","accountName":"Dmc Real States","accountId":"122130710186426184","accessToken":"EAAkCQ1ZCIiskBO3dypvZB6LziK9bLJrgL4UdylFTwZBIJUvzW8ZARKTZAh0gVWpwEsNzrBMGM05Ys8PpoZBqpZAWuHMuqZA8qSYBPrXjT1XInI2doEKzn1AfHp9Fa0RX3aFVN40tZAIcyDIZBW5DYCDtm2pFEQwCzIyyWTq5Wl6wpiCvn5dYUjhioRD5c4rUbc7q1q","platformUserId":"122130710186426184","tokenExpiration":null,"refreshToken":null,"isActive":true,"createdAt":"2025-01-21T12:25:34.188Z","updatedAt":"2025-01-21T12:25:34.188Z"}
+2025-01-21T21:23:37.985Z [[32minfo[39m]: Using access token: EAAkCQ1ZCIiskBO3dypvZB6LziK9bLJrgL4UdylFTwZBIJUvzW8ZARKTZAh0gVWpwEsNzrBMGM05Ys8PpoZBqpZAWuHMuqZA8qSYBPrXjT1XInI2doEKzn1AfHp9Fa0RX3aFVN40tZAIcyDIZBW5DYCDtm2pFEQwCzIyyWTq5Wl6wpiCvn5dYUjhioRD5c4rUbc7q1q
+2025-01-21T21:23:37.991Z [[31merror[39m]: Error posting to Facebook:
+2025-01-21T21:23:38.001Z [[31merror[39m]: Error posting to Facebook
+2025-01-21T21:29:22.867Z [[32minfo[39m]: Using access token: EAAkCQ1ZCIiskBO3dypvZB6LziK9bLJrgL4UdylFTwZBIJUvzW8ZARKTZAh0gVWpwEsNzrBMGM05Ys8PpoZBqpZAWuHMuqZA8qSYBPrXjT1XInI2doEKzn1AfHp9Fa0RX3aFVN40tZAIcyDIZBW5DYCDtm2pFEQwCzIyyWTq5Wl6wpiCvn5dYUjhioRD5c4rUbc7q1q
+2025-01-21T21:29:22.882Z [[31merror[39m]: Error posting to Facebook:
+2025-01-21T21:29:22.897Z [[31merror[39m]: Error posting to Facebook
+2025-01-22T17:35:11.587Z [[32minfo[39m]: Using access token: EAAkCQ1ZCIiskBO3dypvZB6LziK9bLJrgL4UdylFTwZBIJUvzW8ZARKTZAh0gVWpwEsNzrBMGM05Ys8PpoZBqpZAWuHMuqZA8qSYBPrXjT1XInI2doEKzn1AfHp9Fa0RX3aFVN40tZAIcyDIZBW5DYCDtm2pFEQwCzIyyWTq5Wl6wpiCvn5dYUjhioRD5c4rUbc7q1q
+2025-01-22T17:35:11.611Z [[31merror[39m]: Error posting to Facebook:
+2025-01-22T17:35:11.641Z [[31merror[39m]: Error posting to Facebook
+2025-01-22T17:44:04.887Z [[32minfo[39m]: Using access token: EAAkCQ1ZCIiskBO3dypvZB6LziK9bLJrgL4UdylFTwZBIJUvzW8ZARKTZAh0gVWpwEsNzrBMGM05Ys8PpoZBqpZAWuHMuqZA8qSYBPrXjT1XInI2doEKzn1AfHp9Fa0RX3aFVN40tZAIcyDIZBW5DYCDtm2pFEQwCzIyyWTq5Wl6wpiCvn5dYUjhioRD5c4rUbc7q1q
+2025-01-22T17:44:04.903Z [[31merror[39m]: Error posting to Facebook:
+2025-01-22T17:44:04.917Z [[31merror[39m]: Error posting to Facebook
+2025-01-22T18:55:53.507Z [[32minfo[39m]: Using access token: EAAkCQ1ZCIiskBO3dypvZB6LziK9bLJrgL4UdylFTwZBIJUvzW8ZARKTZAh0gVWpwEsNzrBMGM05Ys8PpoZBqpZAWuHMuqZA8qSYBPrXjT1XInI2doEKzn1AfHp9Fa0RX3aFVN40tZAIcyDIZBW5DYCDtm2pFEQwCzIyyWTq5Wl6wpiCvn5dYUjhioRD5c4rUbc7q1q
+2025-01-22T18:55:53.530Z [[31merror[39m]: Unexpected error posting to Facebook:
+2025-01-22T18:55:53.551Z [[31merror[39m]: Error posting to Facebook
+2025-01-22T19:01:51.866Z [[32minfo[39m]: Using access token: EAAkCQ1ZCIiskBO3dypvZB6LziK9bLJrgL4UdylFTwZBIJUvzW8ZARKTZAh0gVWpwEsNzrBMGM05Ys8PpoZBqpZAWuHMuqZA8qSYBPrXjT1XInI2doEKzn1AfHp9Fa0RX3aFVN40tZAIcyDIZBW5DYCDtm2pFEQwCzIyyWTq5Wl6wpiCvn5dYUjhioRD5c4rUbc7q1q
+2025-01-22T19:01:51.880Z [[31merror[39m]: Unexpected error posting to Facebook:
+2025-01-22T19:01:51.897Z [[31merror[39m]: Error posting to Facebook
+2025-01-22T19:19:23.887Z [[32minfo[39m]: Using access token: EAAkCQ1ZCIiskBO55ZA2zthFiZCbNkj7aW7ZASFgomoe6g4lY85ATE79lZBH7napNqe7bWYB0BhVxG1RPX4u8SPfXcLCLTUG2FNtjRmSZAhfNKfDzyGc5vdHJZBU1k8JSFtOWNgwFOo97fNmIiVMikQ0vuVBUfPrRSnMNpC4YxEZBPLe9F4N8CfWzI9eJaG0hgukZA
+2025-01-22T19:19:23.897Z [[31merror[39m]: Unexpected error posting to Facebook:
+2025-01-22T19:19:23.900Z [[31merror[39m]: Error posting to Facebook
+2025-01-22T19:21:10.047Z [[32minfo[39m]: Using access token: EAAkCQ1ZCIiskBO55ZA2zthFiZCbNkj7aW7ZASFgomoe6g4lY85ATE79lZBH7napNqe7bWYB0BhVxG1RPX4u8SPfXcLCLTUG2FNtjRmSZAhfNKfDzyGc5vdHJZBU1k8JSFtOWNgwFOo97fNmIiVMikQ0vuVBUfPrRSnMNpC4YxEZBPLe9F4N8CfWzI9eJaG0hgukZA
+2025-01-22T19:21:10.070Z [[31merror[39m]: Unexpected error posting to Facebook:
+2025-01-22T19:21:10.084Z [[31merror[39m]: Error posting to Facebook
+2025-01-23T15:45:26.061Z [[32minfo[39m]: Using access token: EAAkCQ1ZCIiskBO55ZA2zthFiZCbNkj7aW7ZASFgomoe6g4lY85ATE79lZBH7napNqe7bWYB0BhVxG1RPX4u8SPfXcLCLTUG2FNtjRmSZAhfNKfDzyGc5vdHJZBU1k8JSFtOWNgwFOo97fNmIiVMikQ0vuVBUfPrRSnMNpC4YxEZBPLe9F4N8CfWzI9eJaG0hgukZA
+2025-01-23T15:45:26.094Z [[31merror[39m]: Unexpected error posting to Facebook:
+2025-01-23T15:45:26.130Z [[31merror[39m]: Error posting to Facebook
+2025-01-23T16:51:50.539Z [[32minfo[39m]: Using access token: EAAkCQ1ZCIiskBO75kdsnkQcCrQAoZCyWvuttZB0pFjnSp1ddbiRJrJMQc4e3B7ZAQZBD4JVQ1M1gZCuiggY5VOp3ZB3ZCAb1XmFxvJFQk8WJiFoO8PMq0p8Dr0q8eBoBUV2MmsRsWRPzEM7cy1COPadHVZBSpyIHXxrmpdFuBKRv7RNpfMVQyHPT8oPyx7TWmb0mA
+2025-01-23T16:51:50.567Z [[31merror[39m]: Unexpected error posting to Facebook:
+2025-01-23T16:51:50.612Z [[31merror[39m]: Error posting to Facebook
+2025-01-23T19:10:43.241Z [[32minfo[39m]: Using access token: EAAkCQ1ZCIiskBO5aEDUlK0ANKZAilmhajvmhWzwWfikHlwZC20g5WEIu8rp6ZAVEJ6rz6EhruPb1n5qYGiWZAGM9RsZAugsZA9WanTGcBGpxjJPoSIiZBAqvS1PLbba8uZBjLSZBulkBO7VvifDWWzsXKG6GvPS1YBacbScLDEFqaPK3pEByr9bvmT5Uy638TFRBNb
+2025-01-23T19:10:43.275Z [[31merror[39m]: Unexpected error posting to Facebook:
+2025-01-23T19:10:43.304Z [[31merror[39m]: Error posting to Facebook
+2025-01-23T19:43:20.550Z [[32minfo[39m]: Using access token: EAAkCQ1ZCIiskBO5aEDUlK0ANKZAilmhajvmhWzwWfikHlwZC20g5WEIu8rp6ZAVEJ6rz6EhruPb1n5qYGiWZAGM9RsZAugsZA9WanTGcBGpxjJPoSIiZBAqvS1PLbba8uZBjLSZBulkBO7VvifDWWzsXKG6GvPS1YBacbScLDEFqaPK3pEByr9bvmT5Uy638TFRBNb
+2025-01-23T19:43:21.556Z [[31merror[39m]: Error validating access token:
+2025-01-23T19:43:21.570Z [[31merror[39m]: Facebook API error:
+2025-01-23T19:43:21.573Z [[31merror[39m]: Error posting to Facebook
+2025-01-23T19:46:19.730Z [[32minfo[39m]: Using access token: EAAkCQ1ZCIiskBO5aEDUlK0ANKZAilmhajvmhWzwWfikHlwZC20g5WEIu8rp6ZAVEJ6rz6EhruPb1n5qYGiWZAGM9RsZAugsZA9WanTGcBGpxjJPoSIiZBAqvS1PLbba8uZBjLSZBulkBO7VvifDWWzsXKG6GvPS1YBacbScLDEFqaPK3pEByr9bvmT5Uy638TFRBNb
+2025-01-23T19:46:20.528Z [[31merror[39m]: Error validating access token:
+2025-01-23T19:46:20.531Z [[31merror[39m]: Facebook API error:
+2025-01-23T19:46:20.533Z [[31merror[39m]: Error posting to Facebook
+2025-01-23T19:47:43.278Z [[32minfo[39m]: Using access token: EAAkCQ1ZCIiskBO5aEDUlK0ANKZAilmhajvmhWzwWfikHlwZC20g5WEIu8rp6ZAVEJ6rz6EhruPb1n5qYGiWZAGM9RsZAugsZA9WanTGcBGpxjJPoSIiZBAqvS1PLbba8uZBjLSZBulkBO7VvifDWWzsXKG6GvPS1YBacbScLDEFqaPK3pEByr9bvmT5Uy638TFRBNb
+2025-01-23T19:47:43.977Z [[31merror[39m]: Error validating access token:
+2025-01-23T19:47:43.980Z [[31merror[39m]: Facebook API error:
+2025-01-23T19:47:43.985Z [[31merror[39m]: Error posting to Facebook
+2025-01-23T20:05:50.593Z [[32minfo[39m]: Using access token: EAAkCQ1ZCIiskBO5aEDUlK0ANKZAilmhajvmhWzwWfikHlwZC20g5WEIu8rp6ZAVEJ6rz6EhruPb1n5qYGiWZAGM9RsZAugsZA9WanTGcBGpxjJPoSIiZBAqvS1PLbba8uZBjLSZBulkBO7VvifDWWzsXKG6GvPS1YBacbScLDEFqaPK3pEByr9bvmT5Uy638TFRBNb
+2025-01-23T20:05:51.366Z [[31merror[39m]: Error validating access token:
+2025-01-23T20:05:51.370Z [[31merror[39m]: Facebook API error:
+2025-01-23T20:05:51.372Z [[31merror[39m]: Error posting to Facebook
+2025-01-23T20:07:32.017Z [[32minfo[39m]: Using access token: EAAkCQ1ZCIiskBO5aEDUlK0ANKZAilmhajvmhWzwWfikHlwZC20g5WEIu8rp6ZAVEJ6rz6EhruPb1n5qYGiWZAGM9RsZAugsZA9WanTGcBGpxjJPoSIiZBAqvS1PLbba8uZBjLSZBulkBO7VvifDWWzsXKG6GvPS1YBacbScLDEFqaPK3pEByr9bvmT5Uy638TFRBNb
+2025-01-23T20:07:33.175Z [[32minfo[39m]: Access token is valid and expires at: 2025-03-23T19:17:47.000Z
+2025-01-23T20:07:33.178Z [[31merror[39m]: Error validating access token:
+2025-01-23T20:07:33.180Z [[31merror[39m]: Unexpected error posting to Facebook:
+2025-01-23T20:07:33.193Z [[31merror[39m]: Error posting to Facebook
+2025-01-23T20:24:46.279Z [[32minfo[39m]: Using access token: EAAkCQ1ZCIiskBO5aEDUlK0ANKZAilmhajvmhWzwWfikHlwZC20g5WEIu8rp6ZAVEJ6rz6EhruPb1n5qYGiWZAGM9RsZAugsZA9WanTGcBGpxjJPoSIiZBAqvS1PLbba8uZBjLSZBulkBO7VvifDWWzsXKG6GvPS1YBacbScLDEFqaPK3pEByr9bvmT5Uy638TFRBNb
+2025-01-23T20:24:46.286Z [[31merror[39m]: Error fetching Facebook access token:
+2025-01-23T20:24:46.286Z [[31merror[39m]: Unexpected error posting to Facebook:
+2025-01-23T20:24:46.291Z [[31merror[39m]: Error posting to Facebook
+2025-01-23T20:30:03.596Z [[32minfo[39m]: Using access token: EAAkCQ1ZCIiskBO5aEDUlK0ANKZAilmhajvmhWzwWfikHlwZC20g5WEIu8rp6ZAVEJ6rz6EhruPb1n5qYGiWZAGM9RsZAugsZA9WanTGcBGpxjJPoSIiZBAqvS1PLbba8uZBjLSZBulkBO7VvifDWWzsXKG6GvPS1YBacbScLDEFqaPK3pEByr9bvmT5Uy638TFRBNb
+2025-01-23T20:30:03.600Z [[31merror[39m]: Error fetching app access token from the database:
+2025-01-23T20:30:03.601Z [[31merror[39m]: Error validating access token:
+2025-01-23T20:30:03.602Z [[31merror[39m]: Unexpected error posting to Facebook:
+2025-01-23T20:30:03.629Z [[31merror[39m]: Error posting to Facebook
+2025-01-23T20:35:28.120Z [[32minfo[39m]: Using access token: EAAkCQ1ZCIiskBO5aEDUlK0ANKZAilmhajvmhWzwWfikHlwZC20g5WEIu8rp6ZAVEJ6rz6EhruPb1n5qYGiWZAGM9RsZAugsZA9WanTGcBGpxjJPoSIiZBAqvS1PLbba8uZBjLSZBulkBO7VvifDWWzsXKG6GvPS1YBacbScLDEFqaPK3pEByr9bvmT5Uy638TFRBNb
+2025-01-23T20:35:28.984Z [[31merror[39m]: Error validating access token:
+2025-01-23T20:35:28.985Z [[31merror[39m]: Facebook API error:
+2025-01-23T20:35:28.986Z [[31merror[39m]: Error posting to Facebook
+2025-01-23T20:36:06.551Z [[32minfo[39m]: Using access token: EAAkCQ1ZCIiskBO5aEDUlK0ANKZAilmhajvmhWzwWfikHlwZC20g5WEIu8rp6ZAVEJ6rz6EhruPb1n5qYGiWZAGM9RsZAugsZA9WanTGcBGpxjJPoSIiZBAqvS1PLbba8uZBjLSZBulkBO7VvifDWWzsXKG6GvPS1YBacbScLDEFqaPK3pEByr9bvmT5Uy638TFRBNb
+2025-01-23T20:36:06.555Z [[31merror[39m]: Error fetching app access token from the database:
+2025-01-23T20:36:06.556Z [[31merror[39m]: Error validating access token:
+2025-01-23T20:36:06.557Z [[31merror[39m]: Unexpected error posting to Facebook:
+2025-01-23T20:36:06.567Z [[31merror[39m]: Error posting to Facebook
+2025-01-23T20:45:25.842Z [[32minfo[39m]: Using access token: EAAkCQ1ZCIiskBO5aEDUlK0ANKZAilmhajvmhWzwWfikHlwZC20g5WEIu8rp6ZAVEJ6rz6EhruPb1n5qYGiWZAGM9RsZAugsZA9WanTGcBGpxjJPoSIiZBAqvS1PLbba8uZBjLSZBulkBO7VvifDWWzsXKG6GvPS1YBacbScLDEFqaPK3pEByr9bvmT5Uy638TFRBNb
+2025-01-23T20:45:25.852Z [[31merror[39m]: Error fetching app access token from the database:
+2025-01-23T20:45:25.854Z [[31merror[39m]: Error validating access token:
+2025-01-23T20:45:25.856Z [[31merror[39m]: Unexpected error posting to Facebook:
+2025-01-23T20:45:25.930Z [[31merror[39m]: Error posting to Facebook
+2025-01-23T20:51:45.142Z [[32minfo[39m]: Using access token: EAAkCQ1ZCIiskBO5aEDUlK0ANKZAilmhajvmhWzwWfikHlwZC20g5WEIu8rp6ZAVEJ6rz6EhruPb1n5qYGiWZAGM9RsZAugsZA9WanTGcBGpxjJPoSIiZBAqvS1PLbba8uZBjLSZBulkBO7VvifDWWzsXKG6GvPS1YBacbScLDEFqaPK3pEByr9bvmT5Uy638TFRBNb
+2025-01-23T20:51:45.151Z [[31merror[39m]: Error fetching app access token from the database:
+2025-01-23T20:51:45.152Z [[31merror[39m]: Error validating access token:
+2025-01-23T20:51:45.153Z [[31merror[39m]: Unexpected error posting to Facebook:
+2025-01-23T20:51:45.240Z [[31merror[39m]: Error posting to Facebook
+2025-01-24T10:06:22.760Z [[32minfo[39m]: Using access token: EAAkCQ1ZCIiskBO5aEDUlK0ANKZAilmhajvmhWzwWfikHlwZC20g5WEIu8rp6ZAVEJ6rz6EhruPb1n5qYGiWZAGM9RsZAugsZA9WanTGcBGpxjJPoSIiZBAqvS1PLbba8uZBjLSZBulkBO7VvifDWWzsXKG6GvPS1YBacbScLDEFqaPK3pEByr9bvmT5Uy638TFRBNb
+2025-01-24T10:06:22.796Z [[31merror[39m]: Error retrieving access token for user:
+2025-01-24T10:06:22.801Z [[31merror[39m]: Error validating access token:
+2025-01-24T10:06:22.805Z [[31merror[39m]: Unexpected error posting to Facebook:
+2025-01-24T10:06:22.845Z [[31merror[39m]: Error posting to Facebook
+2025-01-24T10:09:51.236Z [[32minfo[39m]: Using access token: EAAkCQ1ZCIiskBO5aEDUlK0ANKZAilmhajvmhWzwWfikHlwZC20g5WEIu8rp6ZAVEJ6rz6EhruPb1n5qYGiWZAGM9RsZAugsZA9WanTGcBGpxjJPoSIiZBAqvS1PLbba8uZBjLSZBulkBO7VvifDWWzsXKG6GvPS1YBacbScLDEFqaPK3pEByr9bvmT5Uy638TFRBNb
+2025-01-24T10:09:51.243Z [[31merror[39m]: Error validating access token:
+2025-01-24T10:09:51.247Z [[31merror[39m]: Error creating Facebook post:
+2025-01-24T10:09:51.264Z [[31merror[39m]: Error posting to Facebook
+2025-01-24T10:15:30.166Z [[32minfo[39m]: Using access token: EAAkCQ1ZCIiskBO5aEDUlK0ANKZAilmhajvmhWzwWfikHlwZC20g5WEIu8rp6ZAVEJ6rz6EhruPb1n5qYGiWZAGM9RsZAugsZA9WanTGcBGpxjJPoSIiZBAqvS1PLbba8uZBjLSZBulkBO7VvifDWWzsXKG6GvPS1YBacbScLDEFqaPK3pEByr9bvmT5Uy638TFRBNb
+2025-01-24T10:15:31.226Z [[31merror[39m]: Error retrieving app-level access token:
+2025-01-24T10:15:31.228Z [[31merror[39m]: Error validating access token:
+2025-01-24T10:15:31.228Z [[31merror[39m]: Error creating Facebook post:
+2025-01-24T10:15:31.229Z [[31merror[39m]: Error posting to Facebook
+2025-01-24T10:17:10.052Z [[32minfo[39m]: Using access token: EAAkCQ1ZCIiskBO5aEDUlK0ANKZAilmhajvmhWzwWfikHlwZC20g5WEIu8rp6ZAVEJ6rz6EhruPb1n5qYGiWZAGM9RsZAugsZA9WanTGcBGpxjJPoSIiZBAqvS1PLbba8uZBjLSZBulkBO7VvifDWWzsXKG6GvPS1YBacbScLDEFqaPK3pEByr9bvmT5Uy638TFRBNb
+2025-01-24T10:17:10.799Z [[31merror[39m]: Error retrieving app-level access token:
+2025-01-24T10:17:10.803Z [[31merror[39m]: Error validating access token:
+2025-01-24T10:17:10.805Z [[31merror[39m]: Facebook API error:
+2025-01-24T10:17:10.810Z [[31merror[39m]: Error posting to Facebook
+2025-01-24T10:18:46.702Z [[32minfo[39m]: Using access token: EAAkCQ1ZCIiskBO5aEDUlK0ANKZAilmhajvmhWzwWfikHlwZC20g5WEIu8rp6ZAVEJ6rz6EhruPb1n5qYGiWZAGM9RsZAugsZA9WanTGcBGpxjJPoSIiZBAqvS1PLbba8uZBjLSZBulkBO7VvifDWWzsXKG6GvPS1YBacbScLDEFqaPK3pEByr9bvmT5Uy638TFRBNb
+2025-01-24T10:18:47.844Z [[31merror[39m]: Error retrieving app-level access token:
+2025-01-24T10:18:47.848Z [[31merror[39m]: Error validating access token:
+2025-01-24T10:18:47.853Z [[31merror[39m]: Facebook API error:
+2025-01-24T10:18:47.856Z [[31merror[39m]: Error posting to Facebook
+2025-01-24T10:24:08.262Z [[32minfo[39m]: Using access token: EAAkCQ1ZCIiskBO5aEDUlK0ANKZAilmhajvmhWzwWfikHlwZC20g5WEIu8rp6ZAVEJ6rz6EhruPb1n5qYGiWZAGM9RsZAugsZA9WanTGcBGpxjJPoSIiZBAqvS1PLbba8uZBjLSZBulkBO7VvifDWWzsXKG6GvPS1YBacbScLDEFqaPK3pEByr9bvmT5Uy638TFRBNb
+2025-01-24T10:24:09.490Z [[31merror[39m]: Error retrieving app-level access token:
+2025-01-24T10:24:09.495Z [[31merror[39m]: Error validating access token:
+2025-01-24T10:24:09.503Z [[31merror[39m]: Facebook API error:
+2025-01-24T10:24:09.507Z [[31merror[39m]: Error posting to Facebook
+2025-01-24T13:24:24.837Z [[31merror[39m]: Token verification failed:TokenExpiredError: jwt expired
+2025-01-24T13:24:24.841Z [[31merror[39m]: Unhandled error: Unknown authentication strategy "facebook"
+2025-01-24T13:25:07.169Z [[32minfo[39m]: Using access token: EAAkCQ1ZCIiskBO3dypvZB6LziK9bLJrgL4UdylFTwZBIJUvzW8ZARKTZAh0gVWpwEsNzrBMGM05Ys8PpoZBqpZAWuHMuqZA8qSYBPrXjT1XInI2doEKzn1AfHp9Fa0RX3aFVN40tZAIcyDIZBW5DYCDtm2pFEQwCzIyyWTq5Wl6wpiCvn5dYUjhioRD5c4rUbc7q1q
+2025-01-24T13:25:07.719Z [[31merror[39m]: Error validating access token:
+2025-01-24T13:25:07.720Z [[31merror[39m]: Facebook API error:
+2025-01-24T13:25:07.721Z [[31merror[39m]: Error posting to Facebook
+2025-01-24T13:25:36.107Z [[31merror[39m]: Token verification failed:TokenExpiredError: jwt expired
+2025-01-24T13:25:36.109Z [[31merror[39m]: Unhandled error: Unknown authentication strategy "facebook"
+2025-01-24T13:25:47.145Z [[31merror[39m]: Token verification failed:TokenExpiredError: jwt expired
+2025-01-24T13:25:47.146Z [[31merror[39m]: Unhandled error: Unknown authentication strategy "facebook"
+2025-01-24T13:25:56.255Z [[31merror[39m]: Token verification failed:TokenExpiredError: jwt expired
+2025-01-24T13:25:56.256Z [[31merror[39m]: Unhandled error: Unknown authentication strategy "facebook"
+2025-01-24T13:26:45.402Z [[31merror[39m]: Unhandled error: Unknown authentication strategy "facebook"
+2025-01-24T13:27:09.541Z [[31merror[39m]: Unhandled error: Unknown authentication strategy "facebook"
+2025-01-24T13:27:10.590Z [[31merror[39m]: Unhandled error: Unknown authentication strategy "facebook"
+2025-01-24T20:25:58.987Z [[31merror[39m]: Unhandled error: Unknown authentication strategy "facebook"
+2025-01-25T18:05:19.383Z [[31merror[39m]: Unhandled error: Unknown authentication strategy "facebook"
+2025-01-25T18:08:17.873Z [[32minfo[39m]: User logged in: admin@admin.com
+2025-01-25T18:09:09.326Z [[32minfo[39m]: Using access token: EAAkCQ1ZCIiskBO3dypvZB6LziK9bLJrgL4UdylFTwZBIJUvzW8ZARKTZAh0gVWpwEsNzrBMGM05Ys8PpoZBqpZAWuHMuqZA8qSYBPrXjT1XInI2doEKzn1AfHp9Fa0RX3aFVN40tZAIcyDIZBW5DYCDtm2pFEQwCzIyyWTq5Wl6wpiCvn5dYUjhioRD5c4rUbc7q1q
+2025-01-25T18:09:10.548Z [[31merror[39m]: Error validating access token:
+2025-01-25T18:09:10.554Z [[31merror[39m]: Facebook API error:
+2025-01-25T18:09:10.558Z [[31merror[39m]: Error posting to Facebook
+2025-01-25T18:26:19.766Z [[32minfo[39m]: Using access token: EAAkCQ1ZCIiskBOzZBaY46ZBQPs6i1jVIu5m9lPZCrft258o00InkoyssZCKkbS9brWDFIVmIMFS7C404kGZAFjGyAzcISU1YHyMWl1BhmOvEu7Qr5tWCE4JelI5GKdslkYrrqxruvv2XbN9ZBBVXJo42pfTGm3CmKP8iT9esbD77OlOuEWHqavQG0ijuJyfZArZAwUn5RfZBhfZCDCXNlhZBlTspxjZA9YgZDZD
+2025-01-25T18:26:20.524Z [[31merror[39m]: Error validating access token:
+2025-01-25T18:26:20.527Z [[31merror[39m]: Facebook API error:
+2025-01-25T18:26:20.530Z [[31merror[39m]: Error posting to Facebook
+2025-01-25T18:27:18.096Z [[32minfo[39m]: Using access token: EAAkCQ1ZCIiskBOzZBaY46ZBQPs6i1jVIu5m9lPZCrft258o00InkoyssZCKkbS9brWDFIVmIMFS7C404kGZAFjGyAzcISU1YHyMWl1BhmOvEu7Qr5tWCE4JelI5GKdslkYrrqxruvv2XbN9ZBBVXJo42pfTGm3CmKP8iT9esbD77OlOuEWHqavQG0ijuJyfZArZAwUn5RfZBhfZCDCXNlhZBlTspxjZA9YgZDZD
+2025-01-25T18:27:18.859Z [[31merror[39m]: Error validating access token:
+2025-01-25T18:27:18.861Z [[31merror[39m]: Facebook API error:
+2025-01-25T18:27:18.863Z [[31merror[39m]: Error posting to Facebook
+2025-01-25T18:27:42.809Z [[32minfo[39m]: Using access token: EAAkCQ1ZCIiskBOzZBaY46ZBQPs6i1jVIu5m9lPZCrft258o00InkoyssZCKkbS9brWDFIVmIMFS7C404kGZAFjGyAzcISU1YHyMWl1BhmOvEu7Qr5tWCE4JelI5GKdslkYrrqxruvv2XbN9ZBBVXJo42pfTGm3CmKP8iT9esbD77OlOuEWHqavQG0ijuJyfZArZAwUn5RfZBhfZCDCXNlhZBlTspxjZA9YgZDZD
+2025-01-25T18:27:43.550Z [[31merror[39m]: Error validating access token:
+2025-01-25T18:27:43.553Z [[31merror[39m]: Facebook API error:
+2025-01-25T18:27:43.555Z [[31merror[39m]: Error posting to Facebook
+2025-01-25T18:29:13.524Z [[32minfo[39m]: Using access token: EAAkCQ1ZCIiskBOzZBaY46ZBQPs6i1jVIu5m9lPZCrft258o00InkoyssZCKkbS9brWDFIVmIMFS7C404kGZAFjGyAzcISU1YHyMWl1BhmOvEu7Qr5tWCE4JelI5GKdslkYrrqxruvv2XbN9ZBBVXJo42pfTGm3CmKP8iT9esbD77OlOuEWHqavQG0ijuJyfZArZAwUn5RfZBhfZCDCXNlhZBlTspxjZA9YgZDZD
+2025-01-25T18:29:35.477Z [[32minfo[39m]: Access token is valid and expires at: 2025-01-25T20:00:00.000Z
+2025-01-25T18:29:35.479Z [[31merror[39m]: Error validating access token:
+2025-01-25T18:29:35.480Z [[31merror[39m]: Unexpected error posting to Facebook:
+2025-01-25T18:29:35.495Z [[31merror[39m]: Error posting to Facebook
+2025-01-25T18:31:21.733Z [[32minfo[39m]: Using access token: EAAkCQ1ZCIiskBOzZBaY46ZBQPs6i1jVIu5m9lPZCrft258o00InkoyssZCKkbS9brWDFIVmIMFS7C404kGZAFjGyAzcISU1YHyMWl1BhmOvEu7Qr5tWCE4JelI5GKdslkYrrqxruvv2XbN9ZBBVXJo42pfTGm3CmKP8iT9esbD77OlOuEWHqavQG0ijuJyfZArZAwUn5RfZBhfZCDCXNlhZBlTspxjZA9YgZDZD
+2025-01-25T18:31:22.713Z [[32minfo[39m]: Access token is valid and expires at: 2025-01-25T20:00:00.000Z
+2025-01-25T18:31:22.714Z [[32minfo[39m]: Token scopes: email, private_computation_access, pages_show_list, pages_read_engagement, pages_manage_posts, public_profile
+2025-01-25T18:31:22.716Z [[31merror[39m]: Error validating access token:
+2025-01-25T18:31:22.717Z [[31merror[39m]: Unexpected error posting to Facebook:
+2025-01-25T18:31:22.731Z [[31merror[39m]: Error posting to Facebook
+2025-01-25T18:31:51.141Z [[32minfo[39m]: Using access token: EAAkCQ1ZCIiskBOzZBaY46ZBQPs6i1jVIu5m9lPZCrft258o00InkoyssZCKkbS9brWDFIVmIMFS7C404kGZAFjGyAzcISU1YHyMWl1BhmOvEu7Qr5tWCE4JelI5GKdslkYrrqxruvv2XbN9ZBBVXJo42pfTGm3CmKP8iT9esbD77OlOuEWHqavQG0ijuJyfZArZAwUn5RfZBhfZCDCXNlhZBlTspxjZA9YgZDZD
+2025-01-25T18:31:51.976Z [[32minfo[39m]: Access token is valid and expires at: 2025-01-25T20:00:00.000Z
+2025-01-25T18:31:51.978Z [[32minfo[39m]: Token scopes: email, private_computation_access, pages_show_list, pages_read_engagement, pages_manage_posts, public_profile
+2025-01-25T18:31:51.981Z [[31merror[39m]: Error validating access token:
+2025-01-25T18:31:51.983Z [[31merror[39m]: Unexpected error posting to Facebook:
+2025-01-25T18:31:51.989Z [[31merror[39m]: Error posting to Facebook
+2025-01-25T18:34:16.725Z [[32minfo[39m]: Using access token: EAAkCQ1ZCIiskBOzZBaY46ZBQPs6i1jVIu5m9lPZCrft258o00InkoyssZCKkbS9brWDFIVmIMFS7C404kGZAFjGyAzcISU1YHyMWl1BhmOvEu7Qr5tWCE4JelI5GKdslkYrrqxruvv2XbN9ZBBVXJo42pfTGm3CmKP8iT9esbD77OlOuEWHqavQG0ijuJyfZArZAwUn5RfZBhfZCDCXNlhZBlTspxjZA9YgZDZD
+2025-01-25T18:34:17.843Z [[32minfo[39m]: Access token is valid and expires at: 2025-01-25T20:00:00.000Z
+2025-01-25T18:34:17.846Z [[32minfo[39m]: Token scopes: email, private_computation_access, pages_show_list, pages_read_engagement, pages_manage_posts, public_profile
+2025-01-25T18:34:17.848Z [[31merror[39m]: Error validating access token:
+2025-01-25T18:34:17.851Z [[31merror[39m]: Unexpected error posting to Facebook:
+2025-01-25T18:34:17.884Z [[31merror[39m]: Error posting to Facebook
+2025-01-25T19:19:19.792Z [[32minfo[39m]: Using access token: EAAJEt7XuMvABO2lsANAJBL6OsHCl7oEl3EzrD0LMv4qtttg4ZAqqClBMuDLzlAJAd4hnKvNUftPYNf69I0jv8F4rO0xxE2MP7oc1MbCntoCdEZAywS9xdJ37xQvXZBlfiErnnsCsYpOJbXotEaKgpO2e2zOLHL2Dhbe3pp1psrTNNl7DLCeAJYH
+2025-01-25T19:19:20.585Z [[31merror[39m]: Error validating access token:
+2025-01-25T19:19:20.586Z [[31merror[39m]: Facebook API error:
+2025-01-25T19:19:20.587Z [[31merror[39m]: Error posting to Facebook
+2025-01-25T19:22:06.847Z [[32minfo[39m]: Using access token: EAAJEt7XuMvABO2lsANAJBL6OsHCl7oEl3EzrD0LMv4qtttg4ZAqqClBMuDLzlAJAd4hnKvNUftPYNf69I0jv8F4rO0xxE2MP7oc1MbCntoCdEZAywS9xdJ37xQvXZBlfiErnnsCsYpOJbXotEaKgpO2e2zOLHL2Dhbe3pp1psrTNNl7DLCeAJYH
+2025-01-25T19:22:07.696Z [[32minfo[39m]: Access token is valid and expires at: 2025-03-26T19:18:32.000Z
+2025-01-25T19:22:07.697Z [[32minfo[39m]: Token scopes: pages_show_list, pages_read_engagement, pages_manage_posts, public_profile
+2025-01-25T19:22:07.699Z [[31merror[39m]: Error validating access token:
+2025-01-25T19:22:07.700Z [[31merror[39m]: Unexpected error posting to Facebook:
+2025-01-25T19:22:07.707Z [[31merror[39m]: Error posting to Facebook
+2025-01-25T19:48:09.514Z [[31merror[39m]: Unhandled error: Unknown authentication strategy "facebook"
+2025-01-25T20:32:03.641Z [[31merror[39m]: Unhandled error: Error validating verification code. Please make sure your redirect_uri is identical to the one you used in the OAuth dialog request
+2025-01-25T20:37:54.128Z [[31merror[39m]: Unhandled error: This authorization code has expired.
+2025-01-25T20:38:36.963Z [[31merror[39m]: Unhandled error: Error validating verification code. Please make sure your redirect_uri is identical to the one you used in the OAuth dialog request
+2025-01-25T20:38:50.994Z [[31merror[39m]: Unhandled error: Error validating verification code. Please make sure your redirect_uri is identical to the one you used in the OAuth dialog request
+2025-01-25T20:39:01.039Z [[31merror[39m]: Unhandled error: Error validating verification code. Please make sure your redirect_uri is identical to the one you used in the OAuth dialog request
+2025-01-25T20:39:15.760Z [[31merror[39m]: Unhandled error: Error validating verification code. Please make sure your redirect_uri is identical to the one you used in the OAuth dialog request
+2025-01-25T20:39:37.971Z [[31merror[39m]: Unhandled error: Error validating verification code. Please make sure your redirect_uri is identical to the one you used in the OAuth dialog request
+2025-01-25T20:40:17.683Z [[32minfo[39m]: Using access token: EAAJEt7XuMvABO2lsANAJBL6OsHCl7oEl3EzrD0LMv4qtttg4ZAqqClBMuDLzlAJAd4hnKvNUftPYNf69I0jv8F4rO0xxE2MP7oc1MbCntoCdEZAywS9xdJ37xQvXZBlfiErnnsCsYpOJbXotEaKgpO2e2zOLHL2Dhbe3pp1psrTNNl7DLCeAJYH
+2025-01-25T20:40:18.552Z [[32minfo[39m]: Access token is valid and expires at: 2025-03-26T19:18:32.000Z
+2025-01-25T20:40:18.555Z [[32minfo[39m]: Token scopes: email, pages_show_list, pages_read_engagement, pages_manage_posts, public_profile
+2025-01-25T20:40:18.558Z [[31merror[39m]: Error validating access token:
+2025-01-25T20:40:18.560Z [[31merror[39m]: Unexpected error posting to Facebook:
+2025-01-25T20:40:18.589Z [[31merror[39m]: Error posting to Facebook
+2025-01-25T20:45:56.493Z [[31merror[39m]: Unhandled error: Error validating verification code. Please make sure your redirect_uri is identical to the one you used in the OAuth dialog request
+2025-01-25T20:47:38.674Z [[31merror[39m]: Unhandled error: Error validating verification code. Please make sure your redirect_uri is identical to the one you used in the OAuth dialog request
+2025-01-25T20:49:16.746Z [[31merror[39m]: Unhandled error: This authorization code has expired.
+2025-01-25T20:49:54.139Z [[31merror[39m]: Unhandled error: Error validating verification code. Please make sure your redirect_uri is identical to the one you used in the OAuth dialog request
+2025-01-25T20:50:58.816Z [[31merror[39m]: Unhandled error: Error validating verification code. Please make sure your redirect_uri is identical to the one you used in the OAuth dialog request
+2025-01-25T21:00:19.039Z [[32minfo[39m]: Using access token: EAAJEt7XuMvABO2lsANAJBL6OsHCl7oEl3EzrD0LMv4qtttg4ZAqqClBMuDLzlAJAd4hnKvNUftPYNf69I0jv8F4rO0xxE2MP7oc1MbCntoCdEZAywS9xdJ37xQvXZBlfiErnnsCsYpOJbXotEaKgpO2e2zOLHL2Dhbe3pp1psrTNNl7DLCeAJYH
+2025-01-25T21:00:20.272Z [[32minfo[39m]: Access token is valid and expires at: 2025-03-26T19:18:32.000Z
+2025-01-25T21:00:20.277Z [[32minfo[39m]: Token scopes: email, pages_show_list, pages_read_engagement, pages_manage_posts, public_profile
+2025-01-25T21:00:20.282Z [[31merror[39m]: Error validating access token:
+2025-01-25T21:00:20.286Z [[31merror[39m]: Unexpected error posting to Facebook:
+2025-01-25T21:00:20.329Z [[31merror[39m]: Error posting to Facebook
+2025-01-25T21:08:15.689Z [[32minfo[39m]: Using access token: EAAJEt7XuMvABO2lsANAJBL6OsHCl7oEl3EzrD0LMv4qtttg4ZAqqClBMuDLzlAJAd4hnKvNUftPYNf69I0jv8F4rO0xxE2MP7oc1MbCntoCdEZAywS9xdJ37xQvXZBlfiErnnsCsYpOJbXotEaKgpO2e2zOLHL2Dhbe3pp1psrTNNl7DLCeAJYH
+2025-01-25T21:08:16.320Z [[32minfo[39m]: Access token is valid and expires at: 2025-03-26T19:18:32.000Z
+2025-01-25T21:08:16.325Z [[32minfo[39m]: Token scopes: email, pages_show_list, pages_read_engagement, pages_manage_posts, public_profile
+2025-01-25T21:08:16.329Z [[31merror[39m]: Error validating access token:
+2025-01-25T21:08:16.332Z [[31merror[39m]: Unexpected error posting to Facebook:
+2025-01-25T21:08:16.413Z [[31merror[39m]: Error posting to Facebook
+2025-01-25T21:09:06.295Z [[31merror[39m]: Unhandled error: Error validating verification code. Please make sure your redirect_uri is identical to the one you used in the OAuth dialog request
+2025-01-27T07:58:35.960Z [[32minfo[39m]: Using access token: EAAJEt7XuMvABO2lsANAJBL6OsHCl7oEl3EzrD0LMv4qtttg4ZAqqClBMuDLzlAJAd4hnKvNUftPYNf69I0jv8F4rO0xxE2MP7oc1MbCntoCdEZAywS9xdJ37xQvXZBlfiErnnsCsYpOJbXotEaKgpO2e2zOLHL2Dhbe3pp1psrTNNl7DLCeAJYH
+2025-01-27T07:58:36.993Z [[32minfo[39m]: Access token is valid and expires at: 2025-03-28T07:00:15.000Z
+2025-01-27T07:58:36.995Z [[32minfo[39m]: Token scopes: email, pages_show_list, pages_read_engagement, pages_manage_posts, public_profile
+2025-01-27T07:58:36.997Z [[31merror[39m]: Error validating access token:
+2025-01-27T07:58:36.998Z [[31merror[39m]: Unexpected error posting to Facebook:
+2025-01-27T07:58:37.022Z [[31merror[39m]: Error posting to Facebook
+2025-01-27T10:52:38.710Z [[31merror[39m]: Error linking social account
+2025-01-27T10:55:07.170Z [[31merror[39m]: Error linking social account
+2025-01-27T10:57:53.081Z [[31merror[39m]: Error linking social account
+2025-01-27T11:47:25.567Z [[32minfo[39m]: Using access token: IGAAYLGZA0LWaNBZAE5vck4xUk9JdGhxVklTa1haSzlkNU1feXFUZAGxpa2JNOUI4OTByLUNuQklSRWtxYzZApR0pNZAXhNM2tMVEwzSkN2RTlHVURNbkstRGI1ZAFRhT2pyNWZAOaXpLcDlndV9faTJ1YXlaYkFmbEpseXdnUG1CbUNTZAwZDZD
+2025-01-27T11:47:26.801Z [[31merror[39m]: Error creating Instagram post:
+2025-01-27T11:47:26.810Z [[31merror[39m]: Error posting to Instagram
+2025-01-28T05:55:55.941Z [[32minfo[39m]: Using access token: IGAAYLGZA0LWaNBZAE5vck4xUk9JdGhxVklTa1haSzlkNU1feXFUZAGxpa2JNOUI4OTByLUNuQklSRWtxYzZApR0pNZAXhNM2tMVEwzSkN2RTlHVURNbkstRGI1ZAFRhT2pyNWZAOaXpLcDlndV9faTJ1YXlaYkFmbEpseXdnUG1CbUNTZAwZDZD
+2025-01-28T05:55:57.157Z [[31merror[39m]: Error creating Instagram post:
+2025-01-28T05:55:57.160Z [[31merror[39m]: Error posting to Instagram
+2025-01-28T06:40:38.523Z [[32minfo[39m]: Using access token: IGAAYLGZA0LWaNBZAE5vck4xUk9JdGhxVklTa1haSzlkNU1feXFUZAGxpa2JNOUI4OTByLUNuQklSRWtxYzZApR0pNZAXhNM2tMVEwzSkN2RTlHVURNbkstRGI1ZAFRhT2pyNWZAOaXpLcDlndV9faTJ1YXlaYkFmbEpseXdnUG1CbUNTZAwZDZD
+2025-01-28T06:40:39.929Z [[32minfo[39m]: Refreshed Instagram access token successfully
+2025-01-28T06:40:40.419Z [[31merror[39m]: Error creating Instagram post:
+2025-01-28T06:40:40.425Z [[31merror[39m]: Error posting to Instagram
+2025-01-28T08:20:34.798Z [[32minfo[39m]: Using access token: IGAAYLGZA0LWaNBZAE41QTdhR2o3UjZAIeWtERWtzUFVZARE1IeTJFZAU42YlNJZAmFUX3dRYnBGQ3c3RjJwSy1BN0NTY0VhdzRIVzRGNks3Mkoyb09Rdy01VTQyc2N1QUVFbWlpWkNSVzRtWTg3NlByQmVFcndOWmdtWVhQVG05TGpSVQZDZD
+2025-01-28T08:20:35.816Z [[32minfo[39m]: Refreshed Instagram access token successfully
+2025-01-28T08:20:36.270Z [[31merror[39m]: Error creating Instagram post:
+2025-01-28T08:20:36.275Z [[31merror[39m]: Error posting to Instagram
+2025-01-28T08:42:47.307Z [[32minfo[39m]: Using access token: IGAAYLGZA0LWaNBZAE41QTdhR2o3UjZAIeWtERWtzUFVZARE1IeTJFZAU42YlNJZAmFUX3dRYnBGQ3c3RjJwSy1BN0NTY0VhdzRIVzRGNks3Mkoyb09Rdy01VTQyc2N1QUVFbWlpWkNSVzRtWTg3NlByQmVFcndOWmdtWVhQVG05TGpSVQZDZD
+2025-01-28T08:42:48.415Z [[32minfo[39m]: Refreshed Instagram access token successfully
+2025-01-28T08:42:48.652Z [[32minfo[39m]: Access token is valid:
+2025-01-28T08:42:49.508Z [[31merror[39m]: Error creating Instagram post:
+2025-01-28T08:42:49.512Z [[31merror[39m]: Error posting to Instagram
+2025-01-28T08:48:13.344Z [[32minfo[39m]: Using access token: IGAAYLGZA0LWaNBZAE41QTdhR2o3UjZAIeWtERWtzUFVZARE1IeTJFZAU42YlNJZAmFUX3dRYnBGQ3c3RjJwSy1BN0NTY0VhdzRIVzRGNks3Mkoyb09Rdy01VTQyc2N1QUVFbWlpWkNSVzRtWTg3NlByQmVFcndOWmdtWVhQVG05TGpSVQZDZD
+2025-01-28T08:48:14.658Z [[32minfo[39m]: Refreshed Instagram access token successfully
+2025-01-28T08:48:15.108Z [[32minfo[39m]: Access token is valid:
+2025-01-28T08:48:16.022Z [[31merror[39m]: Error creating Instagram post:
+2025-01-28T08:48:16.026Z [[31merror[39m]: Error posting to Instagram
+2025-01-28T08:51:54.706Z [[32minfo[39m]: Using access token: IGAAYLGZA0LWaNBZAE41QTdhR2o3UjZAIeWtERWtzUFVZARE1IeTJFZAU42YlNJZAmFUX3dRYnBGQ3c3RjJwSy1BN0NTY0VhdzRIVzRGNks3Mkoyb09Rdy01VTQyc2N1QUVFbWlpWkNSVzRtWTg3NlByQmVFcndOWmdtWVhQVG05TGpSVQZDZD
+2025-01-28T08:51:56.009Z [[32minfo[39m]: Refreshed Instagram access token successfully
+2025-01-28T08:51:56.502Z [[32minfo[39m]: Access token is valid:
+2025-01-28T08:51:57.079Z [[31merror[39m]: Error creating Instagram post:
+2025-01-28T08:51:57.084Z [[31merror[39m]: Error posting to Instagram
+2025-01-28T13:57:46.767Z [[32minfo[39m]: Using access token: IGAAYLGZA0LWaNBZAE41QTdhR2o3UjZAIeWtERWtzUFVZARE1IeTJFZAU42YlNJZAmFUX3dRYnBGQ3c3RjJwSy1BN0NTY0VhdzRIVzRGNks3Mkoyb09Rdy01VTQyc2N1QUVFbWlpWkNSVzRtWTg3NlByQmVFcndOWmdtWVhQVG05TGpSVQZDZD
+2025-01-28T13:57:48.622Z [[32minfo[39m]: Refreshed Instagram access token successfully
+2025-01-28T13:57:49.142Z [[32minfo[39m]: Access token is valid:
+2025-01-28T13:57:50.043Z [[31merror[39m]: Error creating Instagram post:
+2025-01-28T13:57:50.047Z [[31merror[39m]: Error posting to Instagram

@@ -9,9 +9,8 @@ import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import session from 'express-session'; // Add session middleware
 import passport from 'passport'; // Add Passport
-import { Strategy as FacebookStrategy } from 'passport-facebook'; // Add Facebook strategy
-import { SocialAccount } from "./entities/social-account"; // Adjust the path as needed
-import { User } from "./entities/user"; // Adjust the path as needed
+import { configureFacebookStrategy } from './config/passport-facebook';
+import { configureInstagramStrategy } from './config/Passport-Instagram';
 
 require('dotenv').config();
 
@@ -35,36 +34,9 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-// Configure Facebook strategy
-passport.use(new FacebookStrategy({
-    clientID: process.env.FACEBOOK_APP_ID!,
-    clientSecret: process.env.FACEBOOK_APP_SECRET!,
-    callbackURL: process.env.FACEBOOK_CALLBACK_URL!,
-    profileFields: ['id', 'emails', 'name', 'picture'],
-    passReqToCallback: true
-},
-async (req, accessToken, refreshToken, profile, done) => {
-    try {
-        const socialAccount = {
-            accessToken,
-            refreshToken,
-            platformUserId: profile.id,
-            accountName: profile.displayName,
-            emails: profile.emails,
-            platform: 'facebook'
-        };
-
-        // If the user is logged in, link the Facebook account to the existing user
-        if (req.user) {
-            return done(null, { ...socialAccount, id: req.user.id });
-        }
-
-        // For standalone login, create a new user
-        return done(null, socialAccount);
-    } catch (error) {
-        return done(error, null);
-    }
-}));
+// Configure passport strategies
+configureFacebookStrategy(passport);
+configureInstagramStrategy(passport);
 
 // Serialize and deserialize user
 passport.serializeUser((user, done) => {

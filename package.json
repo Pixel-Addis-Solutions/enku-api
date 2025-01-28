@@ -45,6 +45,7 @@
     "nodemailer": "^6.9.14",
     "passport": "^0.7.0",
     "passport-facebook": "^3.0.0",
+    "passport-instagram": "^1.0.0",
     "passport-twitter": "^1.0.4",
     "reflect-metadata": "^0.2.2",
     "twitter-api-v2": "^1.19.0",
@@ -59,6 +60,7 @@
     "@types/fb": "^0.0.23",
     "@types/jsonwebtoken": "^9.0.6",
     "@types/node": "^20.14.10",
+    "@types/passport-instagram": "^1.0.5",
     "nodemon": "^3.1.4",
     "ts-node": "^10.9.2",
     "typescript": "^5.5.3"
