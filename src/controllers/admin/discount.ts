@@ -184,6 +184,10 @@ export const attachDiscountToProductOrVariationOrCategory = async (
     });
   }
 };
+export const attachDiscountToProduct = async ( req: Request,
+  res: Response) => {
+}
+
 
 export const detachDiscountFromProductVariationCategory = async (
   req: Request,
