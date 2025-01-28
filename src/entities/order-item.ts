@@ -23,7 +23,7 @@ import { BaseEntity } from './base-entity';
     product!: Product;
   
     // @Column({nullable:true}) Removed @Column from the variation property. It should only have the @ManyToOne decorator
-    @ManyToOne(() => ProductVariation)
+    @ManyToOne(() => ProductVariation, (variation) => variation.id, { nullable: true, onDelete: "SET NULL" })
     variation!: ProductVariation;
   
     @Column({ type: 'int' })
