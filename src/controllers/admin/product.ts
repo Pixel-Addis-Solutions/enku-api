@@ -329,6 +329,7 @@ export const updateProduct = async (req: Request, res: Response) => {
     certified,
     images,
     color,
+    status,
   } = req.body;
 
   const productRepository = getRepository(Product);
@@ -380,6 +381,7 @@ export const updateProduct = async (req: Request, res: Response) => {
     product.metaKeywords = metaKeywords;
     product.certified = certified;
     product.color = color;
+    product.status = status;
 
     // Handle foreign keys (category, subCategory, subSubCategory, brand)
     if (categoryId) {

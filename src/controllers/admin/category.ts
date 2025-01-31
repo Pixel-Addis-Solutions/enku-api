@@ -78,6 +78,10 @@ export const updateCategory = async (req: Request, res: Response) => {
     const category = await categoryRepository.findOneBy({ id: req.params.id });
     if (category) {
       categoryRepository.merge(category, req.body);
+
+      if (req.body.status !== undefined) {
+        category.status = req.body.status; // Update status field
+      }
       const updatedCategory = await categoryRepository.save(category);
       logger.info(`Category updated successfully: ${updatedCategory.id}`);
       ResUtil.success({ res, message: 'Category updated successfully', data: updatedCategory });
