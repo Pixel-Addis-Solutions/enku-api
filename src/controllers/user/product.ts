@@ -3,6 +3,7 @@ import { getRepository } from "../../data-source";
 import { Product } from "../../entities/product";
 import { ResUtil } from "../../helper/response.helper";
 import logger from "../../util/logger";
+import { stat } from "fs";
 
 export const getProductDetailById = async (req: Request, res: Response) => {
   try {
@@ -10,7 +11,7 @@ export const getProductDetailById = async (req: Request, res: Response) => {
     const productRepository = getRepository(Product);
 
     const product = await productRepository.findOne({
-      where: { id: productId },
+      where: { id: productId ,status: "active"},//Add product status 
       relations: [
         "variations.images",
         "variations.optionValues",
@@ -45,7 +46,7 @@ export const getProductsByCategoryId = async (req: Request, res: Response) => {
     const productRepository = getRepository(Product);
 
     const products = await productRepository.find({
-      where: { category: { id: categoryId } },
+      where: { category: { id: categoryId },status: "active" },//Add product status
       select: ["id", "name", "description", "price", "imageUrl"],
     });
 
@@ -73,7 +74,7 @@ export const getProductsBySubCategoryId = async (
     const productRepository = getRepository(Product);
 
     const products = await productRepository.find({
-      where: { subCategory: { id: subCategoryId } },
+      where: { subCategory: { id: subCategoryId } ,status: "active"},//Add Products Status
       select: ["id", "name", "description", "price", "imageUrl"],
     });
 
@@ -101,7 +102,7 @@ export const getProductsBySubSubCategoryId = async (
     const productRepository = getRepository(Product);
 
     const products = await productRepository.find({
-      where: { subSubCategory: { id: subSubCategoryId } },
+      where: { subSubCategory: { id: subSubCategoryId },status: "active" },//Add product status
       select: ["id", "name", "description", "price", "imageUrl"],
     });
 
@@ -174,7 +175,8 @@ export const getProductsWithFilters = async (req: Request, res: Response) => {
         "variationImages.url", // Include the image URLs for the variation
         "productImages.id", // Include the image id for the product itself
         "productImages.url", // Include the image URLs for the product itself
-      ]);
+      ])
+      .andWhere("product.status = :status", { status: "active" }); // Ensure only active products
 
     // Apply filters
     if (category) {
@@ -292,7 +294,11 @@ export const searchProducts = async (req: Request, res: Response) => {
         })
         .orWhere("product.howToUse LIKE :keyword", {
           keyword: `%${keyword}%`,
+        })
+        .andWhere("product.status = :status", {
+          status: "active",
         });
+
     }
 
     const products = await query.getMany();

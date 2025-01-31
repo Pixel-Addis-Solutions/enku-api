@@ -30,6 +30,8 @@ export class Category extends BaseEntity {
 
   @Column({ type: "varchar", length: 255 })
   imageUrl!: string;
+  @Column({ type: "enum", enum: ["active", "inactive"], default: "active" })
+  status!: "active" | "inactive";
 
   @ManyToOne(() => Product, (product) => product.category)
   products!: Product;

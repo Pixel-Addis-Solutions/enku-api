@@ -44,7 +44,9 @@ export class Product extends BaseEntity {
 
   @Column({ type: "varchar", length: 255 })
   imageUrl!: string; // used for banner image
- 
+  @Column({ type: "enum", enum: ["active", "inactive"], default: "active" })
+  status!: "active" | "inactive";
+
   @Column({ type: "date", nullable: true })
   productionDate!: string;
 
@@ -77,18 +79,18 @@ export class Product extends BaseEntity {
   @ManyToOne(() => Brand, (brand) => brand.products)
   brand!: Brand;
 
-  @OneToMany(() => ProductVariation, variation => variation.product, {
+  @OneToMany(() => ProductVariation, (variation) => variation.product, {
     cascade: true,
-    onDelete: 'CASCADE'
+    onDelete: "CASCADE",
   })
   variations!: ProductVariation[];
 
   @OneToMany(() => CartItem, (item) => item.product)
   items!: CartItem[];
 
-  @OneToMany(() => ProductImage, image => image.product, {
+  @OneToMany(() => ProductImage, (image) => image.product, {
     cascade: true,
-    onDelete: 'CASCADE'
+    onDelete: "CASCADE",
   })
   images!: ProductImage[];
 
