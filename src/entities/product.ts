@@ -103,4 +103,7 @@ export class Product extends BaseEntity {
 
   @UpdateDateColumn()
   updatedAt!: Date;
+
+  @Column({ type: "boolean", default: true })
+  status!: boolean;
 }

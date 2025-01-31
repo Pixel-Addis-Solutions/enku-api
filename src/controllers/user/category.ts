@@ -12,7 +12,9 @@ export const getCategories = async (req: Request, res: Response) => {
   try {
     // Retrieve the category
     const category = await categoryRepository.find({
-      relations: ["subCategories.subSubCategories"],order:{updatedAt:'DESC'}
+      relations: ["subCategories.subSubCategories"],
+      order: { updatedAt: "DESC" },
+      where: { status: true },
     });
     if (category) {
       logger.info(`Category retrieved successfully:`);
@@ -44,6 +46,7 @@ export const getCategory = async (req: Request, res: Response) => {
     const category = await categoryRepository.findOne({
       where: { id: req.params.id },
       relations: ["subCategories.subSubCategories"],
+      
     });
     if (category) {
       logger.info(`Category retrieved successfully: ${category.id}`);
@@ -74,7 +77,9 @@ export const getCategoriesWithSubcategories = async (
     const categoryRepository = getRepository(Category);
 
     const categories = await categoryRepository.find({
-      relations: ["subCategories", "subCategories.subSubCategories"],order:{updatedAt:'DESC'}
+      relations: ["subCategories", "subCategories.subSubCategories"],
+      order: { updatedAt: "DESC" },
+      where: { status: true },
     });
 
     return ResUtil.success({

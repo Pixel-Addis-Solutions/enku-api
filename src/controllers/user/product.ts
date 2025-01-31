@@ -152,7 +152,7 @@ export const getProductsWithFilters = async (req: Request, res: Response) => {
       ) // Fetch the featured variation
       .leftJoinAndSelect("variation.images", "variationImages") // Include variation images if available
       .leftJoinAndSelect("product.images", "productImages") // Include product images if there are no variations
-
+      .where("product.status = :status", { status: true }) // Only include active products
       .select([
         "product.id",
         "product.name",
@@ -312,8 +312,10 @@ export const searchProducts = async (req: Request, res: Response) => {
   }
 };
 
-
-export const getProductsWithFiltersAndDiscounts = async (req: Request, res: Response) => {
+export const getProductsWithFiltersAndDiscounts = async (
+  req: Request,
+  res: Response
+) => {
   try {
     const {
       category,
@@ -373,8 +375,6 @@ export const getProductsWithFiltersAndDiscounts = async (req: Request, res: Resp
         "productDiscount.value", // Include the discount value
         "productDiscount.sta", // Include the discount start date
         "productDiscount.endDate", // Include the discount end date
-
-        
       ]);
 
     // Apply filters
@@ -408,7 +408,6 @@ export const getProductsWithFiltersAndDiscounts = async (req: Request, res: Resp
           : [valueIdsArray],
       });
     }
-
 
     // Apply search functionality
     if (search) {
