@@ -3,55 +3,69 @@ import { getRepository } from '../data-source';
 import { SocialAccount } from '../entities/social-account';
 import { User } from '../entities/user';
 import logger from '../util/logger';
+import { TokenData } from '../types/express';
 
 export class InstagramService {
     private socialAccountRepository = getRepository(SocialAccount);
     private userRepository = getRepository(User);
 
-    /**
-     * Refresh the Instagram access token.
-     */
-    async refreshAccessToken(accessToken: string) {
-        try {
-            const refreshResponse = await axios.get(`https://graph.instagram.com/refresh_access_token`, {
-                params: {
-                    grant_type: 'ig_refresh_token',
-                    access_token: accessToken,
-                },
-            });
+  /**
+ * Refresh the Instagram access token.
+ */
+static async refreshAccessToken(refreshToken: string): Promise<TokenData> {
+    try {
+        const refreshResponse = await axios.get(`https://graph.instagram.com/refresh_access_token`, {
+            params: {
+                grant_type: 'ig_refresh_token',
+                access_token: refreshToken,
+            },
+        });
 
-            const newAccessToken = refreshResponse.data.access_token;
-            logger.info('Refreshed Instagram access token successfully');
-            return newAccessToken;
-        } catch (error: any) {
-            logger.error('Error refreshing Instagram access token:', error.response?.data || error.message);
-            throw new Error('Failed to refresh Instagram access token');
-        }
+        const newAccessToken = refreshResponse.data.access_token;
+        const expiresIn = refreshResponse.data.expires_in;
+
+        logger.info('Refreshed Instagram access token successfully', {
+            newAccessToken: newAccessToken,
+            expiresIn: expiresIn,
+        });
+
+        return {
+            access_token: newAccessToken,
+            expires_in: expiresIn,
+            refresh_token: refreshToken, // Instagram does not provide a new refresh token
+        };
+    } catch (error: any) {
+        logger.error('Error refreshing Instagram access token:', {
+            error: error.response?.data || error.message,
+            stack: error.stack,
+        });
+
+        throw new Error('Failed to refresh Instagram access token');
     }
+}
 
-    /**
-     * Verify the access token by making a simple API call.
-     */
-    async verifyAccessToken(accessToken: string) {
-        try {
-            const response = await axios.get(`https://graph.instagram.com/me`, {
-                params: {
-                    fields: 'id,username',
-                    access_token: accessToken,
-                },
-            });
-            logger.info('Access token is valid:', response.data);
-            return true;
-        } catch (error: any) {
-            logger.error('Access token verification failed:', error.response?.data || error.message);
-            return false;
-        }
+   /**
+ * Verify the access token by making a simple API call.
+ */
+async verifyAccessToken(accessToken: string): Promise<boolean> {
+    try {
+        const response = await axios.get(`https://graph.instagram.com/me`, {
+            params: {
+                fields: 'id,username',
+                access_token: accessToken,
+            },
+        });
+        logger.info('Access token is valid:', response.data);
+        return true;
+    } catch (error: any) {
+        logger.error('Access token verification failed:', error.response?.data || error.message);
+        return false;
     }
-
+}
     /**
      * Check if the access token has the required permissions.
      */
-    async checkTokenPermissions(accessToken: string) {
+    async checkTokenPermissions(accessToken: string): Promise<any> {
         try {
             const response = await axios.get(`https://graph.facebook.com/debug_token`, {
                 params: {
@@ -81,156 +95,79 @@ export class InstagramService {
             throw error;
         }
     }
+   /**
+ * Create an Instagram post using the access token from the database.
+ */
 
-    /**
-     * Link an Instagram account to a user.
-     */
-    async linkAccount(userId: number, socialData: any) {
-        try {
-            const existingAccount = await this.socialAccountRepository.findOne({
-                where: {
-                    platformUserId: socialData.platformUserId,
-                    platform: 'instagram',
-                },
-            });
 
-            if (existingAccount) {
-                throw new Error('This Instagram account is already linked to another user');
-            }
+   async createPost(userId: string, caption: string, imageUrl: string, scheduledTime?: Date): Promise<any> {
+    try {
+        // Fetch the access token
+        const socialAccount = await this.getSocialAccount(userId);
+        const accessToken = socialAccount.accessToken;
 
-            const user = await this.userRepository.findOne({ where: { id: userId } });
-            if (!user) {
-                throw new Error('User not found');
-            }
+        // Step 1: Upload media to Instagram
+        const mediaResponse = await this.withRetry(() =>
+            axios.post(`https://graph.facebook.com/v18.0/${userId}/media`, {
+                caption,
+                image_url: imageUrl,
+                access_token: accessToken, // Pass access token in body
+            })
+        );
 
-            const socialAccount = this.socialAccountRepository.create({
-                user,
-                platform: 'instagram',
-                platformUserId: socialData.platformUserId,
-                accountName: socialData.accountName,
-                accessToken: socialData.accessToken,
-                refreshToken: socialData.refreshToken,
-            });
+        logger.info('Media upload response:', mediaResponse.data);
 
-            await this.socialAccountRepository.save(socialAccount);
-            return socialAccount;
-        } catch (error) {
-            logger.error('Error linking Instagram account:', error);
-            throw error;
+        if (!mediaResponse.data.id) {
+            throw new Error('Instagram media upload failed: No media ID returned');
         }
+
+        // Step 2: Publish the uploaded media
+        const publishResponse = await this.withRetry(() =>
+            axios.post(`https://graph.facebook.com/v18.0/${userId}/media_publish`, {
+                creation_id: mediaResponse.data.id,
+                access_token: accessToken, // Pass access token in body
+            })
+        );
+
+        logger.info('Post publish response:', publishResponse.data);
+        return publishResponse.data;
+    } catch (error: any) {
+        logger.error('Error creating Instagram post:', error.response?.data || error.message);
+        throw new Error(`Failed to create Instagram post: ${error.response?.data?.error?.message || error.message}`);
+    }
+}
+
+
+/**
+ * Fetch the SocialAccount record for the user.
+ */
+async getSocialAccount(userId: string): Promise<SocialAccount> {
+    const socialAccount = await this.socialAccountRepository.findOne({
+        where: {
+            user: { id: userId },
+            platform: 'instagram',
+        },
+    });
+
+    if (!socialAccount) {
+        throw new Error('No Instagram account linked to this user');
     }
 
-    /**
-     * Create a new user from Instagram data.
-     */
-    async createUserFromInstagram(socialData: any) {
-        try {
-            const existingAccount = await this.socialAccountRepository.findOne({
-                where: {
-                    platformUserId: socialData.platformUserId,
-                    platform: 'instagram',
-                },
-            });
-
-            if (existingAccount) {
-                return existingAccount;
-            }
-
-            // Create a new user
-            const user = this.userRepository.create({
-                username: socialData.accountName,
-                email: socialData.emails?.[0]?.value,
-            });
-
-            await this.userRepository.save(user);
-
-            // Create a new social account
-            const socialAccount = this.socialAccountRepository.create({
-                user,
-                platform: 'instagram',
-                platformUserId: socialData.platformUserId,
-                accountName: socialData.accountName,
-                accessToken: socialData.accessToken,
-                refreshToken: socialData.refreshToken,
-            });
-
-            await this.socialAccountRepository.save(socialAccount);
-            return socialAccount;
-        } catch (error) {
-            logger.error('Error creating user from Instagram:', error);
-            throw error;
-        }
-    }
-
-    /**
-     * Create an Instagram post using the access token.
-     */
-    async createPost(accessToken: string, caption: string, imageUrl: string, scheduledTime?: Date) {
-        try {
-            // Refresh the access token before making the API request
-            const newAccessToken = await this.refreshAccessToken(accessToken);
-    
-            // Verify the new access token
-            const isTokenValid = await this.verifyAccessToken(newAccessToken);
-            if (!isTokenValid) {
-                throw new Error('Invalid access token');
-            }
-    
-            // Step 1: Upload the image to Instagram and create a media container
-            const containerResponse = await this.withRetry(() =>
-                axios.post(`https://graph.facebook.com/v18.0/me/media`, {
-                    image_url: imageUrl,
-                    caption,
-                    access_token: newAccessToken,
-                    ...(scheduledTime && { scheduled_publish_time: Math.floor(scheduledTime.getTime() / 1000) }), // Convert to Unix timestamp
-                })
-            );
-    
-            logger.info('Media container response:', containerResponse.data);
-    
-            const containerId = containerResponse.data.id;
-    
-            if (!containerId) {
-                throw new Error('Failed to create media container: No container ID returned');
-            }
-    
-            // Step 2: Publish the container (if not scheduled)
-            if (!scheduledTime) {
-                const publishResponse = await this.withRetry(() =>
-                    axios.post(`https://graph.facebook.com/v18.0/me/media_publish`, {
-                        creation_id: containerId,
-                        access_token: newAccessToken,
-                    })
-                );
-    
-                logger.info('Publish response:', publishResponse.data);
-                return publishResponse.data;
-            } else {
-                // For scheduled posts, return the container ID
-                return {
-                    containerId,
-                    message: 'Post scheduled successfully',
-                    scheduledTime: scheduledTime.toISOString(),
-                };
-            }
-        } catch (error: any) {
-            logger.error('Error creating Instagram post:', {
-                error: error.response?.data || error.message,
-                request: error.config?.data ? JSON.parse(error.config.data) : null,
-                stack: error.stack,
-            });
-            throw new Error(`Failed to create Instagram post: ${error.response?.data?.error?.message || error.message}`);
-        }
-    }
-
+    return socialAccount;
+}
+   
+   
+   
     /**
      * Fetch Instagram media for the authenticated user.
      */
-    async fetchMedia(accessToken: string) {
+    async fetchMedia(accessToken: string): Promise<any[]> {
         try {
-            // Refresh the access token before making the API request
-            const newAccessToken = await this.refreshAccessToken(accessToken);
+            // Step 1: Refresh the access token before making the API request
+            const newTokenData = await InstagramService.refreshAccessToken(accessToken);
+            const newAccessToken = newTokenData.access_token; // Extract the access token
 
+            // Step 2: Fetch media
             const response = await this.withRetry(() =>
                 axios.get(`https://graph.instagram.com/me/media`, {
                     params: {
@@ -250,16 +187,16 @@ export class InstagramService {
     /**
      * Fetch Instagram user profile.
      */
-    async getUserProfile(accessToken: string) {
+    async getUserProfile(accessToken: string): Promise<any> {
         try {
             // Refresh the access token before making the API request
-            const newAccessToken = await this.refreshAccessToken(accessToken);
+            // const newAccessToken = await InstagramService.refreshAccessToken(accessToken);
 
             const response = await this.withRetry(() =>
                 axios.get(`https://graph.instagram.com/me`, {
                     params: {
                         fields: 'id,username',
-                        access_token: newAccessToken,
+                        access_token: accessToken,
                     },
                 })
             );
@@ -274,7 +211,7 @@ export class InstagramService {
     /**
      * Static method to fetch Instagram user profile.
      */
-    static async getUserProfile(accessToken: string) {
+    static async getUserProfile(accessToken: string): Promise<any> {
         try {
             const profileResponse = await axios.get(`https://graph.instagram.com/me`, {
                 params: {
@@ -293,7 +230,7 @@ export class InstagramService {
     /**
      * Static method to fetch Instagram user media.
      */
-    static async getUserMedia(accessToken: string) {
+    static async getUserMedia(accessToken: string): Promise<any[]> {
         try {
             const mediaResponse = await axios.get(`https://graph.instagram.com/me/media`, {
                 params: {
@@ -306,6 +243,37 @@ export class InstagramService {
         } catch (error: any) {
             console.error('Error fetching Instagram media:', error.response?.data || error.message);
             throw new Error('Failed to fetch Instagram media');
+        }
+    }
+
+    /**
+     * Schedule a post on Instagram.
+     */
+    static async schedulePost(socialAccountId: string, content: string, scheduledTime: Date): Promise<void> {
+        const socialAccountRepo = getRepository(SocialAccount);
+        const socialAccount = await socialAccountRepo.findOneOrFail({ 
+            where: { id: socialAccountId } 
+        });
+
+        if (!socialAccount.platformSettings?.pages?.length) {
+            throw new Error('No Facebook pages connected');
+        }
+
+        // Post immediately to Facebook with scheduled time
+        for (const page of socialAccount.platformSettings.pages) {
+            await axios.post(
+                `https://graph.facebook.com/${page.id}/feed`,
+                {
+                    message: content,
+                    scheduled_publish_time: Math.floor(scheduledTime.getTime() / 1000),
+                    published: false
+                },
+                {
+                    params: {
+                        access_token: page.accessToken
+                    }
+                }
+            );
         }
     }
 }

@@ -16,3 +16,10 @@ declare global {
     }
   }
 }
+
+
+interface TokenData {
+  access_token: string;
+  refresh_token?: string; // Optional because it might not always be returned
+  expires_in: number; // Number of seconds until the token expires
+}

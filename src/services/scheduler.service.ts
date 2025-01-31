@@ -1,12 +1,10 @@
 import schedule from 'node-schedule';
-import { SocialPlatform } from '../interfaces/social-scheduling';
+import { SocialPlatform,ScheduledPost} from '../interfaces/social-scheduling';
 import { FacebookService } from './facebook.service';
 import logger from '../util/logger';
-import { ScheduledPost } from '../interfaces/social-scheduling';
 
 export class SchedulerService {
     private static jobs: Map<string, schedule.Job> = new Map();
-
     static async schedulePost(
         platform: SocialPlatform,
         socialAccountId: string, 

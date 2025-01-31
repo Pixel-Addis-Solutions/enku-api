@@ -418,3 +418,197 @@
 2025-01-28T13:57:49.142Z [[32minfo[39m]: Access token is valid:
 2025-01-28T13:57:50.043Z [[31merror[39m]: Error creating Instagram post:
 2025-01-28T13:57:50.047Z [[31merror[39m]: Error posting to Instagram
+2025-01-29T06:32:21.186Z [[32minfo[39m]: Using access token: IGAAYLGZA0LWaNBZAE41QTdhR2o3UjZAIeWtERWtzUFVZARE1IeTJFZAU42YlNJZAmFUX3dRYnBGQ3c3RjJwSy1BN0NTY0VhdzRIVzRGNks3Mkoyb09Rdy01VTQyc2N1QUVFbWlpWkNSVzRtWTg3NlByQmVFcndOWmdtWVhQVG05TGpSVQZDZD
+2025-01-29T06:32:22.716Z [[32minfo[39m]: Refreshed Instagram access token successfully
+2025-01-29T06:32:23.209Z [[32minfo[39m]: Access token is valid:
+2025-01-29T06:32:24.022Z [[31merror[39m]: Error creating Instagram post:
+2025-01-29T06:32:24.023Z [[31merror[39m]: Error posting to Instagram
+2025-01-31T09:50:01.492Z [[31merror[39m]: Unhandled error: Failed to obtain access token
+2025-01-31T09:53:03.742Z [[31merror[39m]: Unhandled error: Failed to obtain access token
+2025-01-31T09:58:03.994Z [[32minfo[39m]: Instagram OAuth URL generated
+2025-01-31T09:59:27.933Z [[32minfo[39m]: Instagram OAuth URL generated
+2025-01-31T10:02:12.021Z [[32minfo[39m]: Instagram OAuth URL generated
+2025-01-31T10:02:50.764Z [[31merror[39m]: Unhandled error: Failed to obtain access token
+2025-01-31T10:04:13.421Z [[31merror[39m]: Unhandled error: Failed to obtain access token
+2025-01-31T10:04:44.796Z [[32minfo[39m]: Instagram OAuth URL generated
+2025-01-31T10:05:55.018Z [[32minfo[39m]: Instagram OAuth URL generated
+2025-01-31T10:07:18.843Z [[31merror[39m]: Unhandled error: Failed to obtain access token
+2025-01-31T10:18:10.752Z [[32minfo[39m]: Instagram OAuth URL generated
+2025-01-31T10:32:13.078Z [[32minfo[39m]: Instagram User OAuth URL generated
+2025-01-31T10:37:04.512Z [[32minfo[39m]: Instagram User OAuth URL generated
+2025-01-31T10:38:01.400Z [[31merror[39m]: Unhandled error: Failed to obtain access token
+2025-01-31T11:35:19.567Z [[32minfo[39m]: Instagram User OAuth URL generated
+2025-01-31T11:36:08.863Z [[32minfo[39m]: Instagram User OAuth URL generated
+2025-01-31T11:36:52.307Z [[31merror[39m]: Unhandled error: Failed to obtain access token
+2025-01-31T11:37:10.166Z [[31merror[39m]: Unhandled error: Failed to obtain access token
+2025-01-31T11:41:40.371Z [[32minfo[39m]: Using access token: IGAAYLGZA0LWaNBZAE54M092RG9ETEV1R2tvZA1BLVnl4ZAlVUT2diYVh1LXNDZA2oxVWZAiQ3FJT3pIOU1Rd3IyT2xXT1pGNHFPdzdadUd2emlvNXdDTFJqZATNyV0I3LVNiSkpfa3ZAtMzFCWk1JTnNWX3Jrb2lfbGhxeHUyUTJrMGVVMAZDZD
+2025-01-31T11:41:42.004Z [[32minfo[39m]: Refreshed Instagram access token successfully
+2025-01-31T11:41:42.522Z [[32minfo[39m]: Access token is valid:
+2025-01-31T11:41:43.430Z [[31merror[39m]: Error creating Instagram post:
+2025-01-31T11:41:43.439Z [[31merror[39m]: Error posting to Instagram
+2025-01-31T11:47:20.644Z [[32minfo[39m]: Using access token: IGAAYLGZA0LWaNBZAE54M092RG9ETEV1R2tvZA1BLVnl4ZAlVUT2diYVh1LXNDZA2oxVWZAiQ3FJT3pIOU1Rd3IyT2xXT1pGNHFPdzdadUd2emlvNXdDTFJqZATNyV0I3LVNiSkpfa3ZAtMzFCWk1JTnNWX3Jrb2lfbGhxeHUyUTJrMGVVMAZDZD
+2025-01-31T11:47:22.160Z [[32minfo[39m]: Refreshed Instagram access token successfully
+2025-01-31T11:47:22.165Z [[32minfo[39m]: Refreshed access token:
+2025-01-31T11:47:22.614Z [[32minfo[39m]: Access token is valid:
+2025-01-31T11:47:23.144Z [[31merror[39m]: Error creating Instagram post:
+2025-01-31T11:47:23.148Z [[31merror[39m]: Error posting to Instagram
+2025-01-31T12:08:30.464Z [[32minfo[39m]: Using access token: IGAAYLGZA0LWaNBZAE54M092RG9ETEV1R2tvZA1BLVnl4ZAlVUT2diYVh1LXNDZA2oxVWZAiQ3FJT3pIOU1Rd3IyT2xXT1pGNHFPdzdadUd2emlvNXdDTFJqZATNyV0I3LVNiSkpfa3ZAtMzFCWk1JTnNWX3Jrb2lfbGhxeHUyUTJrMGVVMAZDZD
+2025-01-31T12:08:30.482Z [[31merror[39m]: Error creating Instagram post:
+2025-01-31T12:08:30.484Z [[31merror[39m]: Error posting to Instagram
+2025-01-31T12:08:32.995Z [[32minfo[39m]: Using access token: IGAAYLGZA0LWaNBZAE54M092RG9ETEV1R2tvZA1BLVnl4ZAlVUT2diYVh1LXNDZA2oxVWZAiQ3FJT3pIOU1Rd3IyT2xXT1pGNHFPdzdadUd2emlvNXdDTFJqZATNyV0I3LVNiSkpfa3ZAtMzFCWk1JTnNWX3Jrb2lfbGhxeHUyUTJrMGVVMAZDZD
+2025-01-31T12:08:33.000Z [[31merror[39m]: Error creating Instagram post:
+2025-01-31T12:08:33.000Z [[31merror[39m]: Error posting to Instagram
+2025-01-31T12:12:27.559Z [[31merror[39m]: Error fetching social account: Unknown column 'NaN' in 'where clause'
+2025-01-31T12:12:27.568Z [[31merror[39m]: Error creating Instagram post:
+2025-01-31T12:12:27.569Z [[31merror[39m]: Error posting to Instagram
+2025-01-31T15:52:21.259Z [[32minfo[39m]: Attempting to create Instagram post for user ID: 761b8483-b9f0-4077-adb3-e9b084f3773f
+2025-01-31T15:52:21.290Z [[31merror[39m]: Error fetching social account: Unknown column 'NaN' in 'where clause'
+2025-01-31T15:52:21.299Z [[31merror[39m]: Error creating Instagram post:
+2025-01-31T15:52:21.300Z [[31merror[39m]: Error posting to Instagram
+2025-01-31T16:26:01.325Z [[32minfo[39m]: Attempting to create Instagram post for user ID: 761b8483-b9f0-4077-adb3-e9b084f3773f
+2025-01-31T16:26:01.333Z [[31merror[39m]: Invalid user ID:
+2025-01-31T16:26:01.357Z [[31merror[39m]: Error creating Instagram post:
+2025-01-31T16:26:01.361Z [[31merror[39m]: Error posting to Instagram
+2025-01-31T17:04:38.103Z [[32minfo[39m]: Received request to create Instagram post for user ID: 761b8483-b9f0-4077-adb3-e9b084f3773f
+2025-01-31T17:08:09.770Z [[32minfo[39m]: Received request to create Instagram post for user ID: 761b8483-b9f0-4077-adb3-e9b084f3773f
+2025-01-31T17:08:11.025Z [[32minfo[39m]: Access token is valid:
+2025-01-31T17:21:23.182Z [[32minfo[39m]: Received request to create Instagram post for user ID: 761b8483-b9f0-4077-adb3-e9b084f3773f
+2025-01-31T17:21:23.201Z [[32minfo[39m]: Creating Instagram post with access token:
+2025-01-31T17:21:23.203Z [[32minfo[39m]: Instagram user ID:
+2025-01-31T17:21:24.104Z [[32minfo[39m]: Access token is valid:
+2025-01-31T17:21:24.986Z [[31merror[39m]: Error creating Instagram post:
+2025-01-31T17:21:24.988Z [[31merror[39m]: Error posting to Instagram
+2025-01-31T19:19:15.178Z [[32minfo[39m]: Received request to create Instagram post for user ID: 761b8483-b9f0-4077-adb3-e9b084f3773f
+2025-01-31T19:19:15.189Z [[32minfo[39m]: Creating Instagram post with access token:
+2025-01-31T19:19:15.191Z [[32minfo[39m]: Instagram user ID:
+2025-01-31T19:19:16.178Z [[32minfo[39m]: Access token is valid:
+2025-01-31T19:19:16.946Z [[31merror[39m]: Error creating Instagram post:
+2025-01-31T19:19:16.950Z [[31merror[39m]: Error posting to Instagram
+2025-01-31T19:20:04.963Z [[32minfo[39m]: Received request to create Instagram post for user ID: 761b8483-b9f0-4077-adb3-e9b084f3773f
+2025-01-31T19:20:04.975Z [[32minfo[39m]: Creating Instagram post with access token:
+2025-01-31T19:20:04.976Z [[32minfo[39m]: Instagram user ID:
+2025-01-31T19:20:05.733Z [[32minfo[39m]: Access token is valid:
+2025-01-31T19:20:06.487Z [[31merror[39m]: Error creating Instagram post:
+2025-01-31T19:20:06.490Z [[31merror[39m]: Error posting to Instagram
+2025-01-31T19:27:09.769Z [[32minfo[39m]: Received request to create Instagram post for user ID: 761b8483-b9f0-4077-adb3-e9b084f3773f
+2025-01-31T19:27:09.814Z [[32minfo[39m]: Creating Instagram post with access token:
+2025-01-31T19:27:09.818Z [[32minfo[39m]: Instagram user ID:
+2025-01-31T19:27:10.707Z [[32minfo[39m]: Access token is valid:
+2025-01-31T19:27:11.681Z [[31merror[39m]: Error creating Instagram post:
+2025-01-31T19:27:11.683Z [[31merror[39m]: Error posting to Instagram
+2025-01-31T19:31:52.029Z [[32minfo[39m]: Received request to create Instagram post for user ID: 761b8483-b9f0-4077-adb3-e9b084f3773f
+2025-01-31T19:31:52.049Z [[32minfo[39m]: Creating Instagram post with access token:
+2025-01-31T19:31:52.052Z [[32minfo[39m]: Instagram user ID:
+2025-01-31T19:31:53.006Z [[32minfo[39m]: Access token is valid:
+2025-01-31T19:31:53.524Z [[31merror[39m]: Error creating Instagram post:
+2025-01-31T19:31:53.531Z [[31merror[39m]: Error posting to Instagram
+2025-01-31T19:34:08.026Z [[32minfo[39m]: Received request to create Instagram post for user ID: 761b8483-b9f0-4077-adb3-e9b084f3773f
+2025-01-31T19:34:08.081Z [[32minfo[39m]: Creating Instagram post with access token:
+2025-01-31T19:34:08.084Z [[32minfo[39m]: Instagram user ID:
+2025-01-31T19:34:09.223Z [[32minfo[39m]: Access token is valid:
+2025-01-31T19:34:10.195Z [[31merror[39m]: Error creating Instagram post:
+2025-01-31T19:34:10.199Z [[31merror[39m]: Error posting to Instagram
+2025-01-31T19:36:52.896Z [[32minfo[39m]: Received request to create Instagram post for user ID: 761b8483-b9f0-4077-adb3-e9b084f3773f
+2025-01-31T19:36:52.925Z [[32minfo[39m]: Creating Instagram post with access token:
+2025-01-31T19:36:52.927Z [[32minfo[39m]: Instagram user ID:
+2025-01-31T19:36:54.020Z [[32minfo[39m]: Access token is valid:
+2025-01-31T19:36:54.880Z [[31merror[39m]: Error creating Instagram post:
+2025-01-31T19:36:54.887Z [[31merror[39m]: Error posting to Instagram
+2025-01-31T19:51:37.780Z [[32minfo[39m]: Received request to create Instagram post for user ID: 761b8483-b9f0-4077-adb3-e9b084f3773f
+2025-01-31T19:51:37.823Z [[32minfo[39m]: Creating Instagram post with access token:
+2025-01-31T19:51:37.826Z [[32minfo[39m]: Instagram user ID:
+2025-01-31T19:51:38.578Z [[32minfo[39m]: Access token is valid:
+2025-01-31T19:51:39.189Z [[31merror[39m]: Error creating Instagram post:
+2025-01-31T19:51:39.196Z [[31merror[39m]: Error posting to Instagram
+2025-01-31T19:59:00.202Z [[32minfo[39m]: Received request to create Instagram post for user ID: 761b8483-b9f0-4077-adb3-e9b084f3773f
+2025-01-31T19:59:00.214Z [[32minfo[39m]: Creating Instagram post with access token:
+2025-01-31T19:59:00.215Z [[32minfo[39m]: Instagram user ID:
+2025-01-31T19:59:01.009Z [[32minfo[39m]: Access token is valid:
+2025-01-31T19:59:01.796Z [[31merror[39m]: Error creating Instagram post:
+2025-01-31T19:59:01.800Z [[31merror[39m]: Error posting to Instagram
+2025-01-31T20:03:16.770Z [[32minfo[39m]: Received request to create Instagram post for user ID: 761b8483-b9f0-4077-adb3-e9b084f3773f
+2025-01-31T20:03:16.783Z [[32minfo[39m]: Creating Instagram post with access token:
+2025-01-31T20:03:16.786Z [[32minfo[39m]: Instagram user ID:
+2025-01-31T20:03:17.329Z [[32minfo[39m]: Access token is valid:
+2025-01-31T20:03:18.082Z [[31merror[39m]: Error creating Instagram post:
+2025-01-31T20:03:18.085Z [[31merror[39m]: Error posting to Instagram
+2025-01-31T20:03:57.724Z [[32minfo[39m]: Using access token: IGAAYLGZA0LWaNBZAE50QmNjU2hRQ3ppWUJ5T3VnWWdMcUI3c0FXTkttSlhicjFMVG8zS1VqM29acy1XUUtlNzFIcFU2alhjVDM3SnlQeFNVM0RmRkthRGpJZAWNBcWlKMGwzdERkdUlNcEREOUotbmRCS2dZAWlNlcXVSNGVZAODVTawZDZD
+2025-01-31T20:03:58.747Z [[32minfo[39m]: Refreshed Instagram access token successfully
+2025-01-31T20:03:58.904Z [[31merror[39m]: Error fetching Instagram profile:
+2025-01-31T20:03:58.907Z [[31merror[39m]: Error fetching Instagram profile
+2025-01-31T20:04:21.582Z [[32minfo[39m]: Using access token: IGAAYLGZA0LWaNBZAE50QmNjU2hRQ3ppWUJ5T3VnWWdMcUI3c0FXTkttSlhicjFMVG8zS1VqM29acy1XUUtlNzFIcFU2alhjVDM3SnlQeFNVM0RmRkthRGpJZAWNBcWlKMGwzdERkdUlNcEREOUotbmRCS2dZAWlNlcXVSNGVZAODVTawZDZD
+2025-01-31T20:04:22.904Z [[32minfo[39m]: Refreshed Instagram access token successfully
+2025-01-31T20:04:23.311Z [[31merror[39m]: Error fetching Instagram profile:
+2025-01-31T20:04:23.314Z [[31merror[39m]: Error fetching Instagram profile
+2025-01-31T20:07:58.731Z [[32minfo[39m]: Using access token: IGAAYLGZA0LWaNBZAE50QmNjU2hRQ3ppWUJ5T3VnWWdMcUI3c0FXTkttSlhicjFMVG8zS1VqM29acy1XUUtlNzFIcFU2alhjVDM3SnlQeFNVM0RmRkthRGpJZAWNBcWlKMGwzdERkdUlNcEREOUotbmRCS2dZAWlNlcXVSNGVZAODVTawZDZD
+2025-01-31T20:08:00.409Z [[32minfo[39m]: Refreshed Instagram access token successfully
+2025-01-31T20:09:02.354Z [[32minfo[39m]: Using access token: IGAAYLGZA0LWaNBZAE50QmNjU2hRQ3ppWUJ5T3VnWWdMcUI3c0FXTkttSlhicjFMVG8zS1VqM29acy1XUUtlNzFIcFU2alhjVDM3SnlQeFNVM0RmRkthRGpJZAWNBcWlKMGwzdERkdUlNcEREOUotbmRCS2dZAWlNlcXVSNGVZAODVTawZDZD
+2025-01-31T20:09:03.669Z [[32minfo[39m]: Refreshed Instagram access token successfully
+2025-01-31T20:09:04.152Z [[31merror[39m]: Error fetching Instagram profile:
+2025-01-31T20:09:04.158Z [[31merror[39m]: Error fetching Instagram profile
+2025-01-31T20:09:13.791Z [[32minfo[39m]: Using access token: IGAAYLGZA0LWaNBZAE50QmNjU2hRQ3ppWUJ5T3VnWWdMcUI3c0FXTkttSlhicjFMVG8zS1VqM29acy1XUUtlNzFIcFU2alhjVDM3SnlQeFNVM0RmRkthRGpJZAWNBcWlKMGwzdERkdUlNcEREOUotbmRCS2dZAWlNlcXVSNGVZAODVTawZDZD
+2025-01-31T20:09:14.892Z [[32minfo[39m]: Refreshed Instagram access token successfully
+2025-01-31T20:09:15.301Z [[31merror[39m]: Error fetching Instagram profile:
+2025-01-31T20:09:15.304Z [[31merror[39m]: Error fetching Instagram profile
+2025-01-31T20:10:21.110Z [[32minfo[39m]: Using access token: IGAAYLGZA0LWaNBZAE50QmNjU2hRQ3ppWUJ5T3VnWWdMcUI3c0FXTkttSlhicjFMVG8zS1VqM29acy1XUUtlNzFIcFU2alhjVDM3SnlQeFNVM0RmRkthRGpJZAWNBcWlKMGwzdERkdUlNcEREOUotbmRCS2dZAWlNlcXVSNGVZAODVTawZDZD
+2025-01-31T20:12:31.467Z [[32minfo[39m]: Received request to create Instagram post for user ID: 761b8483-b9f0-4077-adb3-e9b084f3773f
+2025-01-31T20:12:31.504Z [[32minfo[39m]: Creating Instagram post with access token:
+2025-01-31T20:12:31.507Z [[32minfo[39m]: Instagram user ID:
+2025-01-31T20:12:32.549Z [[32minfo[39m]: Access token is valid:
+2025-01-31T20:12:33.405Z [[31merror[39m]: Error creating Instagram post:
+2025-01-31T20:12:33.410Z [[31merror[39m]: Error posting to Instagram
+2025-01-31T20:14:07.864Z [[32minfo[39m]: Received request to create Instagram post for user ID: 761b8483-b9f0-4077-adb3-e9b084f3773f
+2025-01-31T20:14:07.894Z [[32minfo[39m]: Creating Instagram post with access token:
+2025-01-31T20:14:07.896Z [[32minfo[39m]: Instagram user ID:
+2025-01-31T20:14:09.061Z [[31merror[39m]: Error creating Instagram post:
+2025-01-31T20:14:09.065Z [[31merror[39m]: Error posting to Instagram
+2025-01-31T20:17:45.490Z [[32minfo[39m]: Received request to create Instagram post for user ID: 761b8483-b9f0-4077-adb3-e9b084f3773f
+2025-01-31T20:17:45.498Z [[32minfo[39m]: Creating Instagram post with access token:
+2025-01-31T20:17:45.499Z [[32minfo[39m]: Instagram user ID:
+2025-01-31T20:17:46.331Z [[31merror[39m]: Error creating Instagram post:
+2025-01-31T20:17:46.333Z [[31merror[39m]: Error posting to Instagram
+2025-01-31T20:26:07.623Z [[32minfo[39m]: Received request to create Instagram post for user ID: 761b8483-b9f0-4077-adb3-e9b084f3773f
+2025-01-31T20:26:07.634Z [[32minfo[39m]: Creating Instagram post with access token:
+2025-01-31T20:26:07.635Z [[32minfo[39m]: Instagram user ID:
+2025-01-31T20:26:08.416Z [[32minfo[39m]: Access token is valid:
+2025-01-31T20:26:08.987Z [[31merror[39m]: Error creating Instagram post:
+2025-01-31T20:26:08.990Z [[31merror[39m]: Error posting to Instagram
+2025-01-31T20:33:58.257Z [[32minfo[39m]: Received request to create Instagram post for user ID: 761b8483-b9f0-4077-adb3-e9b084f3773f
+2025-01-31T20:33:58.265Z [[32minfo[39m]: Creating Instagram post with access token:
+2025-01-31T20:33:58.265Z [[32minfo[39m]: Instagram user ID:
+2025-01-31T20:33:59.075Z [[32minfo[39m]: Access token is valid:
+2025-01-31T20:33:59.534Z [[31merror[39m]: Error creating Instagram post:
+2025-01-31T20:33:59.536Z [[31merror[39m]: Error posting to Instagram
+2025-01-31T20:39:12.035Z [[32minfo[39m]: Received request to create Instagram post for user ID: 761b8483-b9f0-4077-adb3-e9b084f3773f
+2025-01-31T20:39:13.660Z [[31merror[39m]: Error creating Instagram post:
+2025-01-31T20:39:13.667Z [[31merror[39m]: Error posting to Instagram
+2025-01-31T20:40:57.392Z [[32minfo[39m]: Received request to create Instagram post for user ID: 761b8483-b9f0-4077-adb3-e9b084f3773f
+2025-01-31T20:40:58.851Z [[31merror[39m]: Error creating Instagram post:
+2025-01-31T20:40:58.856Z [[31merror[39m]: Error posting to Instagram
+2025-01-31T20:41:13.113Z [[32minfo[39m]: Received request to create Instagram post for user ID: 761b8483-b9f0-4077-adb3-e9b084f3773f
+2025-01-31T20:41:14.512Z [[31merror[39m]: Error creating Instagram post:
+2025-01-31T20:41:14.516Z [[31merror[39m]: Error posting to Instagram
+2025-01-31T20:46:17.671Z [[32minfo[39m]: Received request to create Instagram post for user ID: 761b8483-b9f0-4077-adb3-e9b084f3773f
+2025-01-31T20:46:18.872Z [[31merror[39m]: Error creating Instagram post:
+2025-01-31T20:46:18.879Z [[31merror[39m]: Error posting to Instagram
+2025-01-31T20:54:57.194Z [[32minfo[39m]: Received request to create Instagram post for user ID: 761b8483-b9f0-4077-adb3-e9b084f3773f
+2025-01-31T20:54:57.965Z [[31merror[39m]: Error creating Instagram post:
+2025-01-31T20:54:57.971Z [[31merror[39m]: Error posting to Instagram
+2025-01-31T20:56:24.586Z [[32minfo[39m]: Received request to create Instagram post for user ID: 761b8483-b9f0-4077-adb3-e9b084f3773f
+2025-01-31T20:56:25.403Z [[31merror[39m]: Error creating Instagram post:
+2025-01-31T20:56:25.411Z [[31merror[39m]: Error posting to Instagram
+2025-01-31T20:59:00.659Z [[32minfo[39m]: Received request to create Instagram post for user ID: 761b8483-b9f0-4077-adb3-e9b084f3773f
+2025-01-31T20:59:01.449Z [[31merror[39m]: Error creating Instagram post:
+2025-01-31T20:59:01.453Z [[31merror[39m]: Error posting to Instagram
+2025-01-31T20:59:48.126Z [[32minfo[39m]: Received request to create Instagram post for user ID: 761b8483-b9f0-4077-adb3-e9b084f3773f
+2025-01-31T20:59:48.737Z [[31merror[39m]: Error creating Instagram post:
+2025-01-31T20:59:48.740Z [[31merror[39m]: Error posting to Instagram
+2025-01-31T21:01:57.881Z [[32minfo[39m]: Received request to create Instagram post for user ID: 761b8483-b9f0-4077-adb3-e9b084f3773f
+2025-01-31T21:01:58.378Z [[31merror[39m]: Error creating Instagram post:
+2025-01-31T21:01:58.382Z [[31merror[39m]: Error posting to Instagram
+2025-01-31T21:09:34.753Z [[32minfo[39m]: Received request to create Instagram post for user ID: 761b8483-b9f0-4077-adb3-e9b084f3773f
+2025-01-31T21:09:35.597Z [[31merror[39m]: Error creating Instagram post:
+2025-01-31T21:09:35.602Z [[31merror[39m]: Error posting to Instagram
+2025-01-31T21:09:44.655Z [[32minfo[39m]: Received request to create Instagram post for user ID: 761b8483-b9f0-4077-adb3-e9b084f3773f
+2025-01-31T21:09:45.452Z [[31merror[39m]: Error creating Instagram post:
+2025-01-31T21:09:45.455Z [[31merror[39m]: Error posting to Instagram

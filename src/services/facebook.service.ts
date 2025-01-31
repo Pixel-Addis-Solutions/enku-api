@@ -4,6 +4,7 @@ import { User } from '../entities/user';
 import logger from '../util/logger';
 import axios from 'axios';
 import 'dotenv/config';
+import { TokenData } from '../types/express';
 
 interface FacebookPostOptions {
   message: string;
@@ -289,33 +290,41 @@ export class FacebookService {
     }));
   }
 
-  async refreshAccessToken(socialAccountId: string): Promise<void> {
+  /**
+   * Refresh the Facebook access token
+   */
+  static async refreshAccessToken(accessToken: string): Promise<TokenData> {
     const socialAccountRepo = getRepository(SocialAccount);
-    const account = await socialAccountRepo.findOneOrFail({ 
-        where: { id: socialAccountId } 
+    const account = await socialAccountRepo.findOneOrFail({
+        where: { accessToken },
     });
 
-    if (!account.refreshToken) {
-        throw new Error('No refresh token available');
-    }
-
     try {
+        // Exchange the current access token for a new long-lived token
         const response = await axios.get('https://graph.facebook.com/oauth/access_token', {
             params: {
                 client_id: process.env.FACEBOOK_APP_ID,
                 client_secret: process.env.FACEBOOK_APP_SECRET,
                 grant_type: 'fb_exchange_token',
-                fb_exchange_token: account.accessToken
-            }
+                fb_exchange_token: accessToken, // Use the current access token, not the refresh token
+            },
         });
 
+        // Update the database with the new token and expiration
         await socialAccountRepo.update(account.id, {
             accessToken: response.data.access_token,
-            tokenExpiration: new Date(Date.now() + response.data.expires_in * 1000)
+            tokenExpiration: new Date(Date.now() + response.data.expires_in * 1000),
         });
+
+        // Return the new token data
+        return {
+            access_token: response.data.access_token,
+            expires_in: response.data.expires_in,
+            refresh_token: account.refreshToken, // Facebook does not return a new refresh token
+        };
     } catch (error) {
         logger.error('Error refreshing Facebook access token:', error);
-        throw error;
+        throw new Error('Failed to refresh Facebook access token');
     }
-  }
+}
 }

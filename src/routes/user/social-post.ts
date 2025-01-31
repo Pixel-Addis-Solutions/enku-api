@@ -25,7 +25,7 @@ router.get("/facebook/pages", authenticateUser, requireLinkedAccount("facebook")
 // Additional Instagram functionalities
 router.post("/instagram/create-post", authenticateUser,requireLinkedAccount("instagram"),createInstagramPost);
 router.post("/instagram/fetch-media", authenticateUser, requireLinkedAccount("instagram"),fetchMedia);
-router.post("/instagram/profile", authenticateUser, requireLinkedAccount("instagram"),getUserProfile);
+router.get("/instagram/profile", authenticateUser, requireLinkedAccount("instagram"),getUserProfile);
 
 router.post('/schedule', authenticateUser, schedulePost);
 router.get('/scheduled', authenticateUser, getScheduledPosts);

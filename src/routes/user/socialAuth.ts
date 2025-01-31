@@ -8,8 +8,40 @@ import { ResUtil } from '../../helper/response.helper';
 import logger from '../../util/logger';
 import { User } from '../../entities/user';
 import { InstagramService } from '../../services/instagram.service';
+import { TokenData } from '../../types/express';
 
 const router = express.Router();
+
+// Function to refresh access tokens before they expire
+const refreshAccessTokenIfNeeded = async (socialAccount: SocialAccount) => {
+    const now = new Date();
+    const tokenExpiration = new Date(socialAccount.tokenExpiration || 0);
+
+    if (tokenExpiration < now) {
+        try {
+            let newTokenData: TokenData | undefined;
+            if (socialAccount.platform === 'facebook') {
+                newTokenData = await FacebookService.refreshAccessToken(socialAccount.accessToken);
+            } else if (socialAccount.platform === 'instagram') {
+                newTokenData = await InstagramService.refreshAccessToken(socialAccount.accessToken);
+            }
+
+            if (newTokenData) {
+                socialAccount.accessToken = newTokenData.access_token;
+                socialAccount.refreshToken = newTokenData.refresh_token || socialAccount.refreshToken;
+                socialAccount.tokenExpiration = new Date(now.getTime() + newTokenData.expires_in * 1000);
+                await getRepository(SocialAccount).save(socialAccount);
+            }
+        } catch (error: any) {
+            logger.error('Error refreshing access token', {
+                error: error.message,
+                stack: error.stack,
+                accountId: socialAccount.id
+            });
+            throw error;
+        }
+    }
+};
 
 // Initiate Facebook OAuth flow
 router.get('/auth/facebook/login', (req, res, next) => {
@@ -54,6 +86,7 @@ router.get('/facebook/callback',
                     socialAccount.refreshToken = fbProfile.refreshToken;
                     socialAccount.accountName = fbProfile.displayName || '';
                     socialAccount.platformUserId = fbProfile.id;
+                    socialAccount.tokenExpiresAt = new Date(Date.now() + fbProfile.expires_in * 1000);
                 } else {
                     // Create new account
                     socialAccount = socialAccountRepo.create({
@@ -63,6 +96,7 @@ router.get('/facebook/callback',
                         platformUserId: fbProfile.id,
                         accessToken: fbProfile.accessToken,
                         refreshToken: fbProfile.refreshToken,
+                        tokenExpiresAt: new Date(Date.now() + fbProfile.expires_in * 1000),
                         isActive: true,
                     });
                 }
@@ -81,6 +115,7 @@ router.get('/facebook/callback',
                     platformUserId: fbProfile.id,
                     accessToken: fbProfile.accessToken,
                     refreshToken: fbProfile.refreshToken,
+                    tokenExpiresAt: new Date(Date.now() + fbProfile.expires_in * 1000),
                     isActive: true,
                 });
             }
@@ -143,15 +178,20 @@ router.delete('/remove/facebook', authenticate, async (req, res) => {
 });
 
 // Initiate Instagram OAuth flow
-// Initiate Instagram OAuth flow
-// Initiate Instagram OAuth flow
-router.get('/auth/instagram/login', (req, res, next) => {
-    const redirectUri = "http://localhost:5000/user/social/instagram/callback";
-    const authUrl = `https://www.facebook.com/v18.0/dialog/oauth?client_id=${process.env.INSTAGRAM_CLIENT_ID}&redirect_uri=${redirectUri}&scope=instagram_basic,pages_show_list`;
+router.get('/auth/instagram/login', (req, res) => {
+    const redirectUri = "https://toll-lens-configuration-future.trycloudflare.com/user/social/instagram/callback"; // Your callback URI
+    const clientId = process.env.INSTAGRAM_CLIENT_ID;
     
-    console.log("Instagram OAuth URL:", authUrl); // Log the OAuth URL
+    // Use user-related scopes
+    const scopes = "instagram_business_basic, instagram_business_manage_messages, instagram_business_content_publish, instagram_business_manage_insights,instagram_business_manage_comments";
+
+    const authUrl = `https://www.instagram.com/oauth/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&scope=${scopes}&response_type=code`;
+    
+    logger.info('Instagram User OAuth URL generated', { url: authUrl });
+    console.log("OAuth URL:", authUrl); // Log the OAuth URL
     res.redirect(authUrl);
 });
+
 
 
 // Instagram OAuth callback (handles both linking and standalone login)
@@ -188,6 +228,7 @@ router.get('/instagram/callback',
                     socialAccount.refreshToken = instagramProfile.refreshToken;
                     socialAccount.accountName = instagramProfile.username || '';
                     socialAccount.platformUserId = instagramProfile.id;
+                    socialAccount.tokenExpiresAt = new Date(Date.now() + instagramProfile.expires_in * 1000);
                 } else {
                     // Create new account
                     socialAccount = socialAccountRepo.create({
@@ -197,6 +238,7 @@ router.get('/instagram/callback',
                         platformUserId: instagramProfile.id,
                         accessToken: instagramProfile.accessToken,
                         refreshToken: instagramProfile.refreshToken,
+                        tokenExpiresAt: new Date(Date.now() + instagramProfile.expires_in * 1000),
                         isActive: true,
                     });
                 }
@@ -215,6 +257,7 @@ router.get('/instagram/callback',
                     platformUserId: instagramProfile.id,
                     accessToken: instagramProfile.accessToken,
                     refreshToken: instagramProfile.refreshToken,
+                    tokenExpiresAt: new Date(Date.now() + instagramProfile.expires_in * 1000),
                     isActive: true,
                 });
             }
@@ -275,4 +318,5 @@ router.delete('/remove/instagram', authenticate, async (req, res) => {
         });
     }
 });
+
 export default router;

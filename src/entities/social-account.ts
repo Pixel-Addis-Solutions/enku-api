@@ -35,7 +35,7 @@ export class SocialAccount {
 
     @CreateDateColumn()
     createdAt!: Date;
-
+    
     @UpdateDateColumn()
     updatedAt!: Date;
-} 
+}
