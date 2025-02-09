@@ -33,6 +33,8 @@ export class Category extends BaseEntity {
 
   @Column({ type: "boolean", default: true })
   status!: boolean;
+  @Column({  default: 0 })
+  sort!: number;
   
   @ManyToOne(() => Product, (product) => product.category)
   products!: Product;
