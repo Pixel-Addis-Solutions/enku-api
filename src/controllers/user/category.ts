@@ -78,7 +78,7 @@ export const getCategoriesWithSubcategories = async (
 
     const categories = await categoryRepository.find({
       relations: ["subCategories", "subCategories.subSubCategories"],
-      order: { updatedAt: "DESC" },
+      order: { sort: "ASC" },
       where: { status: true },
     });
 
