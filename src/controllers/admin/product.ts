@@ -192,6 +192,7 @@ export const createProduct = async (req: Request, res: Response) => {
       metaKeywords,
       origin,
       certified,
+      status
     } = req.body;
     await entityManager.transaction(async (transactionalEntityManager) => {
       const productRepository =
@@ -222,6 +223,7 @@ export const createProduct = async (req: Request, res: Response) => {
         metaDescription,
         metaKeywords,
         certified,
+        status
       });
       await productRepository.save(product);
 
