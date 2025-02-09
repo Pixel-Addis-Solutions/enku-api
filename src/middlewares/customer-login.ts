@@ -16,7 +16,7 @@ export const authenticate = async (
     try {
       const decoded: any = jwt.verify(
         token,
-        process.env.JWT_SECRET || "your_jwt_secret"
+        process.env.JWT_SECRET || "12345678"
       );
       const userRepository = getRepository(Customer);
       const user = await userRepository.findOne({ where: { id: decoded.id } });

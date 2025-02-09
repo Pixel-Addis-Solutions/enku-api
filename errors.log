@@ -3,3 +3,385 @@
 2025-01-01T17:03:15.473Z [[31merror[39m]: [object Object]
 2025-01-01T17:09:34.088Z [[31merror[39m]: [object Object]
 2025-01-03T08:48:52.390Z [[31merror[39m]: Error creating user - Duplicate entry 'kebede@gmail.com' for key 'IDX_e12875dfb3b1d92d7d7c5377e2'
+2025-01-15T20:20:54.243Z [[31merror[39m]: Error fetching linked accounts Property "platformUserId" was not found in "SocialAccount". Make sure your query is correct.
+2025-01-15T20:27:01.465Z [[31merror[39m]: Error linking social account Not implemented
+2025-01-15T20:37:19.202Z [[31merror[39m]: Error linking social account
+2025-01-16T20:42:45.264Z [[31merror[39m]: Token verification failed:TokenExpiredError: jwt expired
+2025-01-16T20:43:05.393Z [[31merror[39m]: Token verification failed:TokenExpiredError: jwt expired
+2025-01-16T20:43:15.302Z [[31merror[39m]: Token verification failed:TokenExpiredError: jwt expired
+2025-01-16T20:43:49.963Z [[31merror[39m]: Error linking social account
+2025-01-16T20:48:28.626Z [[31merror[39m]: Error linking social account
+2025-01-16T20:57:42.309Z [[31merror[39m]: Error linking social account
+2025-01-16T20:59:05.293Z [[31merror[39m]: Error linking social account
+2025-01-16T21:00:46.234Z [[31merror[39m]: Error linking social account
+2025-01-16T21:03:28.710Z [[31merror[39m]: Error linking social account
+2025-01-16T21:03:45.895Z [[31merror[39m]: Error linking social account
+2025-01-16T21:06:18.478Z [[31merror[39m]: Error linking social account
+2025-01-16T21:08:27.063Z [[31merror[39m]: Error linking social account
+2025-01-16T21:08:32.848Z [[31merror[39m]: Error linking social account
+2025-01-16T21:10:34.432Z [[31merror[39m]: Error linking social account
+2025-01-16T21:13:57.935Z [[31merror[39m]: Error linking social account
+2025-01-17T14:50:53.533Z [[31merror[39m]: Token verification failed:TokenExpiredError: jwt expired
+2025-01-17T14:51:06.405Z [[31merror[39m]: Token verification failed:TokenExpiredError: jwt expired
+2025-01-17T14:51:28.525Z [[31merror[39m]: Error linking social account
+2025-01-17T15:14:43.865Z [[31merror[39m]: Error creating user - Duplicate entry 'johnd12oe@example.com' for key 'IDX_e12875dfb3b1d92d7d7c5377e2'
+2025-01-17T15:20:51.501Z [[31merror[39m]: Error fetching linked accounts Property "platformUserId" was not found in "SocialAccount". Make sure your query is correct.
+2025-01-17T15:33:02.423Z [[31merror[39m]: Error posting to Facebook FB is not defined
+2025-01-17T17:57:45.526Z [[31merror[39m]: Error posting to Facebook: Request failed with status code 400
+2025-01-17T17:57:45.532Z [[31merror[39m]: Error posting to Facebook
+2025-01-17T18:00:25.954Z [[31merror[39m]: Error posting to Facebook: Request failed with status code 400
+2025-01-17T18:00:25.962Z [[31merror[39m]: Error posting to Facebook
+2025-01-17T18:00:36.749Z [[31merror[39m]: Error linking social account
+2025-01-17T18:03:46.904Z [[31merror[39m]: Error linking social account
+2025-01-17T18:11:24.380Z [[31merror[39m]: Error linking social account
+2025-01-17T18:11:39.177Z [[31merror[39m]: Error linking social account
+2025-01-17T18:11:48.395Z [[31merror[39m]: Error posting to Facebook: Request failed with status code 400
+2025-01-17T18:11:48.397Z [[31merror[39m]: Error posting to Facebook
+2025-01-17T18:11:59.085Z [[31merror[39m]: Error linking social account
+2025-01-17T18:12:11.482Z [[31merror[39m]: Error linking social account
+2025-01-17T18:17:27.788Z [[31merror[39m]: Error linking social account
+2025-01-17T18:17:36.686Z [[31merror[39m]: Error posting to Facebook: Request failed with status code 400
+2025-01-17T18:17:36.689Z [[31merror[39m]: Error posting to Facebook
+2025-01-17T18:17:42.603Z [[31merror[39m]: Error linking social account
+2025-01-17T18:20:12.413Z [[31merror[39m]: Error linking social account
+2025-01-17T18:22:32.005Z [[31merror[39m]: Error linking social account
+2025-01-17T18:25:59.389Z [[31merror[39m]: Error linking social account
+2025-01-17T18:30:28.160Z [[31merror[39m]: Error posting to Facebook: Request failed with status code 400
+2025-01-17T18:30:28.168Z [[31merror[39m]: Error posting to Facebook
+2025-01-17T18:30:36.034Z [[31merror[39m]: Error linking social account
+2025-01-17T18:33:02.908Z [[31merror[39m]: Error linking social account
+2025-01-17T18:34:21.655Z [[31merror[39m]: Error linking social account
+2025-01-17T18:35:45.427Z [[31merror[39m]: Error linking social account
+2025-01-17T18:37:06.901Z [[31merror[39m]: Error linking social account
+2025-01-17T18:41:02.625Z [[31merror[39m]: Error linking social account
+2025-01-17T18:41:45.526Z [[31merror[39m]: Error linking social account
+2025-01-17T18:48:36.655Z [[31merror[39m]: Error linking social account
+2025-01-17T19:24:05.640Z [[31merror[39m]: Error linking social account
+2025-01-17T19:25:45.809Z [[31merror[39m]: Error linking social account
+2025-01-17T19:30:26.086Z [[31merror[39m]: Error linking social account
+2025-01-17T19:46:12.801Z [[31merror[39m]: Error linking social account
+2025-01-17T20:23:39.321Z [[31merror[39m]: Error linking social account
+2025-01-17T20:28:00.489Z [[31merror[39m]: Error linking social account
+2025-01-17T20:30:38.613Z [[31merror[39m]: Error linking social account
+2025-01-17T20:39:31.659Z [[31merror[39m]: Error posting to Facebook: Request failed with status code 400
+2025-01-17T20:39:31.694Z [[31merror[39m]: Error posting to Facebook
+2025-01-17T20:39:37.604Z [[31merror[39m]: Error linking social account
+2025-01-18T07:17:05.643Z [[31merror[39m]: Error posting to Facebook: Request failed with status code 400
+2025-01-18T07:17:05.649Z [[31merror[39m]: Error posting to Facebook
+2025-01-18T07:48:48.039Z [[31merror[39m]: Error linking social account
+2025-01-18T08:37:20.434Z [[31merror[39m]: Error linking social account
+2025-01-18T08:47:51.646Z [[31merror[39m]: Error linking social account
+2025-01-20T17:06:23.237Z [[31merror[39m]: Error linking social account
+2025-01-20T17:06:30.361Z [[31merror[39m]: Error linking social account
+2025-01-20T17:25:27.287Z [[31merror[39m]: Unhandled error: Expected double-quoted property name in JSON at position 230 (line 4 column 1)
+2025-01-20T17:26:56.944Z [[31merror[39m]: Error linking social account
+2025-01-20T19:32:11.575Z [[31merror[39m]: Error linking social account
+2025-01-20T20:05:04.680Z [[31merror[39m]: Error linking social account
+2025-01-20T20:11:13.766Z [[31merror[39m]: Error linking social account
+2025-01-20T20:11:26.686Z [[31merror[39m]: Error linking social account
+2025-01-20T20:11:32.181Z [[31merror[39m]: Error linking social account
+2025-01-20T20:27:04.144Z [[31merror[39m]: Error linking social account
+2025-01-20T21:06:15.546Z [[31merror[39m]: Error posting to Facebook: Request failed with status code 400
+2025-01-20T21:06:15.552Z [[31merror[39m]: Error posting to Facebook
+2025-01-20T21:06:21.821Z [[31merror[39m]: Error linking social account
+2025-01-21T17:08:03.143Z [[31merror[39m]: Error linking social account
+2025-01-21T17:33:56.094Z [[31merror[39m]: Error linking social account
+2025-01-21T18:02:09.507Z [[31merror[39m]: Error linking social account
+2025-01-21T19:03:14.176Z [[31merror[39m]: Error linking social account
+2025-01-21T19:06:07.907Z [[31merror[39m]: Error linking social account
+2025-01-21T19:09:25.393Z [[31merror[39m]: Error linking social account
+2025-01-21T19:13:13.460Z [[31merror[39m]: Error linking social account
+2025-01-21T19:19:08.102Z [[31merror[39m]: Error linking social account
+2025-01-21T19:49:04.128Z [[31merror[39m]: Error linking social account
+2025-01-21T19:50:26.608Z [[31merror[39m]: Error linking social account
+2025-01-21T19:52:07.447Z [[31merror[39m]: Error linking social account
+2025-01-21T20:30:51.680Z [[31merror[39m]: Error posting to Facebook: Request failed with status code 403
+2025-01-21T20:30:51.697Z [[31merror[39m]: Error posting to Facebook
+2025-01-21T20:39:55.162Z [[31merror[39m]: Error posting to Facebook: No linked Facebook account found
+2025-01-21T20:39:55.182Z [[31merror[39m]: Error posting to Facebook
+2025-01-21T20:41:23.749Z [[31merror[39m]: Error posting to Facebook: No linked Facebook account found
+2025-01-21T20:41:23.751Z [[31merror[39m]: Error posting to Facebook
+2025-01-21T20:42:52.197Z [[31merror[39m]: Error posting to Facebook: No linked Facebook account found
+2025-01-21T20:42:52.199Z [[31merror[39m]: Error posting to Facebook
+2025-01-21T20:48:29.100Z [[31merror[39m]: Error posting to Facebook: No linked Facebook account found
+2025-01-21T20:48:29.107Z [[31merror[39m]: Error posting to Facebook
+2025-01-21T20:50:15.501Z [[31merror[39m]: Error posting to Facebook: No linked Facebook account found
+2025-01-21T20:50:15.507Z [[31merror[39m]: Error posting to Facebook
+2025-01-21T20:54:11.577Z [[31merror[39m]: Error posting to Facebook: No linked Facebook account found
+2025-01-21T20:54:11.584Z [[31merror[39m]: Error posting to Facebook
+2025-01-21T20:58:52.207Z [[31merror[39m]: Error posting to Facebook: No linked Facebook account found
+2025-01-21T20:58:52.212Z [[31merror[39m]: Error posting to Facebook
+2025-01-21T20:59:42.894Z [[31merror[39m]: Error posting to Facebook: No linked Facebook account found
+2025-01-21T20:59:42.902Z [[31merror[39m]: Error posting to Facebook
+2025-01-21T21:01:50.750Z [[31merror[39m]: Error posting to Facebook: No linked Facebook account found
+2025-01-21T21:01:50.754Z [[31merror[39m]: Error posting to Facebook
+2025-01-21T21:08:11.194Z [[31merror[39m]: Error posting to Facebook: No linked Facebook account found
+2025-01-21T21:08:11.195Z [[31merror[39m]: Error posting to Facebook
+2025-01-21T21:12:52.558Z [[31merror[39m]: Error posting to Facebook: No linked Facebook account found
+2025-01-21T21:12:52.559Z [[31merror[39m]: Error posting to Facebook
+2025-01-21T21:15:15.856Z [[31merror[39m]: Error posting to Facebook:
+2025-01-21T21:15:15.867Z [[31merror[39m]: Error posting to Facebook
+2025-01-21T21:22:01.087Z [[31merror[39m]: Error posting to Facebook:
+2025-01-21T21:22:01.098Z [[31merror[39m]: Error posting to Facebook
+2025-01-21T21:22:28.965Z [[31merror[39m]: Error posting to Facebook:
+2025-01-21T21:22:28.967Z [[31merror[39m]: Error posting to Facebook
+2025-01-21T21:23:37.991Z [[31merror[39m]: Error posting to Facebook:
+2025-01-21T21:23:38.001Z [[31merror[39m]: Error posting to Facebook
+2025-01-21T21:29:22.882Z [[31merror[39m]: Error posting to Facebook:
+2025-01-21T21:29:22.897Z [[31merror[39m]: Error posting to Facebook
+2025-01-22T17:35:11.611Z [[31merror[39m]: Error posting to Facebook:
+2025-01-22T17:35:11.641Z [[31merror[39m]: Error posting to Facebook
+2025-01-22T17:44:04.903Z [[31merror[39m]: Error posting to Facebook:
+2025-01-22T17:44:04.917Z [[31merror[39m]: Error posting to Facebook
+2025-01-22T18:55:53.530Z [[31merror[39m]: Unexpected error posting to Facebook:
+2025-01-22T18:55:53.551Z [[31merror[39m]: Error posting to Facebook
+2025-01-22T19:01:51.880Z [[31merror[39m]: Unexpected error posting to Facebook:
+2025-01-22T19:01:51.897Z [[31merror[39m]: Error posting to Facebook
+2025-01-22T19:19:23.897Z [[31merror[39m]: Unexpected error posting to Facebook:
+2025-01-22T19:19:23.900Z [[31merror[39m]: Error posting to Facebook
+2025-01-22T19:21:10.070Z [[31merror[39m]: Unexpected error posting to Facebook:
+2025-01-22T19:21:10.084Z [[31merror[39m]: Error posting to Facebook
+2025-01-23T15:45:26.094Z [[31merror[39m]: Unexpected error posting to Facebook:
+2025-01-23T15:45:26.130Z [[31merror[39m]: Error posting to Facebook
+2025-01-23T16:51:50.567Z [[31merror[39m]: Unexpected error posting to Facebook:
+2025-01-23T16:51:50.612Z [[31merror[39m]: Error posting to Facebook
+2025-01-23T19:10:43.275Z [[31merror[39m]: Unexpected error posting to Facebook:
+2025-01-23T19:10:43.304Z [[31merror[39m]: Error posting to Facebook
+2025-01-23T19:43:21.556Z [[31merror[39m]: Error validating access token:
+2025-01-23T19:43:21.570Z [[31merror[39m]: Facebook API error:
+2025-01-23T19:43:21.573Z [[31merror[39m]: Error posting to Facebook
+2025-01-23T19:46:20.528Z [[31merror[39m]: Error validating access token:
+2025-01-23T19:46:20.531Z [[31merror[39m]: Facebook API error:
+2025-01-23T19:46:20.533Z [[31merror[39m]: Error posting to Facebook
+2025-01-23T19:47:43.977Z [[31merror[39m]: Error validating access token:
+2025-01-23T19:47:43.980Z [[31merror[39m]: Facebook API error:
+2025-01-23T19:47:43.985Z [[31merror[39m]: Error posting to Facebook
+2025-01-23T20:05:51.366Z [[31merror[39m]: Error validating access token:
+2025-01-23T20:05:51.370Z [[31merror[39m]: Facebook API error:
+2025-01-23T20:05:51.372Z [[31merror[39m]: Error posting to Facebook
+2025-01-23T20:07:33.178Z [[31merror[39m]: Error validating access token:
+2025-01-23T20:07:33.180Z [[31merror[39m]: Unexpected error posting to Facebook:
+2025-01-23T20:07:33.193Z [[31merror[39m]: Error posting to Facebook
+2025-01-23T20:24:46.286Z [[31merror[39m]: Error fetching Facebook access token:
+2025-01-23T20:24:46.286Z [[31merror[39m]: Unexpected error posting to Facebook:
+2025-01-23T20:24:46.291Z [[31merror[39m]: Error posting to Facebook
+2025-01-23T20:30:03.600Z [[31merror[39m]: Error fetching app access token from the database:
+2025-01-23T20:30:03.601Z [[31merror[39m]: Error validating access token:
+2025-01-23T20:30:03.602Z [[31merror[39m]: Unexpected error posting to Facebook:
+2025-01-23T20:30:03.629Z [[31merror[39m]: Error posting to Facebook
+2025-01-23T20:35:28.984Z [[31merror[39m]: Error validating access token:
+2025-01-23T20:35:28.985Z [[31merror[39m]: Facebook API error:
+2025-01-23T20:35:28.986Z [[31merror[39m]: Error posting to Facebook
+2025-01-23T20:36:06.555Z [[31merror[39m]: Error fetching app access token from the database:
+2025-01-23T20:36:06.556Z [[31merror[39m]: Error validating access token:
+2025-01-23T20:36:06.557Z [[31merror[39m]: Unexpected error posting to Facebook:
+2025-01-23T20:36:06.567Z [[31merror[39m]: Error posting to Facebook
+2025-01-23T20:45:25.852Z [[31merror[39m]: Error fetching app access token from the database:
+2025-01-23T20:45:25.854Z [[31merror[39m]: Error validating access token:
+2025-01-23T20:45:25.856Z [[31merror[39m]: Unexpected error posting to Facebook:
+2025-01-23T20:45:25.930Z [[31merror[39m]: Error posting to Facebook
+2025-01-23T20:51:45.151Z [[31merror[39m]: Error fetching app access token from the database:
+2025-01-23T20:51:45.152Z [[31merror[39m]: Error validating access token:
+2025-01-23T20:51:45.153Z [[31merror[39m]: Unexpected error posting to Facebook:
+2025-01-23T20:51:45.240Z [[31merror[39m]: Error posting to Facebook
+2025-01-24T10:06:22.796Z [[31merror[39m]: Error retrieving access token for user:
+2025-01-24T10:06:22.801Z [[31merror[39m]: Error validating access token:
+2025-01-24T10:06:22.805Z [[31merror[39m]: Unexpected error posting to Facebook:
+2025-01-24T10:06:22.845Z [[31merror[39m]: Error posting to Facebook
+2025-01-24T10:09:51.243Z [[31merror[39m]: Error validating access token:
+2025-01-24T10:09:51.247Z [[31merror[39m]: Error creating Facebook post:
+2025-01-24T10:09:51.264Z [[31merror[39m]: Error posting to Facebook
+2025-01-24T10:15:31.226Z [[31merror[39m]: Error retrieving app-level access token:
+2025-01-24T10:15:31.228Z [[31merror[39m]: Error validating access token:
+2025-01-24T10:15:31.228Z [[31merror[39m]: Error creating Facebook post:
+2025-01-24T10:15:31.229Z [[31merror[39m]: Error posting to Facebook
+2025-01-24T10:17:10.799Z [[31merror[39m]: Error retrieving app-level access token:
+2025-01-24T10:17:10.803Z [[31merror[39m]: Error validating access token:
+2025-01-24T10:17:10.805Z [[31merror[39m]: Facebook API error:
+2025-01-24T10:17:10.810Z [[31merror[39m]: Error posting to Facebook
+2025-01-24T10:18:47.844Z [[31merror[39m]: Error retrieving app-level access token:
+2025-01-24T10:18:47.848Z [[31merror[39m]: Error validating access token:
+2025-01-24T10:18:47.853Z [[31merror[39m]: Facebook API error:
+2025-01-24T10:18:47.856Z [[31merror[39m]: Error posting to Facebook
+2025-01-24T10:24:09.490Z [[31merror[39m]: Error retrieving app-level access token:
+2025-01-24T10:24:09.495Z [[31merror[39m]: Error validating access token:
+2025-01-24T10:24:09.503Z [[31merror[39m]: Facebook API error:
+2025-01-24T10:24:09.507Z [[31merror[39m]: Error posting to Facebook
+2025-01-24T13:24:24.837Z [[31merror[39m]: Token verification failed:TokenExpiredError: jwt expired
+2025-01-24T13:24:24.841Z [[31merror[39m]: Unhandled error: Unknown authentication strategy "facebook"
+2025-01-24T13:25:07.719Z [[31merror[39m]: Error validating access token:
+2025-01-24T13:25:07.720Z [[31merror[39m]: Facebook API error:
+2025-01-24T13:25:07.721Z [[31merror[39m]: Error posting to Facebook
+2025-01-24T13:25:36.107Z [[31merror[39m]: Token verification failed:TokenExpiredError: jwt expired
+2025-01-24T13:25:36.109Z [[31merror[39m]: Unhandled error: Unknown authentication strategy "facebook"
+2025-01-24T13:25:47.145Z [[31merror[39m]: Token verification failed:TokenExpiredError: jwt expired
+2025-01-24T13:25:47.146Z [[31merror[39m]: Unhandled error: Unknown authentication strategy "facebook"
+2025-01-24T13:25:56.255Z [[31merror[39m]: Token verification failed:TokenExpiredError: jwt expired
+2025-01-24T13:25:56.256Z [[31merror[39m]: Unhandled error: Unknown authentication strategy "facebook"
+2025-01-24T13:26:45.402Z [[31merror[39m]: Unhandled error: Unknown authentication strategy "facebook"
+2025-01-24T13:27:09.541Z [[31merror[39m]: Unhandled error: Unknown authentication strategy "facebook"
+2025-01-24T13:27:10.590Z [[31merror[39m]: Unhandled error: Unknown authentication strategy "facebook"
+2025-01-24T20:25:58.987Z [[31merror[39m]: Unhandled error: Unknown authentication strategy "facebook"
+2025-01-25T18:05:19.383Z [[31merror[39m]: Unhandled error: Unknown authentication strategy "facebook"
+2025-01-25T18:09:10.548Z [[31merror[39m]: Error validating access token:
+2025-01-25T18:09:10.554Z [[31merror[39m]: Facebook API error:
+2025-01-25T18:09:10.558Z [[31merror[39m]: Error posting to Facebook
+2025-01-25T18:26:20.524Z [[31merror[39m]: Error validating access token:
+2025-01-25T18:26:20.527Z [[31merror[39m]: Facebook API error:
+2025-01-25T18:26:20.530Z [[31merror[39m]: Error posting to Facebook
+2025-01-25T18:27:18.859Z [[31merror[39m]: Error validating access token:
+2025-01-25T18:27:18.861Z [[31merror[39m]: Facebook API error:
+2025-01-25T18:27:18.863Z [[31merror[39m]: Error posting to Facebook
+2025-01-25T18:27:43.550Z [[31merror[39m]: Error validating access token:
+2025-01-25T18:27:43.553Z [[31merror[39m]: Facebook API error:
+2025-01-25T18:27:43.555Z [[31merror[39m]: Error posting to Facebook
+2025-01-25T18:29:35.479Z [[31merror[39m]: Error validating access token:
+2025-01-25T18:29:35.480Z [[31merror[39m]: Unexpected error posting to Facebook:
+2025-01-25T18:29:35.495Z [[31merror[39m]: Error posting to Facebook
+2025-01-25T18:31:22.716Z [[31merror[39m]: Error validating access token:
+2025-01-25T18:31:22.717Z [[31merror[39m]: Unexpected error posting to Facebook:
+2025-01-25T18:31:22.731Z [[31merror[39m]: Error posting to Facebook
+2025-01-25T18:31:51.981Z [[31merror[39m]: Error validating access token:
+2025-01-25T18:31:51.983Z [[31merror[39m]: Unexpected error posting to Facebook:
+2025-01-25T18:31:51.989Z [[31merror[39m]: Error posting to Facebook
+2025-01-25T18:34:17.848Z [[31merror[39m]: Error validating access token:
+2025-01-25T18:34:17.851Z [[31merror[39m]: Unexpected error posting to Facebook:
+2025-01-25T18:34:17.884Z [[31merror[39m]: Error posting to Facebook
+2025-01-25T19:19:20.585Z [[31merror[39m]: Error validating access token:
+2025-01-25T19:19:20.586Z [[31merror[39m]: Facebook API error:
+2025-01-25T19:19:20.587Z [[31merror[39m]: Error posting to Facebook
+2025-01-25T19:22:07.699Z [[31merror[39m]: Error validating access token:
+2025-01-25T19:22:07.700Z [[31merror[39m]: Unexpected error posting to Facebook:
+2025-01-25T19:22:07.707Z [[31merror[39m]: Error posting to Facebook
+2025-01-25T19:48:09.514Z [[31merror[39m]: Unhandled error: Unknown authentication strategy "facebook"
+2025-01-25T20:32:03.641Z [[31merror[39m]: Unhandled error: Error validating verification code. Please make sure your redirect_uri is identical to the one you used in the OAuth dialog request
+2025-01-25T20:37:54.128Z [[31merror[39m]: Unhandled error: This authorization code has expired.
+2025-01-25T20:38:36.963Z [[31merror[39m]: Unhandled error: Error validating verification code. Please make sure your redirect_uri is identical to the one you used in the OAuth dialog request
+2025-01-25T20:38:50.994Z [[31merror[39m]: Unhandled error: Error validating verification code. Please make sure your redirect_uri is identical to the one you used in the OAuth dialog request
+2025-01-25T20:39:01.039Z [[31merror[39m]: Unhandled error: Error validating verification code. Please make sure your redirect_uri is identical to the one you used in the OAuth dialog request
+2025-01-25T20:39:15.760Z [[31merror[39m]: Unhandled error: Error validating verification code. Please make sure your redirect_uri is identical to the one you used in the OAuth dialog request
+2025-01-25T20:39:37.971Z [[31merror[39m]: Unhandled error: Error validating verification code. Please make sure your redirect_uri is identical to the one you used in the OAuth dialog request
+2025-01-25T20:40:18.558Z [[31merror[39m]: Error validating access token:
+2025-01-25T20:40:18.560Z [[31merror[39m]: Unexpected error posting to Facebook:
+2025-01-25T20:40:18.589Z [[31merror[39m]: Error posting to Facebook
+2025-01-25T20:45:56.493Z [[31merror[39m]: Unhandled error: Error validating verification code. Please make sure your redirect_uri is identical to the one you used in the OAuth dialog request
+2025-01-25T20:47:38.674Z [[31merror[39m]: Unhandled error: Error validating verification code. Please make sure your redirect_uri is identical to the one you used in the OAuth dialog request
+2025-01-25T20:49:16.746Z [[31merror[39m]: Unhandled error: This authorization code has expired.
+2025-01-25T20:49:54.139Z [[31merror[39m]: Unhandled error: Error validating verification code. Please make sure your redirect_uri is identical to the one you used in the OAuth dialog request
+2025-01-25T20:50:58.816Z [[31merror[39m]: Unhandled error: Error validating verification code. Please make sure your redirect_uri is identical to the one you used in the OAuth dialog request
+2025-01-25T21:00:20.282Z [[31merror[39m]: Error validating access token:
+2025-01-25T21:00:20.286Z [[31merror[39m]: Unexpected error posting to Facebook:
+2025-01-25T21:00:20.329Z [[31merror[39m]: Error posting to Facebook
+2025-01-25T21:08:16.329Z [[31merror[39m]: Error validating access token:
+2025-01-25T21:08:16.332Z [[31merror[39m]: Unexpected error posting to Facebook:
+2025-01-25T21:08:16.413Z [[31merror[39m]: Error posting to Facebook
+2025-01-25T21:09:06.295Z [[31merror[39m]: Unhandled error: Error validating verification code. Please make sure your redirect_uri is identical to the one you used in the OAuth dialog request
+2025-01-27T07:58:36.997Z [[31merror[39m]: Error validating access token:
+2025-01-27T07:58:36.998Z [[31merror[39m]: Unexpected error posting to Facebook:
+2025-01-27T07:58:37.022Z [[31merror[39m]: Error posting to Facebook
+2025-01-27T10:52:38.710Z [[31merror[39m]: Error linking social account
+2025-01-27T10:55:07.170Z [[31merror[39m]: Error linking social account
+2025-01-27T10:57:53.081Z [[31merror[39m]: Error linking social account
+2025-01-27T11:47:26.801Z [[31merror[39m]: Error creating Instagram post:
+2025-01-27T11:47:26.810Z [[31merror[39m]: Error posting to Instagram
+2025-01-28T05:55:57.157Z [[31merror[39m]: Error creating Instagram post:
+2025-01-28T05:55:57.160Z [[31merror[39m]: Error posting to Instagram
+2025-01-28T06:40:40.419Z [[31merror[39m]: Error creating Instagram post:
+2025-01-28T06:40:40.425Z [[31merror[39m]: Error posting to Instagram
+2025-01-28T08:20:36.270Z [[31merror[39m]: Error creating Instagram post:
+2025-01-28T08:20:36.275Z [[31merror[39m]: Error posting to Instagram
+2025-01-28T08:42:49.508Z [[31merror[39m]: Error creating Instagram post:
+2025-01-28T08:42:49.512Z [[31merror[39m]: Error posting to Instagram
+2025-01-28T08:48:16.022Z [[31merror[39m]: Error creating Instagram post:
+2025-01-28T08:48:16.026Z [[31merror[39m]: Error posting to Instagram
+2025-01-28T08:51:57.079Z [[31merror[39m]: Error creating Instagram post:
+2025-01-28T08:51:57.084Z [[31merror[39m]: Error posting to Instagram
+2025-01-28T13:57:50.043Z [[31merror[39m]: Error creating Instagram post:
+2025-01-28T13:57:50.047Z [[31merror[39m]: Error posting to Instagram
+2025-01-29T06:32:24.022Z [[31merror[39m]: Error creating Instagram post:
+2025-01-29T06:32:24.023Z [[31merror[39m]: Error posting to Instagram
+2025-01-31T09:50:01.492Z [[31merror[39m]: Unhandled error: Failed to obtain access token
+2025-01-31T09:53:03.742Z [[31merror[39m]: Unhandled error: Failed to obtain access token
+2025-01-31T10:02:50.764Z [[31merror[39m]: Unhandled error: Failed to obtain access token
+2025-01-31T10:04:13.421Z [[31merror[39m]: Unhandled error: Failed to obtain access token
+2025-01-31T10:07:18.843Z [[31merror[39m]: Unhandled error: Failed to obtain access token
+2025-01-31T10:38:01.400Z [[31merror[39m]: Unhandled error: Failed to obtain access token
+2025-01-31T11:36:52.307Z [[31merror[39m]: Unhandled error: Failed to obtain access token
+2025-01-31T11:37:10.166Z [[31merror[39m]: Unhandled error: Failed to obtain access token
+2025-01-31T11:41:43.430Z [[31merror[39m]: Error creating Instagram post:
+2025-01-31T11:41:43.439Z [[31merror[39m]: Error posting to Instagram
+2025-01-31T11:47:23.144Z [[31merror[39m]: Error creating Instagram post:
+2025-01-31T11:47:23.148Z [[31merror[39m]: Error posting to Instagram
+2025-01-31T12:08:30.482Z [[31merror[39m]: Error creating Instagram post:
+2025-01-31T12:08:30.484Z [[31merror[39m]: Error posting to Instagram
+2025-01-31T12:08:33.000Z [[31merror[39m]: Error creating Instagram post:
+2025-01-31T12:08:33.000Z [[31merror[39m]: Error posting to Instagram
+2025-01-31T12:12:27.559Z [[31merror[39m]: Error fetching social account: Unknown column 'NaN' in 'where clause'
+2025-01-31T12:12:27.568Z [[31merror[39m]: Error creating Instagram post:
+2025-01-31T12:12:27.569Z [[31merror[39m]: Error posting to Instagram
+2025-01-31T15:52:21.290Z [[31merror[39m]: Error fetching social account: Unknown column 'NaN' in 'where clause'
+2025-01-31T15:52:21.299Z [[31merror[39m]: Error creating Instagram post:
+2025-01-31T15:52:21.300Z [[31merror[39m]: Error posting to Instagram
+2025-01-31T16:26:01.333Z [[31merror[39m]: Invalid user ID:
+2025-01-31T16:26:01.357Z [[31merror[39m]: Error creating Instagram post:
+2025-01-31T16:26:01.361Z [[31merror[39m]: Error posting to Instagram
+2025-01-31T17:21:24.986Z [[31merror[39m]: Error creating Instagram post:
+2025-01-31T17:21:24.988Z [[31merror[39m]: Error posting to Instagram
+2025-01-31T19:19:16.946Z [[31merror[39m]: Error creating Instagram post:
+2025-01-31T19:19:16.950Z [[31merror[39m]: Error posting to Instagram
+2025-01-31T19:20:06.487Z [[31merror[39m]: Error creating Instagram post:
+2025-01-31T19:20:06.490Z [[31merror[39m]: Error posting to Instagram
+2025-01-31T19:27:11.681Z [[31merror[39m]: Error creating Instagram post:
+2025-01-31T19:27:11.683Z [[31merror[39m]: Error posting to Instagram
+2025-01-31T19:31:53.524Z [[31merror[39m]: Error creating Instagram post:
+2025-01-31T19:31:53.531Z [[31merror[39m]: Error posting to Instagram
+2025-01-31T19:34:10.195Z [[31merror[39m]: Error creating Instagram post:
+2025-01-31T19:34:10.199Z [[31merror[39m]: Error posting to Instagram
+2025-01-31T19:36:54.880Z [[31merror[39m]: Error creating Instagram post:
+2025-01-31T19:36:54.887Z [[31merror[39m]: Error posting to Instagram
+2025-01-31T19:51:39.189Z [[31merror[39m]: Error creating Instagram post:
+2025-01-31T19:51:39.196Z [[31merror[39m]: Error posting to Instagram
+2025-01-31T19:59:01.796Z [[31merror[39m]: Error creating Instagram post:
+2025-01-31T19:59:01.800Z [[31merror[39m]: Error posting to Instagram
+2025-01-31T20:03:18.082Z [[31merror[39m]: Error creating Instagram post:
+2025-01-31T20:03:18.085Z [[31merror[39m]: Error posting to Instagram
+2025-01-31T20:03:58.904Z [[31merror[39m]: Error fetching Instagram profile:
+2025-01-31T20:03:58.907Z [[31merror[39m]: Error fetching Instagram profile
+2025-01-31T20:04:23.311Z [[31merror[39m]: Error fetching Instagram profile:
+2025-01-31T20:04:23.314Z [[31merror[39m]: Error fetching Instagram profile
+2025-01-31T20:09:04.152Z [[31merror[39m]: Error fetching Instagram profile:
+2025-01-31T20:09:04.158Z [[31merror[39m]: Error fetching Instagram profile
+2025-01-31T20:09:15.301Z [[31merror[39m]: Error fetching Instagram profile:
+2025-01-31T20:09:15.304Z [[31merror[39m]: Error fetching Instagram profile
+2025-01-31T20:12:33.405Z [[31merror[39m]: Error creating Instagram post:
+2025-01-31T20:12:33.410Z [[31merror[39m]: Error posting to Instagram
+2025-01-31T20:14:09.061Z [[31merror[39m]: Error creating Instagram post:
+2025-01-31T20:14:09.065Z [[31merror[39m]: Error posting to Instagram
+2025-01-31T20:17:46.331Z [[31merror[39m]: Error creating Instagram post:
+2025-01-31T20:17:46.333Z [[31merror[39m]: Error posting to Instagram
+2025-01-31T20:26:08.987Z [[31merror[39m]: Error creating Instagram post:
+2025-01-31T20:26:08.990Z [[31merror[39m]: Error posting to Instagram
+2025-01-31T20:33:59.534Z [[31merror[39m]: Error creating Instagram post:
+2025-01-31T20:33:59.536Z [[31merror[39m]: Error posting to Instagram
+2025-01-31T20:39:13.660Z [[31merror[39m]: Error creating Instagram post:
+2025-01-31T20:39:13.667Z [[31merror[39m]: Error posting to Instagram
+2025-01-31T20:40:58.851Z [[31merror[39m]: Error creating Instagram post:
+2025-01-31T20:40:58.856Z [[31merror[39m]: Error posting to Instagram
+2025-01-31T20:41:14.512Z [[31merror[39m]: Error creating Instagram post:
+2025-01-31T20:41:14.516Z [[31merror[39m]: Error posting to Instagram
+2025-01-31T20:46:18.872Z [[31merror[39m]: Error creating Instagram post:
+2025-01-31T20:46:18.879Z [[31merror[39m]: Error posting to Instagram
+2025-01-31T20:54:57.965Z [[31merror[39m]: Error creating Instagram post:
+2025-01-31T20:54:57.971Z [[31merror[39m]: Error posting to Instagram
+2025-01-31T20:56:25.403Z [[31merror[39m]: Error creating Instagram post:
+2025-01-31T20:56:25.411Z [[31merror[39m]: Error posting to Instagram
+2025-01-31T20:59:01.449Z [[31merror[39m]: Error creating Instagram post:
+2025-01-31T20:59:01.453Z [[31merror[39m]: Error posting to Instagram
+2025-01-31T20:59:48.737Z [[31merror[39m]: Error creating Instagram post:
+2025-01-31T20:59:48.740Z [[31merror[39m]: Error posting to Instagram
+2025-01-31T21:01:58.378Z [[31merror[39m]: Error creating Instagram post:
+2025-01-31T21:01:58.382Z [[31merror[39m]: Error posting to Instagram
+2025-01-31T21:09:35.597Z [[31merror[39m]: Error creating Instagram post:
+2025-01-31T21:09:35.602Z [[31merror[39m]: Error posting to Instagram
+2025-01-31T21:09:45.452Z [[31merror[39m]: Error creating Instagram post:
+2025-01-31T21:09:45.455Z [[31merror[39m]: Error posting to Instagram

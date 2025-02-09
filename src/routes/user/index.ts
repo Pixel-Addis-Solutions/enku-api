@@ -8,6 +8,8 @@ import orderRoutes from "./order";
 import cardRoutes from "./card";
 import blogRoutes from "./blog";
 import discountRoutes from "./discount";
+import socialRoutes from "./social-post";
+import socialAuthRoutes from "./socialAuth";
 
 import {
   getFilters,
@@ -32,5 +34,6 @@ router.use("/loyalty_programs", loyaltyProgramsRoutes);
 router.use("/cards", cardRoutes);
 router.use("/discounts", discountRoutes);
 router.use("/", blogRoutes);
+router.use("/social", socialRoutes, socialAuthRoutes);
 
 export default router;
