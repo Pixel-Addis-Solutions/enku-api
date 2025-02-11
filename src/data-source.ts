@@ -24,6 +24,11 @@ import { Blog } from "./entities/blog";
 import { Discount } from "./entities/discount";
 import { Testimonial } from "./entities/testimonial";
 import { HomePageCard } from "./entities/card";
+import { Post } from "./entities/post";
+import { Platform } from "./entities/platform";
+import { Media } from "./entities/media";
+import { Hashtag } from "./entities/hashtag";
+import { PostLog } from "./entities/post-log";
 require("dotenv").config();
 
 console.log("process.env.DATABASE_HOST", process.env.DB_HOST);
@@ -64,11 +69,15 @@ export const AppDataSource = new DataSource({
     Blog,
     Discount,
     Testimonial,
-    HomePageCard
+    HomePageCard,
+    Post,
+    Platform,
+    Media,
+    Hashtag,
+    PostLog
   ],
   migrations: [],
-  timezone:'Z'
-  
+  timezone: "Z",
 }); 
 export const getRepository = (model: EntityTarget<any>) =>
   AppDataSource.getRepository(model);
